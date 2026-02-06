@@ -100,6 +100,7 @@ export default function App() {
   const [isRouletteSpinning, setIsRouletteSpinning] = useState(false);
   const [rouletteBurst, setRouletteBurst] = useState(false);
   const [hue, setHue] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const rouletteTimerRef = useRef(null);
   const rouletteTimeoutRef = useRef(null);
   const rouletteAudioRef = useRef(null);
@@ -188,6 +189,18 @@ export default function App() {
       window.removeEventListener("pointermove", handlePointerMove);
       cancelAnimationFrame(animationFrame);
     };
+  }, []);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 720px)");
+    const update = () => setIsMobile(mediaQuery.matches);
+    update();
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener("change", update);
+      return () => mediaQuery.removeEventListener("change", update);
+    }
+    mediaQuery.addListener(update);
+    return () => mediaQuery.removeListener(update);
   }, []);
 
   const spinRoulette = () => {
@@ -284,6 +297,7 @@ export default function App() {
   }, []);
 
   const handlePointerDown = (event) => {
+    if (isMobile) return;
     if (showResume || showSocial || showMarketing) return;
     if (
       event.target.closest(".node") ||
