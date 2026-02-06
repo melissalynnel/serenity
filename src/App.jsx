@@ -19,15 +19,19 @@ const nodes = [
       {
         label: "Agentic workflows",
         iconUrl: "https://img.icons8.com/ios-filled/50/ffffff/robot-2.png",
+        href: "https://sfstartuphighlight.substack.com/",
       },
       {
         label: "Marketing operations",
         iconUrl: "https://img.icons8.com/ios-filled/50/ffffff/megaphone.png",
+        modal: "marketing",
       },
       {
         label: "Content systems",
         iconUrl:
           "https://material-icons.github.io/material-icons-png/png/white/folder/baseline-2x.png",
+        href:
+          "https://www.notion.so/melissa-leavenworth/Learning-Advantage-eCommerce-Marketing-27be8228c7b781dfbc21fd1f92dd1d5b?v=288e8228c7b780418d98000c03e2e0c5&source=copy_link",
       },
     ],
   },
@@ -42,15 +46,19 @@ const nodes = [
         label: "Photography",
         iconUrl:
           "https://material-icons.github.io/material-icons-png/png/white/photo_camera/baseline-2x.png",
+        href: "https://www.instagram.com/melissalynnel/",
       },
       {
         label: "Websites",
         iconUrl:
           "https://material-icons.github.io/material-icons-png/png/white/language/baseline-2x.png",
+        href:
+          "https://www.notion.so/melissa-leavenworth/Levity-Go-to-market-Strategy-Operations-Consulting-289e8228c7b78091b00fc0afd383ed6e?v=288e8228c7b780418d98000c03e2e0c5&source=copy_link",
       },
       {
         label: "Jewelry",
         iconUrl: "https://img.icons8.com/ios-filled/50/ffffff/diamond.png",
+        href: "https://www.instagram.com/mellyleaves/",
       },
     ],
   },
@@ -85,13 +93,18 @@ export default function App() {
   const [isDragging, setIsDragging] = useState(false);
   const [showResume, setShowResume] = useState(false);
   const [showSocial, setShowSocial] = useState(false);
+  const [showMarketing, setShowMarketing] = useState(false);
   const [timeString, setTimeString] = useState("");
   const [weatherString, setWeatherString] = useState("SF • --°F");
   const [roulettePick, setRoulettePick] = useState("Tap to pick");
   const [isRouletteSpinning, setIsRouletteSpinning] = useState(false);
   const [rouletteBurst, setRouletteBurst] = useState(false);
   const rouletteTimerRef = useRef(null);
+  const rouletteTimeoutRef = useRef(null);
   const rouletteAudioRef = useRef(null);
+  const cursorRef = useRef(null);
+  const trailRefs = useRef([]);
+  const pointerRef = useRef({ x: 0, y: 0 });
 
   const rouletteOptions = [
     "make a bracelet",
@@ -107,16 +120,17 @@ export default function App() {
   ];
 
   useEffect(() => {
-    if (!showResume && !showSocial) return undefined;
+    if (!showResume && !showSocial && !showMarketing) return undefined;
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
         setShowResume(false);
         setShowSocial(false);
+        setShowMarketing(false);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [showResume, showSocial]);
+  }, [showResume, showSocial, showMarketing]);
 
   useEffect(() => {
     const updateTime = () => {
@@ -132,8 +146,57 @@ export default function App() {
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    const handlePointerMove = (event) => {
+      pointerRef.current = { x: event.clientX, y: event.clientY };
+    };
+
+    window.addEventListener("pointermove", handlePointerMove);
+
+    let animationFrame;
+    const positions = Array.from({ length: 12 }).map(() => ({
+      x: window.innerWidth / 2,
+      y: window.innerHeight / 2,
+    }));
+
+    const animate = () => {
+      const { x, y } = pointerRef.current;
+      positions[0].x += (x - positions[0].x) * 0.22;
+      positions[0].y += (y - positions[0].y) * 0.22;
+
+      for (let i = 1; i < positions.length; i += 1) {
+        positions[i].x += (positions[i - 1].x - positions[i].x) * 0.2;
+        positions[i].y += (positions[i - 1].y - positions[i].y) * 0.2;
+      }
+
+      if (cursorRef.current) {
+        cursorRef.current.style.transform = `translate(${positions[0].x}px, ${positions[0].y}px)`;
+      }
+
+      trailRefs.current.forEach((el, index) => {
+        if (!el) return;
+        el.style.transform = `translate(${positions[index + 1].x}px, ${positions[index + 1].y}px)`;
+      });
+
+      animationFrame = requestAnimationFrame(animate);
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => {
+      window.removeEventListener("pointermove", handlePointerMove);
+      cancelAnimationFrame(animationFrame);
+    };
+  }, []);
+
   const spinRoulette = () => {
     if (isRouletteSpinning) return;
+    if (rouletteTimerRef.current) {
+      clearInterval(rouletteTimerRef.current);
+    }
+    if (rouletteTimeoutRef.current) {
+      clearTimeout(rouletteTimeoutRef.current);
+    }
     setIsRouletteSpinning(true);
     setRouletteBurst(false);
     let index = 0;
@@ -142,7 +205,7 @@ export default function App() {
       index += 1;
     }, 90);
 
-    setTimeout(() => {
+    rouletteTimeoutRef.current = setTimeout(() => {
       if (rouletteTimerRef.current) {
         clearInterval(rouletteTimerRef.current);
       }
@@ -158,6 +221,18 @@ export default function App() {
       setTimeout(() => setRouletteBurst(false), 900);
     }, 1200);
   };
+
+  useEffect(
+    () => () => {
+      if (rouletteTimerRef.current) {
+        clearInterval(rouletteTimerRef.current);
+      }
+      if (rouletteTimeoutRef.current) {
+        clearTimeout(rouletteTimeoutRef.current);
+      }
+    },
+    []
+  );
 
   useEffect(() => {
     const weatherCodeToText = (code) => {
@@ -208,7 +283,7 @@ export default function App() {
   }, []);
 
   const handlePointerDown = (event) => {
-    if (showResume || showSocial) return;
+    if (showResume || showSocial || showMarketing) return;
     if (
       event.target.closest(".node") ||
       event.target.closest(".spotify-player") ||
@@ -248,6 +323,18 @@ export default function App() {
       onPointerLeave={endDrag}
       onPointerCancel={endDrag}
     >
+      <div className="cursor-layer" aria-hidden="true">
+        <div className="cursor-dot" ref={cursorRef} />
+        {Array.from({ length: 11 }).map((_, index) => (
+          <span
+            key={`trail-${index}`}
+            className="cursor-trail"
+            ref={(el) => {
+              trailRefs.current[index] = el;
+            }}
+          />
+        ))}
+      </div>
       <div className="backdrop" />
       <div className="bokeh-layer">
         {bokeh.map((orb) => (
@@ -287,7 +374,10 @@ export default function App() {
         }}
       >
         <div className="node center" onClick={() => setShowSocial(true)}>
-          <p className="name">Melissa Leavenworth</p>
+          <p className="name">
+            Melissa
+            <span>Leavenworth</span>
+          </p>
           <p className="sporkles">⋆⁺₊⋆ 𖤓 ⋆⁺₊⋆</p> 
           <p className="tagline">mimic the universe by creating</p>
         </div>
@@ -309,25 +399,51 @@ export default function App() {
             {node.subtitle && <p className="node-subtitle">{node.subtitle}</p>}
             {node.items.length > 0 && (
               <div className="icon-list">
-                {node.items.map((item) => (
-                  <button
-                    key={item.label ?? item}
-                    className="icon-button"
-                    data-label={item.label ?? item}
-                    type="button"
-                  >
-                    {item.iconUrl ? (
-                      <img
-                        className="icon-img"
-                        src={item.iconUrl}
-                        alt=""
-                        aria-hidden="true"
-                      />
-                    ) : (
-                      <span aria-hidden="true">✦</span>
-                    )}
-                  </button>
-                ))}
+                {node.items.map((item) =>
+                  item.modal ? (
+                    <button
+                      key={item.label ?? item}
+                      className="icon-button"
+                      data-label={item.label ?? item}
+                      type="button"
+                      onClick={() => {
+                        if (item.modal === "marketing") setShowMarketing(true);
+                      }}
+                    >
+                      {item.iconUrl ? (
+                        <img
+                          className="icon-img"
+                          src={item.iconUrl}
+                          alt=""
+                          aria-hidden="true"
+                        />
+                      ) : (
+                        <span aria-hidden="true">✦</span>
+                      )}
+                    </button>
+                  ) : (
+                    <a
+                      key={item.label ?? item}
+                      className="icon-button"
+                      data-label={item.label ?? item}
+                      href={item.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={item.label ?? "Link"}
+                    >
+                      {item.iconUrl ? (
+                        <img
+                          className="icon-img"
+                          src={item.iconUrl}
+                          alt=""
+                          aria-hidden="true"
+                        />
+                      ) : (
+                        <span aria-hidden="true">✦</span>
+                      )}
+                    </a>
+                  )
+                )}
               </div>
             )}
           </div>
@@ -592,6 +708,135 @@ export default function App() {
             <div className="social-details">
               <span>mlleavenworth@gmail.com</span>
               <span>720-585-5238</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showMarketing && (
+        <div
+          className="resume-overlay"
+          role="dialog"
+          aria-modal="true"
+          onPointerDown={(event) => event.stopPropagation()}
+        >
+          <div className="resume-card marketing-card" onPointerDown={(event) => event.stopPropagation()}>
+            <button
+              className="resume-close"
+              aria-label="Close marketing operations"
+              onClick={() => setShowMarketing(false)}
+            >
+              ✕
+            </button>
+            <div className="resume-header">
+              <div>
+                <h2>Marketing Operations</h2>
+                <p>Live.Laugh.Colorado. workflow systems</p>
+              </div>
+              <span className="resume-download">Case Study</span>
+            </div>
+            <div className="marketing-content">
+              <div className="marketing-columns">
+                <section>
+                  <h3>Challenge</h3>
+                  <p>
+                    The company was scaling to nearly <strong>$100M in annual revenue</strong> across three
+                    markets, but marketing systems were fragmented and reliant on manual workflows, making
+                    cross-team coordination and performance tracking inconsistent.
+                  </p>
+                </section>
+                <section>
+                  <h3>Strategy</h3>
+                  <p>
+                    Built and managed Asana-based operational systems with standardized campaign templates,
+                    automated workflows, and shared dashboards to unify design, content, and operations.
+                    Partnered with leadership to establish GTM processes and KPI tracking that enabled scalable,
+                    repeatable execution across all markets.
+                  </p>
+                </section>
+                <section>
+                  <h3>Impact</h3>
+                  <p>
+                    Streamlined campaign delivery cycles, improving turnaround speed by <strong>66%</strong> and
+                    campaign throughput by <strong>100%</strong>. Provided real-time visibility into performance
+                    metrics, supporting a <strong>30% increase</strong> in engagement and inbound leads and
+                    aligning marketing operations with ~$100M in annual sales volume.
+                  </p>
+                </section>
+              </div>
+
+              <section>
+                <h3>Overarching Marketing Projects</h3>
+                <p>
+                  The overarching marketing table is considered the “home” and includes projects that span
+                  over Listing and Brand Marketing.
+                </p>
+                <div className="marketing-grid">
+                  <img src="/marketing/marketing-01.png" alt="Overarching marketing overview" />
+                  <img src="/marketing/marketing-02.png" alt="Deliverables tracking overview" />
+                </div>
+              </section>
+
+              <section>
+                <h3>Recurring Tasks</h3>
+                <p>
+                  Ongoing process projects for continuous work (weekly posts, production updates) with
+                  automations assigning recurring deadlines.
+                </p>
+                <div className="marketing-grid">
+                  <img src="/marketing/marketing-06.png" alt="Recurring tasks overview" />
+                  <img src="/marketing/marketing-18.png" alt="Retention automation overview" />
+                </div>
+              </section>
+
+              <section>
+                <h3>Marketing Funnels</h3>
+                <p>
+                  Agents submit requests via Asana forms, triggering the first set of tasks for listing
+                  marketing workflows across multiple brokerages.
+                </p>
+                <div className="marketing-grid">
+                  <img src="/marketing/marketing-03.png" alt="Marketing request form" />
+                  <img src="/marketing/marketing-04.png" alt="Marketing request form detail" />
+                </div>
+              </section>
+
+              <section>
+                <h3>Listing Marketing</h3>
+                <p>
+                  Deadline-driven projects with a clear end date. Each listing moves through the board and
+                  gains tasks based on status and deliverables.
+                </p>
+                <div className="marketing-grid">
+                  <img src="/marketing/marketing-09.png" alt="Listing marketing board" />
+                  <img src="/marketing/marketing-10.png" alt="Listing marketing board detail" />
+                  <img src="/marketing/marketing-17.png" alt="Listing marketing status detail" />
+                  <img src="/marketing/marketing-08.png" alt="Listing marketing task detail" />
+                </div>
+              </section>
+
+              <section>
+                <h3>Workflow Automations</h3>
+                <p>
+                  Automations move listings through stages, handle relists, and enforce dependencies so work
+                  is approved by appropriate parties.
+                </p>
+                <div className="marketing-grid">
+                  <img src="/marketing/marketing-11.png" alt="Workflow automation board" />
+                  <img src="/marketing/marketing-12.png" alt="Workflow automation board detail" />
+                  <img src="/marketing/marketing-13.png" alt="Workflow automation rules" />
+                </div>
+              </section>
+
+              <section>
+                <h3>Experimentation</h3>
+                <p>
+                  A simplified board to capture and ship fast-paced experiments and ideas.
+                </p>
+                <div className="marketing-grid">
+                  <img src="/marketing/marketing-05.png" alt="Experimentation board" />
+                </div>
+              </section>
             </div>
           </div>
         </div>
