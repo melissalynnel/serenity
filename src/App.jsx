@@ -389,7 +389,7 @@ export default function App() {
           {nodes.map((node) => (
             <div
               key={node.id}
-              className={`node ${node.centered ? "node-centered" : ""}`}
+              className={`node node-${node.id} ${node.centered ? "node-centered" : ""}`}
               style={{
                 transform: node.centered
                   ? `translate(${node.x}px, ${node.y}px) translate(-50%, 0)`
