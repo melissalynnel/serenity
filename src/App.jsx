@@ -5,7 +5,7 @@ const nodes = [
     id: "resume",
     title: "Resume",
     x: 0,
-    y: -300,
+    y: -320,
     centered: true,
     items: [],
   },
@@ -39,7 +39,7 @@ const nodes = [
     id: "art",
     title: "Artistic Expressions",
     subtitle: "Creative explorations",
-    x: 200,
+    x: 140,
     y: 50,
     items: [
       {
@@ -99,6 +99,7 @@ export default function App() {
   const [roulettePick, setRoulettePick] = useState("Tap to pick");
   const [isRouletteSpinning, setIsRouletteSpinning] = useState(false);
   const [rouletteBurst, setRouletteBurst] = useState(false);
+  const [hue, setHue] = useState(0);
   const rouletteTimerRef = useRef(null);
   const rouletteTimeoutRef = useRef(null);
   const rouletteAudioRef = useRef(null);
@@ -288,7 +289,8 @@ export default function App() {
       event.target.closest(".node") ||
       event.target.closest(".spotify-player") ||
       event.target.closest(".roulette-widget") ||
-      event.target.closest(".utility-widgets")
+      event.target.closest(".utility-widgets") ||
+      event.target.closest(".hue-control")
     ) {
       return;
     }
@@ -322,193 +324,195 @@ export default function App() {
       onPointerUp={endDrag}
       onPointerLeave={endDrag}
       onPointerCancel={endDrag}
+      style={{ "--hue": `${hue}deg` }}
     >
-      <div className="cursor-layer" aria-hidden="true">
-        <div className="cursor-dot" ref={cursorRef} />
-        {Array.from({ length: 11 }).map((_, index) => (
-          <span
-            key={`trail-${index}`}
-            className="cursor-trail"
-            ref={(el) => {
-              trailRefs.current[index] = el;
-            }}
-          />
-        ))}
-      </div>
-      <div className="backdrop" />
-      <div className="bokeh-layer">
-        {bokeh.map((orb) => (
-          <div
-            key={orb.id}
-            className="bokeh"
-            style={{
-              "--x": `${orb.x}px`,
-              "--y": `${orb.y}px`,
-              width: `${orb.size}px`,
-              height: `${orb.size}px`,
-              animationDelay: `${orb.delay}s`,
-            }}
-          />
-        ))}
-      </div>
-      <div className="sparkle-layer">
-        {sparkles.map((sparkle) => (
-          <span
-            key={sparkle.id}
-            className="sparkle"
-            style={{
-              "--sx": `${sparkle.x}px`,
-              "--sy": `${sparkle.y}px`,
-              width: `${sparkle.size}px`,
-              height: `${sparkle.size}px`,
-              animationDelay: `${sparkle.delay}s`,
-            }}
-          />
-        ))}
-      </div>
-
-      <div
-        className="map"
-        style={{
-          transform: `translate(-50%, -50%) translate(${pan.x}px, ${pan.y}px)`,
-        }}
-      >
-        <div className="node center" onClick={() => setShowSocial(true)}>
-          <p className="name">
-            Melissa
-            <span>Leavenworth</span>
-          </p>
-          <p className="sporkles">⋆⁺₊⋆ 𖤓 ⋆⁺₊⋆</p> 
-          <p className="tagline">mimic the universe by creating</p>
+      <div className="scene-filter">
+        <div className="cursor-layer" aria-hidden="true">
+          <div className="cursor-dot" ref={cursorRef} />
+          {Array.from({ length: 11 }).map((_, index) => (
+            <span
+              key={`trail-${index}`}
+              className="cursor-trail"
+              ref={(el) => {
+                trailRefs.current[index] = el;
+              }}
+            />
+          ))}
+        </div>
+        <div className="backdrop" />
+        <div className="bokeh-layer">
+          {bokeh.map((orb) => (
+            <div
+              key={orb.id}
+              className="bokeh"
+              style={{
+                "--x": `${orb.x}px`,
+                "--y": `${orb.y}px`,
+                width: `${orb.size}px`,
+                height: `${orb.size}px`,
+                animationDelay: `${orb.delay}s`,
+              }}
+            />
+          ))}
+        </div>
+        <div className="sparkle-layer">
+          {sparkles.map((sparkle) => (
+            <span
+              key={sparkle.id}
+              className="sparkle"
+              style={{
+                "--sx": `${sparkle.x}px`,
+                "--sy": `${sparkle.y}px`,
+                width: `${sparkle.size}px`,
+                height: `${sparkle.size}px`,
+                animationDelay: `${sparkle.delay}s`,
+              }}
+            />
+          ))}
         </div>
 
-        {nodes.map((node) => (
-          <div
-            key={node.id}
-            className={`node ${node.centered ? "node-centered" : ""}`}
-            style={{
-              transform: node.centered
-                ? `translate(${node.x}px, ${node.y}px) translate(-50%, 0)`
-                : `translate(${node.x}px, ${node.y}px)`,
-            }}
-            onClick={() => {
-              if (node.id === "resume") setShowResume(true);
-            }}
-          >
-            <p className="node-title">{node.title}</p>
-            {node.subtitle && <p className="node-subtitle">{node.subtitle}</p>}
-            {node.items.length > 0 && (
-              <div className="icon-list">
-                {node.items.map((item) =>
-                  item.modal ? (
-                    <button
-                      key={item.label ?? item}
-                      className="icon-button"
-                      data-label={item.label ?? item}
-                      type="button"
-                      onClick={() => {
-                        if (item.modal === "marketing") setShowMarketing(true);
-                      }}
-                    >
-                      {item.iconUrl ? (
-                        <img
-                          className="icon-img"
-                          src={item.iconUrl}
-                          alt=""
-                          aria-hidden="true"
-                        />
-                      ) : (
-                        <span aria-hidden="true">✦</span>
-                      )}
-                    </button>
-                  ) : (
-                    <a
-                      key={item.label ?? item}
-                      className="icon-button"
-                      data-label={item.label ?? item}
-                      href={item.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={item.label ?? "Link"}
-                    >
-                      {item.iconUrl ? (
-                        <img
-                          className="icon-img"
-                          src={item.iconUrl}
-                          alt=""
-                          aria-hidden="true"
-                        />
-                      ) : (
-                        <span aria-hidden="true">✦</span>
-                      )}
-                    </a>
-                  )
-                )}
-              </div>
-            )}
+        <div
+          className="map"
+          style={{
+            transform: `translate(-50%, -50%) translate(${pan.x}px, ${pan.y}px)`,
+          }}
+        >
+          <div className="node center" onClick={() => setShowSocial(true)}>
+            <p className="name">
+              Melissa
+              <span>Leavenworth</span>
+            </p>
+            <p className="sporkles">⋆⁺₊⋆ 𖤓 ⋆⁺₊⋆</p>
+            <p className="tagline">mimic the universe by creating</p>
           </div>
-        ))}
-      </div>
 
-      <div className="utility-widgets">
-        <div className="glass-widget">
-          <span className="widget-label">Bay Area Time</span>
-          <span className="widget-value">{timeString || "—:—"}</span>
-        </div>
-        <div className="glass-widget">
-          <span className="widget-label">Bay Area Weather</span>
-          <span className="widget-value">{weatherString}</span>
-        </div>
-      </div>
-
-      <div className="spotify-player" aria-label="Music player">
-        <iframe
-          title="Spotify player"
-          style={{ borderRadius: "16px" }}
-          src="https://open.spotify.com/embed/track/33h97Kej5P7Y8ub0S30Aj9?utm_source=generator"
-          width="280"
-          height="80"
-          frameBorder="0"
-          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-          loading="lazy"
-        />
-      </div>
-
-      <button className="roulette-widget" onClick={spinRoulette} type="button">
-        <span className="widget-label">adhd roulette</span>
-        <div
-          className={`roulette-result ${rouletteBurst ? "burst" : ""}`}
-          aria-live="polite"
-        >
-          {roulettePick}
-        </div>
-      </button>
-      <audio ref={rouletteAudioRef} src="/fairy-sparkle.mp3" preload="auto" />
-
-      {showResume && (
-        <div
-          className="resume-overlay"
-          role="dialog"
-          aria-modal="true"
-          onPointerDown={(event) => event.stopPropagation()}
-        >
-          <div className="resume-card" onPointerDown={(event) => event.stopPropagation()}>
-            <button
-              className="resume-close"
-              aria-label="Close resume"
-              onClick={() => setShowResume(false)}
+          {nodes.map((node) => (
+            <div
+              key={node.id}
+              className={`node ${node.centered ? "node-centered" : ""}`}
+              style={{
+                transform: node.centered
+                  ? `translate(${node.x}px, ${node.y}px) translate(-50%, 0)`
+                  : `translate(${node.x}px, ${node.y}px)`,
+              }}
+              onClick={() => {
+                if (node.id === "resume") setShowResume(true);
+              }}
             >
-              ✕
-            </button>
-            <div className="resume-header">
-              <div>
-                <h2>MELISSA LEAVENWORTH</h2>
-                <p>San Francisco, CA • 720-585-5238 • mlleavenworth@gmail.com</p>
-              </div>
-              <a className="resume-download" href="/resume.pdf" download>
-                Download PDF
-              </a>
+              <p className="node-title">{node.title}</p>
+              {node.subtitle && <p className="node-subtitle">{node.subtitle}</p>}
+              {node.items.length > 0 && (
+                <div className="icon-list">
+                  {node.items.map((item) =>
+                    item.modal ? (
+                      <button
+                        key={item.label ?? item}
+                        className="icon-button"
+                        data-label={item.label ?? item}
+                        type="button"
+                        onClick={() => {
+                          if (item.modal === "marketing") setShowMarketing(true);
+                        }}
+                      >
+                        {item.iconUrl ? (
+                          <img
+                            className="icon-img"
+                            src={item.iconUrl}
+                            alt=""
+                            aria-hidden="true"
+                          />
+                        ) : (
+                          <span aria-hidden="true">✦</span>
+                        )}
+                      </button>
+                    ) : (
+                      <a
+                        key={item.label ?? item}
+                        className="icon-button"
+                        data-label={item.label ?? item}
+                        href={item.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={item.label ?? "Link"}
+                      >
+                        {item.iconUrl ? (
+                          <img
+                            className="icon-img"
+                            src={item.iconUrl}
+                            alt=""
+                            aria-hidden="true"
+                          />
+                        ) : (
+                          <span aria-hidden="true">✦</span>
+                        )}
+                      </a>
+                    )
+                  )}
+                </div>
+              )}
             </div>
+          ))}
+        </div>
+
+        <div className="utility-widgets">
+          <div className="glass-widget">
+            <span className="widget-label">Bay Area Time</span>
+            <span className="widget-value">{timeString || "—:—"}</span>
+          </div>
+          <div className="glass-widget">
+            <span className="widget-label">Bay Area Weather</span>
+            <span className="widget-value">{weatherString}</span>
+          </div>
+        </div>
+
+        <div className="spotify-player" aria-label="Music player">
+          <iframe
+            title="Spotify player"
+            style={{ borderRadius: "16px" }}
+            src="https://open.spotify.com/embed/track/33h97Kej5P7Y8ub0S30Aj9?utm_source=generator"
+            width="280"
+            height="80"
+            frameBorder="0"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+          />
+        </div>
+
+        <button className="roulette-widget" onClick={spinRoulette} type="button">
+          <span className="widget-label">adhd roulette</span>
+          <div
+            className={`roulette-result ${rouletteBurst ? "burst" : ""}`}
+            aria-live="polite"
+          >
+            {roulettePick}
+          </div>
+        </button>
+        <audio ref={rouletteAudioRef} src="/fairy-sparkle.mp3" preload="auto" />
+
+        {showResume && (
+          <div
+            className="resume-overlay"
+            role="dialog"
+            aria-modal="true"
+            onPointerDown={(event) => event.stopPropagation()}
+          >
+            <div className="resume-card" onPointerDown={(event) => event.stopPropagation()}>
+              <button
+                className="resume-close"
+                aria-label="Close resume"
+                onClick={() => setShowResume(false)}
+              >
+                ✕
+              </button>
+              <div className="resume-header">
+                <div>
+                  <h2>MELISSA LEAVENWORTH</h2>
+                  <p>San Francisco, CA • 720-585-5238 • mlleavenworth@gmail.com</p>
+                </div>
+                <a className="resume-download" href="/resume.pdf" download>
+                  Download PDF
+                </a>
+              </div>
 
             <section>
               <h3>Relevant Experience</h3>
@@ -647,95 +651,98 @@ export default function App() {
         </div>
       )}
 
-      {showSocial && (
-        <div className="resume-overlay" role="dialog" aria-modal="true">
-          <div className="resume-card social-card" onPointerDown={(event) => event.stopPropagation()}>
-            <button
-              className="resume-close"
-              aria-label="Close socials"
-              onClick={() => setShowSocial(false)}
-            >
-              ✕
+        {showSocial && (
+          <div className="resume-overlay" role="dialog" aria-modal="true">
+            <div className="resume-card social-card" onPointerDown={(event) => event.stopPropagation()}>
+              <button
+                className="resume-close"
+                aria-label="Close socials"
+                onClick={() => setShowSocial(false)}
+              >
+                ✕
             </button>
             <div className="social-header">
-              <h3>Connect</h3>
-              <p>Follow or reach out on any platform.</p>
+              <h3>
+                Connect
+                <br />
+                <br />
+              </h3>
             </div>
-            <div className="social-links">
-              <a
-                className="social-link"
-                href="https://www.instagram.com/melissalynnel/"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Instagram"
-              >
-                <img
-                  className="social-icon-img"
-                  src="https://cdn.simpleicons.org/instagram/fff"
-                  alt=""
-                  aria-hidden="true"
-                />
-              </a>
-              <a
-                className="social-link"
-                href="https://www.linkedin.com/in/melissaleavenworth/"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="LinkedIn"
-              >
-                <img
-                  className="social-icon-img"
-                  src="https://logo.svgcdn.com/bxl/linkedin-square-dark.png"
-                  alt=""
-                  aria-hidden="true"
-                />
-              </a>
-              <a
-                className="social-link"
-                href="https://github.com/melissalynnel"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="GitHub"
-              >
-                <img
-                  className="social-icon-img"
-                  src="https://cdn.simpleicons.org/github/fff"
-                  alt=""
-                  aria-hidden="true"
-                />
-              </a>
-            </div>
-            <div className="social-details">
-              <span>mlleavenworth@gmail.com</span>
-              <span>720-585-5238</span>
+              <div className="social-links">
+                <a
+                  className="social-link"
+                  href="https://www.instagram.com/melissalynnel/"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Instagram"
+                >
+                  <img
+                    className="social-icon-img"
+                    src="https://cdn.simpleicons.org/instagram/fff"
+                    alt=""
+                    aria-hidden="true"
+                  />
+                </a>
+                <a
+                  className="social-link"
+                  href="https://www.linkedin.com/in/melissaleavenworth/"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="LinkedIn"
+                >
+                  <img
+                    className="social-icon-img"
+                    src="https://logo.svgcdn.com/bxl/linkedin-square-dark.png"
+                    alt=""
+                    aria-hidden="true"
+                  />
+                </a>
+                <a
+                  className="social-link"
+                  href="https://github.com/melissalynnel"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="GitHub"
+                >
+                  <img
+                    className="social-icon-img"
+                    src="https://cdn.simpleicons.org/github/fff"
+                    alt=""
+                    aria-hidden="true"
+                  />
+                </a>
+              </div>
+              <div className="social-details">
+                <span>mlleavenworth@gmail.com</span>
+                <span>720-585-5238</span>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {showMarketing && (
-        <div
-          className="resume-overlay"
-          role="dialog"
-          aria-modal="true"
-          onPointerDown={(event) => event.stopPropagation()}
-        >
-          <div className="resume-card marketing-card" onPointerDown={(event) => event.stopPropagation()}>
-            <button
-              className="resume-close"
-              aria-label="Close marketing operations"
-              onClick={() => setShowMarketing(false)}
-            >
-              ✕
-            </button>
-            <div className="resume-header">
-              <div>
-                <h2>Marketing Operations</h2>
-                <p>Live.Laugh.Colorado. workflow systems</p>
+        {showMarketing && (
+          <div
+            className="resume-overlay"
+            role="dialog"
+            aria-modal="true"
+            onPointerDown={(event) => event.stopPropagation()}
+          >
+            <div className="resume-card marketing-card" onPointerDown={(event) => event.stopPropagation()}>
+              <button
+                className="resume-close"
+                aria-label="Close marketing operations"
+                onClick={() => setShowMarketing(false)}
+              >
+                ✕
+              </button>
+              <div className="resume-header">
+                <div>
+                  <h2>Marketing Operations</h2>
+                  <p>Live.Laugh.Colorado. workflow systems</p>
+                </div>
+                <span className="resume-download">Case Study</span>
               </div>
-              <span className="resume-download">Case Study</span>
-            </div>
-            <div className="marketing-content">
+              <div className="marketing-content">
               <div className="marketing-columns">
                 <section>
                   <h3>Challenge</h3>
@@ -837,10 +844,23 @@ export default function App() {
                   <img src="/marketing/marketing-05.png" alt="Experimentation board" />
                 </div>
               </section>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
+
+      <div className="hue-control" aria-label="Hue slider">
+        <span>Hue</span>
+        <input
+          type="range"
+          min="0"
+          max="360"
+          value={hue}
+          onChange={(event) => setHue(Number(event.target.value))}
+          aria-label="Hue"
+        />
+      </div>
     </div>
   );
 }
