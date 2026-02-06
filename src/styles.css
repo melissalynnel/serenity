@@ -645,6 +645,7 @@ body {
 @media (max-width: 720px) {
   body {
     overflow: auto;
+    overflow-x: hidden;
   }
 
   .scene {
@@ -653,10 +654,17 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: 100vh;
   }
 
   .scene-filter {
     min-height: 100vh;
+    width: 100%;
+  }
+
+  .backdrop {
+    position: fixed;
+    inset: -10%;
   }
 
   .map {
@@ -670,7 +678,7 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 16px;
-    padding: 48px 16px 120px;
+    padding: 32px 16px 64px;
     order: 2;
   }
 
@@ -701,7 +709,7 @@ body {
     width: min(94vw, 380px);
     transform: none !important;
     margin: 0 auto;
-    order: 1;
+    order: 2;
   }
 
   .name {
@@ -736,7 +744,7 @@ body {
   .roulette-widget,
   .hue-control {
     position: static;
-    margin: 12px auto;
+    margin: 8px auto;
     transform: none;
     width: min(320px, 92vw);
   }
@@ -753,8 +761,14 @@ body {
     order: 4;
   }
 
+  .roulette-widget {
+    display: block;
+    order: 5;
+    text-align: center;
+  }
+
   .spotify-player {
-    order: 3;
+    order: 6;
   }
 
   .hue-control {
@@ -770,9 +784,6 @@ body {
     width: 100%;
   }
 
-  .roulette-widget {
-    display: none;
-  }
 
   .resume-card {
     width: min(92vw, 720px);
