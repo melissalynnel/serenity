@@ -823,9 +823,12 @@ body,
   }
 
   .hue-control {
-    order: 7;
-    margin: 6px auto 0;
+    position: fixed;
+    left: 50%;
+    bottom: 16px;
+    transform: translateX(-50%);
     width: var(--mobile-card-width);
+    z-index: 12;
   }
 
   .hue-control input[type="range"] {

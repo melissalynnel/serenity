@@ -215,6 +215,7 @@ export default function App() {
   const prepareAudio = () => {
     if (!rouletteAudioRef.current) return;
     const audio = rouletteAudioRef.current;
+    audio.load();
     audio.currentTime = 0;
     const playPromise = audio.play();
     if (playPromise && typeof playPromise.then === "function") {
@@ -532,7 +533,7 @@ export default function App() {
         <audio
           ref={rouletteAudioRef}
           src={`${import.meta.env.BASE_URL}fairy-sparkle.mp3`}
-          preload="auto"
+          preload="none"
         />
 
         {showResume && (
