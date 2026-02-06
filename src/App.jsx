@@ -243,8 +243,30 @@ export default function App() {
     };
   }, [audioReady]);
 
+  const ensureAudioReady = () => {
+    if (!rouletteAudioRef.current) return;
+    if (audioReady) return;
+    const audio = rouletteAudioRef.current;
+    audio.currentTime = 0;
+    const playPromise = audio.play();
+    if (playPromise && typeof playPromise.then === "function") {
+      playPromise
+        .then(() => {
+          audio.pause();
+          audio.currentTime = 0;
+          setAudioReady(true);
+        })
+        .catch(() => {});
+    } else {
+      audio.pause();
+      audio.currentTime = 0;
+      setAudioReady(true);
+    }
+  };
+
   const spinRoulette = () => {
     if (isRouletteSpinning) return;
+    ensureAudioReady();
     if (rouletteTimerRef.current) {
       clearInterval(rouletteTimerRef.current);
     }
@@ -541,7 +563,11 @@ export default function App() {
             {roulettePick}
           </div>
         </button>
-        <audio ref={rouletteAudioRef} src="/fairy-sparkle.mp3" preload="auto" />
+        <audio
+          ref={rouletteAudioRef}
+          src={`${import.meta.env.BASE_URL}fairy-sparkle.mp3`}
+          preload="auto"
+        />
 
         {showResume && (
           <div

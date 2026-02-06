@@ -444,6 +444,11 @@ body,
   display: flex;
   flex-direction: column;
   gap: 4px;
+  text-align: right;
+}
+
+.utility-widgets .glass-widget:last-child {
+  text-align: left;
 }
 
 .widget-label {
@@ -476,6 +481,7 @@ body,
   text-align: left;
   cursor: pointer;
 }
+
 
 .roulette-result {
   font-size: 0.95rem;
@@ -740,7 +746,7 @@ body,
     justify-content: center;
     flex-wrap: nowrap;
     padding: 0;
-    margin: 16px 0 8px;
+    margin: 12px 0;
     order: 3;
     gap: 8px;
   }
@@ -754,7 +760,7 @@ body,
   .roulette-widget,
   .hue-control {
     position: static;
-    margin: 8px auto;
+    margin: 12px auto;
     transform: none;
     width: var(--mobile-card-width);
   }
@@ -775,11 +781,12 @@ body,
     display: block;
     order: 2;
     text-align: center;
+    margin-top: 20px;
   }
 
   .spotify-player {
     order: 6;
-    margin-bottom: 30px;
+    margin-bottom: 0;
   }
 
   .hue-control {
@@ -788,6 +795,8 @@ body,
     bottom: 16px;
     transform: translateX(-50%);
     width: var(--mobile-card-width);
+    order: 7;
+    margin: 0;
     z-index: 12;
   }
 
