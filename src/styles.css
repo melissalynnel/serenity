@@ -667,6 +667,7 @@ body,
     display: flex;
     flex-direction: column;
     align-items: center;
+    --mobile-card-width: min(92vw, 360px);
   }
 
   .backdrop {
@@ -685,14 +686,14 @@ body,
     flex-direction: column;
     align-items: center;
     gap: 16px;
-    padding: 32px 16px 64px;
+    padding: 24px 16px 0;
     order: 1;
   }
 
   .node {
     position: static !important;
-    width: min(92vw, 360px) !important;
-    max-width: 92vw !important;
+    width: var(--mobile-card-width) !important;
+    max-width: var(--mobile-card-width) !important;
     min-width: 0 !important;
     padding: 18px 20px;
     transform: none !important;
@@ -713,18 +714,18 @@ body,
 
   .center {
     min-width: 0;
-    width: min(94vw, 380px);
+    width: var(--mobile-card-width);
     transform: none !important;
     margin: 0 auto;
     order: 1;
   }
 
   .name {
-    font-size: 2.6rem;
+    font-size: 3.4rem;
   }
 
   .name span {
-    font-size: 2.6rem;
+    font-size: 3.4rem;
   }
 
   .tagline,
@@ -735,16 +736,18 @@ body,
 
   .utility-widgets {
     position: static;
-    width: 100%;
+    width: var(--mobile-card-width);
     justify-content: center;
-    flex-wrap: wrap;
-    padding: 0 16px;
+    flex-wrap: nowrap;
+    padding: 0;
     margin: 16px 0 8px;
     order: 3;
+    gap: 8px;
   }
 
   .glass-widget {
-    width: min(160px, 42vw);
+    flex: 1;
+    min-width: 0;
   }
 
   .spotify-player,
@@ -753,7 +756,7 @@ body,
     position: static;
     margin: 8px auto;
     transform: none;
-    width: min(320px, 92vw);
+    width: var(--mobile-card-width);
   }
 
   .node-resume {
@@ -776,6 +779,7 @@ body,
 
   .spotify-player {
     order: 6;
+    margin-bottom: 30px;
   }
 
   .hue-control {
@@ -783,8 +787,12 @@ body,
     left: 50%;
     bottom: 16px;
     transform: translateX(-50%);
-    width: min(320px, 92vw);
+    width: var(--mobile-card-width);
     z-index: 12;
+  }
+
+  .hue-control input[type="range"] {
+    width: 100%;
   }
 
   .spotify-player iframe {
@@ -809,11 +817,11 @@ body,
   }
 
   .name {
-    font-size: 2.3rem;
+    font-size: 3rem;
   }
 
   .name span {
-    font-size: 2.3rem;
+    font-size: 3rem;
   }
 
   .node {
