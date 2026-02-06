@@ -101,7 +101,6 @@ export default function App() {
   const [rouletteBurst, setRouletteBurst] = useState(false);
   const [hue, setHue] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const [audioReady, setAudioReady] = useState(false);
   const rouletteTimerRef = useRef(null);
   const rouletteTimeoutRef = useRef(null);
   const rouletteAudioRef = useRef(null);
@@ -213,39 +212,8 @@ export default function App() {
     return () => mediaQuery.removeListener(update);
   }, []);
 
-  useEffect(() => {
-    if (audioReady) return undefined;
-    const unlockAudio = () => {
-      if (!rouletteAudioRef.current) return;
-      const audio = rouletteAudioRef.current;
-      audio.currentTime = 0;
-      const playPromise = audio.play();
-      if (playPromise && typeof playPromise.then === "function") {
-        playPromise
-          .then(() => {
-            audio.pause();
-            audio.currentTime = 0;
-            setAudioReady(true);
-          })
-          .catch(() => {});
-      } else {
-        audio.pause();
-        audio.currentTime = 0;
-        setAudioReady(true);
-      }
-    };
-
-    window.addEventListener("pointerdown", unlockAudio, { passive: true, once: true });
-    window.addEventListener("touchstart", unlockAudio, { passive: true, once: true });
-    return () => {
-      window.removeEventListener("pointerdown", unlockAudio);
-      window.removeEventListener("touchstart", unlockAudio);
-    };
-  }, [audioReady]);
-
-  const ensureAudioReady = () => {
+  const prepareAudio = () => {
     if (!rouletteAudioRef.current) return;
-    if (audioReady) return;
     const audio = rouletteAudioRef.current;
     audio.currentTime = 0;
     const playPromise = audio.play();
@@ -254,19 +222,17 @@ export default function App() {
         .then(() => {
           audio.pause();
           audio.currentTime = 0;
-          setAudioReady(true);
         })
         .catch(() => {});
     } else {
       audio.pause();
       audio.currentTime = 0;
-      setAudioReady(true);
     }
   };
 
   const spinRoulette = () => {
     if (isRouletteSpinning) return;
-    ensureAudioReady();
+    prepareAudio();
     if (rouletteTimerRef.current) {
       clearInterval(rouletteTimerRef.current);
     }
