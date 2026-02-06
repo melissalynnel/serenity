@@ -152,8 +152,15 @@ export default function App() {
     const handlePointerMove = (event) => {
       pointerRef.current = { x: event.clientX, y: event.clientY };
     };
+    const handleTouchMove = (event) => {
+      const touch = event.touches?.[0];
+      if (!touch) return;
+      pointerRef.current = { x: touch.clientX, y: touch.clientY };
+    };
 
     window.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener("touchstart", handleTouchMove, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
 
     let animationFrame;
     const positions = Array.from({ length: 12 }).map(() => ({
@@ -187,6 +194,8 @@ export default function App() {
 
     return () => {
       window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("touchstart", handleTouchMove);
+      window.removeEventListener("touchmove", handleTouchMove);
       cancelAnimationFrame(animationFrame);
     };
   }, []);

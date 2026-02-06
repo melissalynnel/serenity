@@ -23,6 +23,12 @@ body {
   cursor: none;
 }
 
+html,
+body,
+#root {
+  overflow-x: hidden;
+}
+
 #root {
   min-height: 100vh;
 }
@@ -651,15 +657,16 @@ body {
   .scene {
     overflow: auto;
     touch-action: pan-y;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     min-height: 100vh;
+    overflow-x: hidden;
   }
 
   .scene-filter {
     min-height: 100vh;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .backdrop {
@@ -679,7 +686,7 @@ body {
     align-items: center;
     gap: 16px;
     padding: 32px 16px 64px;
-    order: 2;
+    order: 1;
   }
 
   .node {
@@ -709,7 +716,7 @@ body {
     width: min(94vw, 380px);
     transform: none !important;
     margin: 0 auto;
-    order: 2;
+    order: 1;
   }
 
   .name {
@@ -733,7 +740,7 @@ body {
     flex-wrap: wrap;
     padding: 0 16px;
     margin: 16px 0 8px;
-    order: 1;
+    order: 3;
   }
 
   .glass-widget {
@@ -763,7 +770,7 @@ body {
 
   .roulette-widget {
     display: block;
-    order: 5;
+    order: 2;
     text-align: center;
   }
 
