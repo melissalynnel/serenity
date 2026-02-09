@@ -12,22 +12,22 @@ const nodes = [
   {
     id: "pro",
     title: "Professional Portfolio",
-    subtitle: "Operations + Systems",
+    subtitle: "go-to-market through systemized creativity",
     x: -450,
     y: 50,
     items: [
       {
-        label: "Agentic workflows",
+        label: "Agentic Workflows",
         iconUrl: "https://img.icons8.com/ios-filled/50/ffffff/robot-2.png",
         href: "https://sfstartuphighlight.substack.com/",
       },
       {
-        label: "Marketing operations",
+        label: "Marketing Operations",
         iconUrl: "https://img.icons8.com/ios-filled/50/ffffff/megaphone.png",
         modal: "marketing",
       },
       {
-        label: "Content systems",
+        label: "Content Systems",
         iconUrl:
           "https://material-icons.github.io/material-icons-png/png/white/folder/baseline-2x.png",
         href:
@@ -38,7 +38,7 @@ const nodes = [
   {
     id: "art",
     title: "Artistic Expressions",
-    subtitle: "Creative explorations",
+    subtitle: "creative explorations in gratitude + industry",
     x: 140,
     y: 50,
     items: [
@@ -95,7 +95,8 @@ export default function App() {
   const [showSocial, setShowSocial] = useState(false);
   const [showMarketing, setShowMarketing] = useState(false);
   const [timeString, setTimeString] = useState("");
-  const [weatherString, setWeatherString] = useState("SF • --°F");
+  const [weatherTemp, setWeatherTemp] = useState("--°F");
+  const [weatherCondition, setWeatherCondition] = useState("Weather");
   const [roulettePick, setRoulettePick] = useState("Tap to pick");
   const [isRouletteSpinning, setIsRouletteSpinning] = useState(false);
   const [rouletteBurst, setRouletteBurst] = useState(false);
@@ -217,18 +218,6 @@ export default function App() {
     const audio = rouletteAudioRef.current;
     audio.load();
     audio.currentTime = 0;
-    const playPromise = audio.play();
-    if (playPromise && typeof playPromise.then === "function") {
-      playPromise
-        .then(() => {
-          audio.pause();
-          audio.currentTime = 0;
-        })
-        .catch(() => {});
-    } else {
-      audio.pause();
-      audio.currentTime = 0;
-    }
   };
 
   const spinRoulette = () => {
@@ -314,9 +303,11 @@ export default function App() {
         if (!current) throw new Error("Weather unavailable");
         const temp = Math.round(current.temperature);
         const label = weatherCodeToText(current.weathercode);
-        setWeatherString(`SF • ${temp}°F • ${label}`);
+        setWeatherTemp(`${temp}°F`);
+        setWeatherCondition(label);
       } catch (error) {
-        setWeatherString("SF • Weather unavailable");
+        setWeatherTemp("--°F");
+        setWeatherCondition("Weather unavailable");
       }
     };
 
@@ -504,7 +495,11 @@ export default function App() {
           </div>
           <div className="glass-widget">
             <span className="widget-label">Bay Area Weather</span>
-            <span className="widget-value">{weatherString}</span>
+            <span className="widget-value">
+              {weatherTemp}
+              <br />
+              {weatherCondition}
+            </span>
           </div>
         </div>
 
