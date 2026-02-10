@@ -332,44 +332,6 @@ techLogos.forEach((logo) => {
   logo.addEventListener("error", handleError);
 });
 
-const initAmbientHum = () => {
-  const AudioCtx = window.AudioContext || window.webkitAudioContext;
-  if (!AudioCtx) return;
-  const context = new AudioCtx();
-  const gain = context.createGain();
-  gain.gain.value = 0.02;
-
-  const filter = context.createBiquadFilter();
-  filter.type = "lowpass";
-  filter.frequency.value = 180;
-
-  const osc1 = context.createOscillator();
-  osc1.type = "sine";
-  osc1.frequency.value = 48;
-
-  const osc2 = context.createOscillator();
-  osc2.type = "sine";
-  osc2.frequency.value = 62;
-
-  const lfo = context.createOscillator();
-  lfo.type = "sine";
-  lfo.frequency.value = 0.08;
-  const lfoGain = context.createGain();
-  lfoGain.gain.value = 0.006;
-
-  lfo.connect(lfoGain).connect(gain.gain);
-  osc1.connect(filter);
-  osc2.connect(filter);
-  filter.connect(gain);
-  gain.connect(context.destination);
-
-  osc1.start();
-  osc2.start();
-  lfo.start();
-};
-
-window.addEventListener("pointerdown", initAmbientHum, { once: true });
-
 const videoTrigger = document.querySelector(".video-trigger");
 const videoModal = document.querySelector(".video-modal");
 const videoClose = document.querySelector(".video-close");
