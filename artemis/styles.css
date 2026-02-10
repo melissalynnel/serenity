@@ -379,11 +379,11 @@ a {
 @media (max-width: 900px) {
   .hub {
     transform: translateY(0);
-    margin-top: calc(64px + env(safe-area-inset-top, 0px));
+    margin-top: calc(52px + env(safe-area-inset-top, 0px));
   }
   .orbit {
-    width: min(520px, 88vw);
-    height: min(520px, 88vw);
+    width: min(560px, 92vw);
+    height: min(560px, 92vw);
   }
   .stage {
     align-items: flex-start;
@@ -554,18 +554,18 @@ a {
 }
 
 .corner-bl {
-  bottom: calc(205px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(220px + env(safe-area-inset-bottom, 0px));
   left: 16px;
 }
 
 .corner-bc {
-  bottom: calc(205px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(220px + env(safe-area-inset-bottom, 0px));
   left: 50%;
   transform: translateX(-50%);
 }
 
 .corner-br {
-  bottom: calc(205px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(220px + env(safe-area-inset-bottom, 0px));
   right: 16px;
 }
 
@@ -573,13 +573,12 @@ a {
   position: fixed;
   left: 5px;
   right: 5px;
-  top: calc(62vh);
-  bottom: auto;
-  padding: 12px 12px 8px;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.78);
-  border: 1px solid rgba(255, 255, 255, 0.85);
-  box-shadow: 0 18px 40px rgba(12, 8, 28, 0.2);
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  padding: 14px 14px 10px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 20px 50px rgba(12, 8, 28, 0.25);
   backdrop-filter: blur(12px) saturate(140%);
   display: none;
   z-index: 5;
@@ -589,20 +588,20 @@ a {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: minmax(0, 100%);
-  gap: 12px;
+  gap: 14px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  padding-bottom: 6px;
+  padding-bottom: 4px;
 }
 
 .toolkit-card {
   border: 1px solid rgba(72, 240, 255, 0.6);
-  border-radius: 14px;
-  padding: 12px;
-  background: rgba(255, 255, 255, 0.8);
-  color: #2a1f3b;
+  border-radius: 16px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.28);
+  color: #ffffff;
   display: grid;
-  gap: 8px;
+  gap: 10px;
   text-align: left;
   scroll-snap-align: center;
   cursor: pointer;
@@ -612,22 +611,23 @@ a {
 
 .toolkit-card.is-active {
   border-color: rgba(72, 240, 255, 0.9);
-  box-shadow: 0 0 16px rgba(72, 240, 255, 0.45), 0 12px 28px rgba(42, 31, 59, 0.18);
+  box-shadow: 0 0 18px rgba(72, 240, 255, 0.55), 0 12px 28px rgba(42, 31, 59, 0.25);
   transform: translateY(-2px);
 }
 
 .toolkit-title {
   font-family: var(--font-display);
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
+  color: #ffffff;
 }
 
 .toolkit-body {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   line-height: 1.5;
   white-space: pre-line;
-  color: rgba(42, 31, 59, 0.85);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .toggle-bar {
