@@ -586,7 +586,7 @@ a {
 .sphere-text .hub-sub {
   font-size: 0.8rem;
   letter-spacing: 0.14em;
-  text-shadow: 0 0 10px rgba(90, 40, 140, 0.9), 0 0 20px rgba(70, 20, 120, 0.7);
+  text-shadow: 0 0 10px rgba(72, 240, 255, 0.8), 0 0 20px rgba(72, 240, 255, 0.6);
   text-align: center;
   width: 100%;
   transform: translate(-22px, -6px);
