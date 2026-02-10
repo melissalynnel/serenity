@@ -1934,3 +1934,17 @@ a {
     transform: translate(-50%, -6px) rotate(var(--orbit-rotation-neg, 0deg));
   }
 }
+
+@media (max-width: 900px) {
+  .mobile-corners {
+    display: block;
+  }
+
+  .mobile-toolkit {
+    display: block;
+  }
+
+  .mobile-panel {
+    display: inline-flex;
+  }
+}
