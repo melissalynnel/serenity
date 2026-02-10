@@ -515,22 +515,20 @@ export default function App() {
         />
 
         {showSocial && (
-          <div className="resume-overlay" role="dialog" aria-modal="true">
+          <div
+            className="resume-overlay"
+            role="dialog"
+            aria-modal="true"
+            onPointerDown={() => setShowSocial(false)}
+          >
             <div className="resume-card social-card" onPointerDown={(event) => event.stopPropagation()}>
-              <button
-                className="resume-close"
-                aria-label="Close socials"
-                onClick={() => setShowSocial(false)}
-              >
-                ✕
-            </button>
-            <div className="social-header">
-              <h3>
-                Connect
-                <br />
-                <br />
-              </h3>
-            </div>
+              <div className="social-header">
+                <h3>
+                  Connect
+                  <br />
+                  <br />
+                </h3>
+              </div>
               <div className="social-links">
                 <a
                   className="social-link"

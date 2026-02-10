@@ -689,24 +689,23 @@ body,
 
 @media (max-width: 720px) {
   body {
-    overflow: auto;
-    overflow-x: hidden;
+    overflow: hidden;
   }
 
   .scene {
-    overflow: auto;
-    touch-action: pan-y;
-    min-height: auto;
-    overflow-x: hidden;
+    overflow: hidden;
+    touch-action: none;
+    min-height: 100vh;
   }
 
   .scene-filter {
-    min-height: auto;
+    min-height: 100vh;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     --mobile-card-width: min(92vw, 360px);
+    transform: translateY(-25px);
   }
 
   .backdrop {
