@@ -400,6 +400,8 @@ const openProject = (projectKey, controlId) => {
   modal.setAttribute("aria-hidden", "false");
 };
 
+window.openProjectModal = openProject;
+
 window.addEventListener("keydown", (event) => {
   if (event.key !== "Escape") return;
   if (videoModal?.classList.contains("is-open")) {
@@ -866,6 +868,20 @@ projectWidgets.forEach((widget) => {
   widget.addEventListener("click", () => {
     openProject(widget.dataset.project);
   });
+});
+
+document.addEventListener("click", (event) => {
+  const impactTrigger = event.target.closest(".impact-link");
+  if (impactTrigger) {
+    event.preventDefault();
+    openProject(impactTrigger.dataset.project, impactTrigger.getAttribute("aria-controls"));
+    return;
+  }
+  const widgetTrigger = event.target.closest(".projects-item[data-project]");
+  if (widgetTrigger) {
+    event.preventDefault();
+    openProject(widgetTrigger.dataset.project, widgetTrigger.getAttribute("aria-controls"));
+  }
 });
 
 projectCloseButtons.forEach((button) => {
