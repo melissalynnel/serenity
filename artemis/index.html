@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="referrer" content="no-referrer" />
-    <title>Resume Experiments — Deep Space Core</title>
+    <title>Melissa Leavenworth ✨ | Professional Portfolio</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%8C%8C%3C/text%3E%3C/svg%3E" />
     <link rel="stylesheet" href="https://use.typekit.net/vyy0wuq.css" />
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -29,20 +30,23 @@
 
     <aside class="info-panel panel-left">
       <h3>Contact</h3>
-      <p>San Francisco, CA</p>
-      <p>720-585-5238</p>
-      <p>
+      <p class="contact-email">
+        mlleavenworth@gmail.com
         <a class="linkedin-link" href="https://www.linkedin.com/in/melissaleavenworth/" target="_blank" rel="noreferrer">
           <img src="assets/logos/linkedin.png" alt="LinkedIn" />
         </a>
       </p>
-      <p>mlleavenworth@gmail.com</p>
+      <p>720-585-5238</p>
     </aside>
 
     <aside class="info-panel panel-right">
       <h3>Top Impacts</h3>
       <ul>
-        <li>$100M+ pipeline standardized</li>
+        <li>
+          <button class="impact-link" type="button" data-project="pipeline" aria-haspopup="dialog" aria-controls="project-modal">
+            $100M+ pipeline standardized
+          </button>
+        </li>
         <li>14M+ narrative views</li>
         <li>75%+ newsletter open rates</li>
       </ul>
@@ -125,6 +129,10 @@
             <div class="tech-item">
               <img src="assets/logos/discord.svg" alt="Discord logo" loading="lazy" />
               <span>Discord</span>
+            </div>
+            <div class="tech-item">
+              <img src="assets/logos/codex.webp" alt="OpenAI Codex logo" loading="lazy" />
+              <span>Codex</span>
             </div>
           </div>
         </div>
@@ -209,7 +217,7 @@
         <span class="projects-sub">Click to expand</span>
       </button>
       <div class="projects-grid" aria-hidden="true">
-        <div class="projects-item">Project one</div>
+        <div class="projects-item highlight">$100M+ Pipeline</div>
         <div class="projects-item">Project two</div>
         <div class="projects-item">Project three</div>
         <div class="projects-item">Project four</div>
@@ -242,7 +250,12 @@
           <div class="sphere-line"></div>
           <div class="sphere-line line-2"></div>
           <div class="sphere-text">
-            <div class="hub-title adventure">Melissa Leavenworth</div>
+            <div class="hub-title-wrap">
+              <div class="hub-title adventure">Melissa Leavenworth</div>
+              <button class="video-trigger" type="button" aria-haspopup="dialog" aria-controls="video-modal">
+                <span class="play-icon" aria-hidden="true"></span>
+              </button>
+            </div>
             <div class="hub-sub">Orchestrating<br />creative → revenue</div>
           </div>
         </div>
@@ -299,6 +312,250 @@
         </button>
       </div>
     </main>
+
+    <div class="video-modal" id="video-modal" role="dialog" aria-label="Featured video" aria-hidden="true">
+      <div class="video-backdrop" data-video-close="true"></div>
+      <div class="video-pane" role="document">
+        <button class="video-close" type="button" aria-label="Close video">X</button>
+        <div class="video-frame">
+          <video
+            class="video-player"
+            data-src="assets/videos/melissa-hello.mp4"
+            controls
+            playsinline
+          ></video>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-modal" id="project-modal" role="dialog" aria-label="Project details" aria-hidden="true">
+      <div class="project-backdrop" data-project-close="true"></div>
+      <div class="project-pane" role="document">
+        <button class="project-close" type="button" aria-label="Close project">X</button>
+        <div class="project-header">
+          <span class="project-eyebrow">Top Impact</span>
+          <h2 class="project-hero adventure">$100M+ pipeline standardized</h2>
+        </div>
+
+        <div class="project-section">
+          <h3>Challenge</h3>
+          <p>
+            The company was scaling to nearly <strong>$100 million in annual revenue</strong> across three markets,
+            but marketing systems were fragmented and reliant on manual workflows, which made cross-team coordination
+            and performance tracking inconsistent.
+          </p>
+        </div>
+
+        <div class="project-section">
+          <h3>Strategy</h3>
+          <p>
+            Built and managed Asana-based operational systems with standardized campaign templates, automated workflows,
+            and shared dashboards to unify design, content, and operations. Partnered with leadership to establish GTM
+            processes and KPI tracking that enabled scalable, repeatable execution across all markets.
+          </p>
+        </div>
+
+        <div class="project-section">
+          <h3>Impact</h3>
+          <p>
+            Streamlined campaign delivery cycles, improving turnaround speed by <strong>66%</strong> and campaign
+            throughput by <strong>100%</strong>. Provided real-time visibility into performance metrics, supporting a
+            <strong>30% increase in engagement and inbound leads</strong> and aligning marketing operations with
+            ~$100 M in annual sales volume.
+          </p>
+        </div>
+
+        <div class="project-section">
+          <h3>Asana Boards</h3>
+          <p>
+            I tracked deliverables across three brokerages and up to twelve agents. Here I highlighted the most functional
+            of the Asana boards.
+          </p>
+          <div class="roadmap">
+            <svg class="roadmap-lines" aria-hidden="true"></svg>
+            <div class="roadmap-node" data-node="overarching">
+              <button class="main-node" type="button">
+                <span class="node-index">1</span>
+                <span class="node-title">Overarching Marketing Projects</span>
+              </button>
+              <div class="node-detail">The “home” table with projects that spanned Listing and Brand Marketing.</div>
+              <div class="node-popover">
+                <button class="node-popover-close" type="button" aria-label="Close">×</button>
+                <p class="node-popover-title">Overarching Marketing Projects</p>
+                <p class="node-popover-desc">
+                  The overarching marketing table was considered the “home” and included projects that spanned over
+                  Listing and Brand Marketing.
+                </p>
+                <p class="node-popover-desc">
+                  One table overviewed the tracking deliverables to agents including printable mailers and digital
+                  deliverables like email campaigns sent every two weeks and personalized social media posts.
+                </p>
+                <div class="node-popover-grid">
+                  <img src="assets/projects/pipeline/overarching-1.png" alt="Overarching Marketing Projects table" loading="lazy" />
+                  <img src="assets/projects/pipeline/overarching-2.png" alt="Deliverables tracking table for agents" loading="lazy" />
+                </div>
+              </div>
+              <div class="offshoots">
+                <span class="offshoot-node"><span class="sub-dot"></span>Agent mailer set</span>
+                <span class="offshoot-node"><span class="sub-dot"></span>Bi-weekly email</span>
+                <span class="offshoot-node"><span class="sub-dot"></span>Social post kit</span>
+              </div>
+            </div>
+            <div class="roadmap-node" data-node="recurring">
+              <button class="main-node" type="button">
+                <span class="node-index">2</span>
+                <span class="node-title">Recurring Tasks</span>
+              </button>
+              <div class="node-detail">Ongoing process projects used automations for recurring deadlines.</div>
+              <div class="node-popover">
+                <button class="node-popover-close" type="button" aria-label="Close">×</button>
+                <p class="node-popover-title">Recurring Tasks</p>
+                <p class="node-popover-desc">
+                  My work covered the two primary types of Asana projects. The first were ongoing process projects for
+                  continuous work (like weekly posts or production updates).
+                </p>
+                <p class="node-popover-desc">
+                  This project used automations to assign recurring deadlines for marketing deliverables to ensure
+                  timely fulfillment.
+                </p>
+                <p class="node-popover-desc">
+                  An important part of maintaining relationships was celebrating clients at pivotal milestones. Creating
+                  automations that ensured each agent was celebrated at their birthday and work-iversary was part of the
+                  Recruit, ___, Retain program so that we kept the best agents in the business under our brokerage.
+                </p>
+                <div class="node-popover-grid">
+                  <img src="assets/projects/pipeline/recurring-1.png" alt="Recurring tasks automation board" loading="lazy" />
+                  <img src="assets/projects/pipeline/retention-1.png" alt="Retention automations for birthdays and anniversaries" loading="lazy" />
+                </div>
+              </div>
+              <div class="offshoots">
+                <span class="offshoot-node"><span class="sub-dot"></span>Weekly post cadence</span>
+                <span class="offshoot-node"><span class="sub-dot"></span>Status recap</span>
+                <span class="offshoot-node"><span class="sub-dot"></span>Asset drop</span>
+              </div>
+            </div>
+            <div class="roadmap-node" data-node="listing">
+              <button class="main-node" type="button">
+                <span class="node-index">3</span>
+                <span class="node-title">Listing Marketing</span>
+              </button>
+              <div class="node-detail">Deadline-driven launch projects used relational due dates per listing.</div>
+              <div class="node-popover">
+                <button class="node-popover-close" type="button" aria-label="Close">×</button>
+                <p class="node-popover-title">Listing Marketing</p>
+                <p class="node-popover-desc">
+                  The second type of Asana project that my work featured was deadline-driven projects with a clear end
+                  date (like a product or listing launch).
+                </p>
+                <p class="node-popover-desc">
+                  This project used automations to assign relational deadlines for marketing deliverables to ensure a
+                  strong go-to-market for each home.
+                </p>
+                <p class="node-popover-desc">
+                  Each listing was its own project launch or milestone. The listing moved through each section of the
+                  Listing Marketing board, gaining specific tasks along the way. Each deliverable was a task and that
+                  task was assigned to a person responsible for its completion. This process repeated itself until the
+                  listing was sold.
+                </p>
+                <div class="node-popover-grid">
+                  <img src="assets/projects/pipeline/listing-1.png" alt="Listing marketing workflow board" loading="lazy" />
+                  <img src="assets/projects/pipeline/listing-2.png" alt="Listing stages and deliverables view" loading="lazy" />
+                </div>
+              </div>
+              <div class="offshoots">
+                <span class="offshoot-node"><span class="sub-dot"></span>Listing deck</span>
+                <span class="offshoot-node"><span class="sub-dot"></span>Launch email</span>
+                <span class="offshoot-node"><span class="sub-dot"></span>Open house kit</span>
+              </div>
+            </div>
+            <div class="roadmap-node" data-node="funnels">
+              <button class="main-node" type="button">
+                <span class="node-index">4</span>
+                <span class="node-title">Marketing Funnels</span>
+              </button>
+              <div class="node-detail">Asana forms triggered workflows for each brokerage.</div>
+              <div class="node-popover">
+                <button class="node-popover-close" type="button" aria-label="Close">×</button>
+                <p class="node-popover-title">Marketing Funnels</p>
+                <p class="node-popover-desc">
+                  Agents submitted their listing marketing requests via an Asana form which triggered the first set of
+                  tasks in the workflow.
+                </p>
+                <p class="node-popover-desc">
+                  A similar process was used for requests received from the Live.Laugh.Illinois. and Live.Laugh.Montana.
+                  brokerages.
+                </p>
+                <div class="node-popover-grid">
+                  <img src="assets/projects/pipeline/funnels-1.png" alt="Marketing funnel intake form workflow" loading="lazy" />
+                  <img src="assets/projects/pipeline/funnels-2.png" alt="Brokerage form intake setup" loading="lazy" />
+                  <img src="assets/projects/pipeline/funnels-3.png" alt="Lead tracking and routing visibility" loading="lazy" />
+                </div>
+              </div>
+              <div class="offshoots">
+                <span class="offshoot-node"><span class="sub-dot"></span>Intake form</span>
+                <span class="offshoot-node"><span class="sub-dot"></span>Auto-assigned tasks</span>
+                <span class="offshoot-node"><span class="sub-dot"></span>Agent brief</span>
+              </div>
+            </div>
+            <div class="roadmap-node" data-node="automations">
+              <button class="main-node" type="button">
+                <span class="node-index">5</span>
+                <span class="node-title">Workflow Automations</span>
+              </button>
+              <div class="node-detail">Listings moved back and forth for relists and new media.</div>
+              <div class="node-popover">
+                <button class="node-popover-close" type="button" aria-label="Close">×</button>
+                <p class="node-popover-title">Workflow Automations</p>
+                <p class="node-popover-desc">
+                  Workflow automations enabled the listing to move back and forth between sections for scenarios like
+                  being re-listed, or getting new photos.
+                </p>
+                <p class="node-popover-desc">
+                  Some automations included dependencies so that all work was approved by the appropriate parties and our
+                  agents (who were also considered our clients) could please their clients.
+                </p>
+                <div class="node-popover-grid">
+                  <img src="assets/projects/pipeline/automation-1.png" alt="Workflow automations for listing updates" loading="lazy" />
+                  <img src="assets/projects/pipeline/automation-2.png" alt="Approval dependencies in workflow" loading="lazy" />
+                </div>
+              </div>
+              <div class="offshoots">
+                <span class="offshoot-node"><span class="sub-dot"></span>Updated listing kit</span>
+                <span class="offshoot-node"><span class="sub-dot"></span>Photo refresh</span>
+                <span class="offshoot-node"><span class="sub-dot"></span>Re-listing push</span>
+              </div>
+            </div>
+            <div class="roadmap-node" data-node="experimentation">
+              <button class="main-node" type="button">
+                <span class="node-index">6</span>
+                <span class="node-title">Experimentation</span>
+              </button>
+              <div class="node-detail">Simplified board that sped up new ideas.</div>
+              <div class="node-popover">
+                <button class="node-popover-close" type="button" aria-label="Close">×</button>
+                <p class="node-popover-title">Experimentation</p>
+                <p class="node-popover-desc">
+                  We used an incredibly simplified board to expedite fast-paced experimentation of ideas.
+                </p>
+                <div class="node-popover-grid">
+                  <img src="assets/projects/pipeline/experiment-1.png" alt="Experimentation board" loading="lazy" />
+                </div>
+              </div>
+              <div class="offshoots">
+                <span class="offshoot-node"><span class="sub-dot"></span>Test campaign</span>
+                <span class="offshoot-node"><span class="sub-dot"></span>Rapid creative</span>
+                <span class="offshoot-node"><span class="sub-dot"></span>Learnings log</span>
+              </div>
+            </div>
+          </div>
+          <div class="project-link">
+            <a href="https://www.notion.so/Instructions-for-Asana-Listing-Marketing-Board-2a9e8228c7b780ecb8f5db9a48094ab9?pvs=21" target="_blank" rel="noreferrer">
+              Instructions for Asana Listing Marketing Board
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script src="script.js"></script>
   </body>
