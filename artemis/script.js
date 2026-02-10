@@ -13,6 +13,10 @@ if (stars) {
   }
 }
 
+if (new URLSearchParams(window.location.search).has("mobile")) {
+  document.documentElement.classList.add("force-mobile");
+}
+
 const cursorDot = document.querySelector(".cursor-dot");
 const cursorTrails = Array.from(document.querySelectorAll(".cursor-trail"));
 const pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
