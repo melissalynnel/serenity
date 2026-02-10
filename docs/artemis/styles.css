@@ -605,10 +605,13 @@ a {
 
 .sphere-glow {
   position: absolute;
-  inset: -12%;
+  inset: -6%;
   border-radius: 50%;
-  border: 1px solid rgba(164, 91, 255, 0.35);
-  box-shadow: 0 0 40px rgba(164, 91, 255, 0.6);
+  border: 1px solid rgba(164, 91, 255, 0.5);
+  box-shadow:
+    0 0 22px rgba(164, 91, 255, 0.55),
+    inset 0 0 18px rgba(164, 91, 255, 0.35);
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.12), rgba(164, 91, 255, 0.12) 55%, transparent 75%);
   animation: pulse 6s ease-in-out infinite;
   z-index: 0;
 }
