@@ -578,7 +578,7 @@ a {
   letter-spacing: 0.02em;
   text-align: center;
   width: 100%;
-  transform: translateX(0);
+  transform: translateX(-22px);
   pointer-events: none;
 }
 
@@ -588,7 +588,7 @@ a {
   text-shadow: 0 0 10px rgba(72, 240, 255, 0.8), 0 0 20px rgba(72, 240, 255, 0.6);
   text-align: center;
   width: 100%;
-  transform: translate(0, 0);
+  transform: translate(-22px, -6px);
   pointer-events: none;
 }
 
@@ -667,12 +667,12 @@ a {
   text-transform: uppercase;
   cursor: pointer;
   box-shadow: 0 0 18px rgba(72, 240, 255, 0.35);
-  transform: translateX(0);
+  transform: translateX(-32px);
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .video-trigger:hover {
-  transform: translate(0, -2px);
+  transform: translate(-32px, -2px);
   box-shadow: 0 0 26px rgba(255, 79, 216, 0.45);
   border-color: rgba(255, 79, 216, 0.7);
 }
