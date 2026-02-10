@@ -122,6 +122,7 @@ const placeNodes = () => {
 let isHoveringTechPanel = false;
 
 const handleWheel = (event) => {
+  if (window.innerWidth <= 900) return;
   if (isHoveringTechPanel) return;
   if (document.querySelector(".project-modal.is-open") || videoModal?.classList.contains("is-open")) {
     return;
@@ -179,42 +180,140 @@ const viewData = {
   ],
   role: [
     {
+      id: "csu",
       label: "Colorado State University\n2014–2018",
+      company: "Colorado State University",
       tip: "Colorado State University\nFort Collins, CO\n2014–2018\n• B.A. Journalism & Media Communication\n• B.S. Psychology",
     },
     {
+      id: "venture",
       label: "Venture Programs\n2017–2018",
+      company: "Colorado State University",
       tip: "Venture programs\nCSU\n2017–2018\n• Venture Accelerator\n• Venture Validator\n• Customer discovery + early GTM validation",
     },
     {
+      id: "editorial",
       label: "Editorial\n2015–2018",
+      company: "Rocky Mountain Collegian + CSU Student Media",
       tip: "Rocky Mountain Collegian + CSU Student Media\n2015–2018\n• Editor coordinating multi-writer coverage\n• Enforced AP Style + deadline rigor",
     },
     {
-      label: "Content & Product\nOperations Coordinator\n2019–2021",
+      id: "learning-advantage",
+      label: "Content & Product\nOps Coordinator\n2019–2021",
+      company: "Learning Advantage",
       nowrap: true,
       tip: "Content & Product Operations Coordinator\nFort Collins, CO\nOct 2019–Dec 2021\n• Built workflow automations boosting efficiency by 78%\n• Developed asset-sorting scripts cutting filing time by 90%\n• Streamlined product rollout workflows with sales/design",
     },
     {
+      id: "primitive",
       label: "Head of Communications\n2022",
+      company: "Primitive",
       tip: "Head of Communications\nRemote\nMay 2022–Dec 2022\n• Shaped GTM storytelling supporting a $9M fundraise\n• Increased media visibility by 100%\n• Coordinated launch ops contributing to 1.7M TVL",
     },
     {
+      id: "consultant",
       label: "Founder & GTM Consultant\n2023–Now",
+      company: "Self-employed",
       tip: "Founder & GTM Consultant\nDenver, CO\nJan 2023–Present\n• Built GTM + operational systems for early-stage founders\n• Playbooks improved outreach efficiency by 66%\n• Reduced manual coordination by 35% across workflows",
     },
     {
-      label: "Marketing & Content\nOperations Lead\n2024–2025",
-      tip: "Marketing & Content\nOperations Lead\nDenver, CO\nSep 2024–Dec 2025\n• Standardized GTM processes across a $100M+ pipeline\n• Cross-functional initiatives doubled campaign delivery speed\n• Built Asana systems cutting turnaround time by 66% (3 markets)",
+      id: "live-laugh-colorado",
+      label: "Marketing & Content\nOps Lead\n2024–2025",
+      company: "Live.Laugh.Colorado. Real Estate Group",
+      tip: "Marketing & Content\nOperations Lead\nDenver, CO\nSep 2024–Dec 2025\n• Standardized GTM processes across a $100M+ pipeline\n• Cross-functional initiatives doubled campaign delivery speed\n• Built Asana systems cutting turnaround time by 66%",
     },
     {
+      id: "notion",
       label: "Certifications\n2025–2026",
+      company: "Notion",
       tip: "Certifications\nDec 2025 & Jan 2026\n• Notion Certified Admin (Jan 2026)\n• Essentials, Workflows, Advanced (Dec 2025)",
     },
   ],
 };
 
 const toggleButtons = Array.from(document.querySelectorAll(".toggle-btn"));
+const mobileToolkit = document.querySelector(".mobile-toolkit");
+const toolkitScroller = document.querySelector(".toolkit-scroller");
+const toolkitCards = [];
+let activeNodeIndex = 0;
+let currentViewKey = "area";
+
+const setActiveNode = (index, { scrollToolkit = false } = {}) => {
+  if (!iconNodes.length) return;
+  const total = iconNodes.length;
+  activeNodeIndex = ((index % total) + total) % total;
+  iconNodes.forEach((node, nodeIndex) => {
+    node.classList.toggle("is-selected", nodeIndex === activeNodeIndex);
+  });
+  toolkitCards.forEach((card, cardIndex) => {
+    card.classList.toggle("is-active", cardIndex === activeNodeIndex);
+  });
+  if (scrollToolkit && toolkitCards[activeNodeIndex]) {
+    toolkitCards[activeNodeIndex].scrollIntoView({
+      behavior: "smooth",
+      inline: "center",
+      block: "nearest",
+    });
+  }
+  if (mobileToolkit) {
+    mobileToolkit.classList.add("is-active");
+  }
+  const step = 360 / total;
+  orbitRotation = -activeNodeIndex * step;
+  updateOrbit();
+};
+
+const syncToolkitCards = () => {
+  if (!toolkitScroller) return;
+  if (toolkitCards.length === 0) {
+    toolkitScroller.innerHTML = "";
+    iconNodes.forEach((node, index) => {
+      const card = document.createElement("button");
+      card.type = "button";
+      card.className = "toolkit-card";
+      const title = document.createElement("span");
+      title.className = "toolkit-title";
+      const body = document.createElement("span");
+      body.className = "toolkit-body";
+      card.appendChild(title);
+      card.appendChild(body);
+      card.addEventListener("click", () => {
+        setActiveNode(index, { scrollToolkit: true });
+      });
+      toolkitScroller.appendChild(card);
+      toolkitCards.push(card);
+    });
+  }
+
+  const viewEntries = viewData[currentViewKey] || [];
+
+  iconNodes.forEach((node, index) => {
+    const label = node.querySelector(".icon-label")?.textContent || "";
+    const tip = node.getAttribute("data-tip") || "";
+    const entry = viewEntries[index % viewEntries.length] || {};
+    const card = toolkitCards[index];
+    if (!card) return;
+    if (entry.id) {
+      card.dataset.role = entry.id;
+    } else {
+      delete card.dataset.role;
+    }
+    const title = card.querySelector(".toolkit-title");
+    const body = card.querySelector(".toolkit-body");
+    if (title) title.textContent = label.replace(/\s*\n\s*/g, " ");
+    if (body) {
+      const tipLines = tip.split("\n").map((line) => line.trim()).filter(Boolean);
+      const bulletStart = tipLines.findIndex((line) => line.startsWith("•"));
+      const bullets = bulletStart >= 0 ? tipLines.slice(bulletStart) : [];
+      const companyLine =
+        currentViewKey === "role" && entry.company ? entry.company : "";
+      const content = [companyLine, ...bullets].filter(Boolean).join("\n");
+      body.textContent = content;
+    }
+  });
+
+  setActiveNode(activeNodeIndex);
+};
 
 const applyView = (viewKey) => {
   const data = viewData[viewKey];
@@ -226,9 +325,11 @@ const applyView = (viewKey) => {
     node.setAttribute("data-tip", entry.tip);
     node.setAttribute("data-nowrap", entry.nowrap ? "true" : "false");
   });
+  syncToolkitCards();
 };
 
 const setActiveToggle = (viewKey) => {
+  currentViewKey = viewKey;
   toggleButtons.forEach((btn) => {
     const isActive = btn.dataset.view === viewKey;
     btn.classList.toggle("is-active", isActive);
@@ -246,12 +347,45 @@ toggleButtons.forEach((btn) => {
 
 setActiveToggle("area");
 
+iconNodes.forEach((node, index) => {
+  node.addEventListener("click", () => {
+    setActiveNode(index, { scrollToolkit: true });
+  });
+});
+
+if (toolkitScroller) {
+  let scrollFrame = null;
+  toolkitScroller.addEventListener("scroll", () => {
+    if (scrollFrame) return;
+    scrollFrame = requestAnimationFrame(() => {
+      scrollFrame = null;
+      if (!toolkitCards.length) return;
+      const scrollerRect = toolkitScroller.getBoundingClientRect();
+      const centerX = scrollerRect.left + scrollerRect.width / 2;
+      let closestIndex = 0;
+      let closestDist = Infinity;
+      toolkitCards.forEach((card, index) => {
+        const rect = card.getBoundingClientRect();
+        const cardCenter = rect.left + rect.width / 2;
+        const dist = Math.abs(cardCenter - centerX);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closestIndex = index;
+        }
+      });
+      setActiveNode(closestIndex);
+    });
+  });
+}
+
 const techPanel = document.querySelector(".tech-panel");
 const techToggle = document.querySelector(".tech-toggle");
 const techGrid = document.querySelector(".tech-grid");
 const projectsPanel = document.querySelector(".projects-panel");
 const projectsToggle = document.querySelector(".projects-toggle");
 const projectsGrid = document.querySelector(".projects-grid");
+const mobileIcons = Array.from(document.querySelectorAll(".mobile-icon[data-target]"));
+const mobilePanels = Array.from(document.querySelectorAll("[data-mobile-panel]"));
 
 if (techPanel && techToggle) {
   techToggle.addEventListener("click", () => {
@@ -282,6 +416,26 @@ if (projectsPanel && projectsToggle) {
     }
   });
 }
+
+const closeMobilePanels = () => {
+  mobilePanels.forEach((panel) => {
+    panel.classList.remove("is-mobile-open");
+  });
+};
+
+mobileIcons.forEach((icon) => {
+  icon.addEventListener("click", () => {
+    const target = icon.dataset.target;
+    if (!target) return;
+    const panel = mobilePanels.find((item) => item.dataset.mobilePanel === target);
+    if (!panel) return;
+    const isOpen = panel.classList.contains("is-mobile-open");
+    closeMobilePanels();
+    if (!isOpen) {
+      panel.classList.add("is-mobile-open");
+    }
+  });
+});
 
 const techLogos = Array.from(document.querySelectorAll(".tech-item img"));
 

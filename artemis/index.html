@@ -34,7 +34,7 @@
       <div class="cursor-trail"></div>
     </div>
 
-    <aside class="info-panel panel-left">
+    <aside class="info-panel panel-left" data-mobile-panel="contact">
       <h3>Contact</h3>
       <p class="contact-email">
         mlleavenworth@gmail.com
@@ -45,7 +45,7 @@
       <p>720-585-5238</p>
     </aside>
 
-    <aside class="info-panel panel-right">
+    <aside class="info-panel panel-right" data-mobile-panel="impacts">
       <h3>Top Impacts</h3>
       <ul>
         <li>
@@ -66,14 +66,41 @@
       </ul>
     </aside>
 
-    <button class="mobile-panel mobile-left" type="button">
-      Contact
-    </button>
-    <button class="mobile-panel mobile-right" type="button">
-      Top Impacts
-    </button>
+    <div class="mobile-corners">
+      <button class="mobile-icon corner-tl" type="button" data-target="contact" aria-label="Open contact panel">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 6h16v12H4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+          <path d="M4 7l8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+        </svg>
+      </button>
+      <button class="mobile-icon corner-tr" type="button" data-target="impacts" aria-label="Open top impacts panel">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M12 3l2.6 5.6 6.2 0.8-4.6 4.3 1.2 6.1-5.4-3-5.4 3 1.2-6.1-4.6-4.3 6.2-0.8z"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+      <button class="mobile-icon corner-bl" type="button" data-target="tech" aria-label="Open tech stack panel">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="6" y="6" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.6" />
+          <path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+        </svg>
+      </button>
+      <button class="mobile-icon corner-br" type="button" data-target="projects" aria-label="Open projects panel">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="4" y="4" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6" />
+          <rect x="13" y="4" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6" />
+          <rect x="4" y="13" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6" />
+          <rect x="13" y="13" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6" />
+        </svg>
+      </button>
+    </div>
 
-    <aside class="tech-panel tech-left" aria-expanded="false">
+    <aside class="tech-panel tech-left" data-mobile-panel="tech" aria-expanded="false">
       <button class="tech-toggle" type="button">
         <span class="tech-title">Tech Stack</span>
         <span class="tech-sub">Click to expand</span>
@@ -221,7 +248,7 @@
       </div>
     </aside>
 
-    <aside class="projects-panel" aria-expanded="false">
+    <aside class="projects-panel" data-mobile-panel="projects" aria-expanded="false">
       <button class="projects-toggle" type="button">
         <span class="projects-title">Projects</span>
         <span class="projects-sub">Click to expand</span>
@@ -322,6 +349,10 @@
         </button>
       </div>
     </main>
+
+    <div class="mobile-toolkit" aria-label="Mobile capability cards">
+      <div class="toolkit-scroller"></div>
+    </div>
 
     <div class="video-modal" id="video-modal" role="dialog" aria-label="Featured video" aria-hidden="true">
       <div class="video-backdrop" data-video-close="true"></div>
