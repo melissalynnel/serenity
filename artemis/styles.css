@@ -379,7 +379,7 @@ a {
 @media (max-width: 900px) {
   .hub {
     transform: translateY(0);
-    margin-top: calc(-12px + env(safe-area-inset-top, 0px));
+    margin-top: calc(-52px + env(safe-area-inset-top, 0px));
   }
   .orbit {
     width: min(640px, 96vw);
@@ -587,7 +587,7 @@ a {
   left: 0;
   right: 0;
   bottom: calc(14px + env(safe-area-inset-bottom, 0px));
-  padding: 14px 8px 12px;
+  padding: 14px 0 12px;
   border-radius: 26px;
   background: rgba(255, 255, 255, 0.18);
   border: 1px solid rgba(255, 255, 255, 0.6);
@@ -615,6 +615,8 @@ a {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   padding-bottom: 2px;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .toolkit-card {
