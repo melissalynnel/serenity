@@ -383,9 +383,17 @@ const closeProject = () => {
   });
 };
 
-const openProject = (projectKey) => {
-  if (!projectKey) return;
-  const modal = projectModals.find((item) => item.dataset.project === projectKey);
+const openProject = (projectKey, controlId) => {
+  let modal = null;
+  if (projectKey) {
+    modal = projectModals.find((item) => item.dataset.project === projectKey) || null;
+  }
+  if (!modal && controlId) {
+    modal = document.getElementById(controlId);
+  }
+  if (!modal && projectModals.length) {
+    modal = projectModals[0];
+  }
   if (!modal) return;
   closeProject();
   modal.classList.add("is-open");
@@ -850,7 +858,7 @@ if (roadmap) {
 
 projectTriggers.forEach((trigger) => {
   trigger.addEventListener("click", () => {
-    openProject(trigger.dataset.project);
+    openProject(trigger.dataset.project, trigger.getAttribute("aria-controls"));
   });
 });
 
