@@ -377,6 +377,9 @@ a {
 }
 
 @media (max-width: 900px) {
+  .hub {
+    transform: translateY(-30px);
+  }
   .tech-panel {
     display: none;
   }
