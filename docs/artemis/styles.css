@@ -1098,6 +1098,27 @@ a {
   gap: 16px;
 }
 
+.placeholder-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.media-placeholder {
+  border-radius: 16px;
+  border: 1px dashed rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.08);
+  min-height: 180px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
 .flip-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
