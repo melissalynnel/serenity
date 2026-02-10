@@ -561,18 +561,18 @@ a {
 }
 
 .corner-bl {
-  bottom: calc(220px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(215px + env(safe-area-inset-bottom, 0px));
   left: 16px;
 }
 
 .corner-bc {
-  bottom: calc(220px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(215px + env(safe-area-inset-bottom, 0px));
   left: 50%;
   transform: translateX(-50%);
 }
 
 .corner-br {
-  bottom: calc(220px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(215px + env(safe-area-inset-bottom, 0px));
   right: 16px;
 }
 
