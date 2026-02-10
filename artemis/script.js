@@ -246,10 +246,10 @@ const toggleButtons = Array.from(document.querySelectorAll(".toggle-btn"));
 const mobileToolkit = document.querySelector(".mobile-toolkit");
 const toolkitScroller = document.querySelector(".toolkit-scroller");
 const toolkitCards = [];
-let activeNodeIndex = 0;
+let activeNodeIndex = 7;
 let currentViewKey = "area";
 
-const setActiveNode = (index, { scrollToolkit = false, openToolkit = false } = {}) => {
+const setActiveNode = (index, { scrollToolkit = false } = {}) => {
   if (!iconNodes.length) return;
   const total = iconNodes.length;
   activeNodeIndex = ((index % total) + total) % total;
@@ -266,7 +266,7 @@ const setActiveNode = (index, { scrollToolkit = false, openToolkit = false } = {
       block: "nearest",
     });
   }
-  if (mobileToolkit && openToolkit) {
+  if (mobileToolkit) {
     mobileToolkit.classList.add("is-active");
   }
   const step = 360 / total;
@@ -289,7 +289,7 @@ const syncToolkitCards = () => {
       card.appendChild(title);
       card.appendChild(body);
       card.addEventListener("click", () => {
-        setActiveNode(index, { scrollToolkit: true, openToolkit: true });
+        setActiveNode(index, { scrollToolkit: true });
       });
       toolkitScroller.appendChild(card);
       toolkitCards.push(card);
@@ -323,7 +323,7 @@ const syncToolkitCards = () => {
     }
   });
 
-  setActiveNode(activeNodeIndex);
+  setActiveNode(activeNodeIndex, { scrollToolkit: true });
 };
 
 const applyView = (viewKey) => {
@@ -360,7 +360,7 @@ setActiveToggle("area");
 
 iconNodes.forEach((node, index) => {
   node.addEventListener("click", () => {
-    setActiveNode(index, { scrollToolkit: true, openToolkit: true });
+    setActiveNode(index, { scrollToolkit: true });
   });
 });
 
@@ -384,7 +384,7 @@ if (toolkitScroller) {
           closestIndex = index;
         }
       });
-      setActiveNode(closestIndex, { openToolkit: true });
+      setActiveNode(closestIndex);
     });
   });
 }
@@ -455,7 +455,7 @@ const closeMobilePanels = () => {
 
 const closeToolkit = () => {
   if (mobileToolkit) {
-    mobileToolkit.classList.remove("is-active");
+    mobileToolkit.classList.add("is-active");
   }
 };
 
