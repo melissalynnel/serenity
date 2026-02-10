@@ -397,6 +397,25 @@ const projectsToggle = document.querySelector(".projects-toggle");
 const projectsGrid = document.querySelector(".projects-grid");
 const mobileIcons = Array.from(document.querySelectorAll(".mobile-icon[data-target]"));
 const mobilePanels = Array.from(document.querySelectorAll("[data-mobile-panel]"));
+const bubbleSound = typeof Audio !== "undefined" ? new Audio("assets/audio/bubble.wav") : null;
+if (bubbleSound) {
+  bubbleSound.volume = 0.4;
+}
+let isTouchScrolling = false;
+let scrollResetTimer = null;
+
+const playBubble = () => {
+  if (!bubbleSound) return;
+  bubbleSound.currentTime = 0;
+  bubbleSound.play().catch(() => {});
+};
+
+const triggerBob = (el) => {
+  if (!el) return;
+  el.classList.remove("is-bob");
+  void el.offsetWidth;
+  el.classList.add("is-bob");
+};
 
 if (techPanel && techToggle) {
   techToggle.addEventListener("click", () => {
@@ -434,8 +453,26 @@ const closeMobilePanels = () => {
   });
 };
 
+const closeToolkit = () => {
+  if (mobileToolkit) {
+    mobileToolkit.classList.remove("is-active");
+  }
+};
+
+const markScrolling = () => {
+  isTouchScrolling = true;
+  if (scrollResetTimer) {
+    clearTimeout(scrollResetTimer);
+  }
+  scrollResetTimer = setTimeout(() => {
+    isTouchScrolling = false;
+  }, 160);
+};
+
 mobileIcons.forEach((icon) => {
   icon.addEventListener("click", () => {
+    playBubble();
+    triggerBob(icon);
     const target = icon.dataset.target;
     if (!target) return;
     const panel = mobilePanels.find((item) => item.dataset.mobilePanel === target);
@@ -447,6 +484,35 @@ mobileIcons.forEach((icon) => {
     }
   });
 });
+
+mobilePanels.forEach((panel) => {
+  panel.addEventListener("touchmove", markScrolling, { passive: true });
+  panel.addEventListener("touchend", markScrolling, { passive: true });
+});
+
+if (mobileToolkit) {
+  mobileToolkit.addEventListener("touchmove", markScrolling, { passive: true });
+  mobileToolkit.addEventListener("touchend", markScrolling, { passive: true });
+}
+
+if (toolkitScroller) {
+  toolkitScroller.addEventListener("touchmove", markScrolling, { passive: true });
+  toolkitScroller.addEventListener("touchend", markScrolling, { passive: true });
+}
+
+const handleOutsideClose = (event) => {
+  if (window.innerWidth > 900) return;
+  if (isTouchScrolling) return;
+  const target = event.target;
+  if (target.closest(".mobile-icon")) return;
+  if (target.closest("[data-mobile-panel].is-mobile-open")) return;
+  if (target.closest(".mobile-toolkit")) return;
+  closeMobilePanels();
+  closeToolkit();
+};
+
+document.addEventListener("click", handleOutsideClose);
+document.addEventListener("touchend", handleOutsideClose);
 
 const techLogos = Array.from(document.querySelectorAll(".tech-item img"));
 

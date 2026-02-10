@@ -543,6 +543,10 @@ a {
   box-shadow: 0 8px 18px rgba(20, 6, 44, 0.3);
 }
 
+.mobile-icon.is-bob {
+  animation: bob 0.35s ease;
+}
+
 .corner-tl {
   top: calc(28px + env(safe-area-inset-top, 0px));
   left: 16px;
@@ -567,6 +571,12 @@ a {
 .corner-br {
   bottom: calc(220px + env(safe-area-inset-bottom, 0px));
   right: 16px;
+}
+
+@keyframes bob {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
 }
 
 .mobile-toolkit {
