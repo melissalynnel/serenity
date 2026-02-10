@@ -335,7 +335,6 @@ a {
 .projects-item.highlight {
   font-size: 0.85rem;
   letter-spacing: 0.04em;
-  transform: translateX(5px);
 }
 
 .pdf-panel {
