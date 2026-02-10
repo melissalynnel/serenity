@@ -110,6 +110,7 @@ a {
   left: 50%;
   top: 45%;
   z-index: 2;
+  pointer-events: none;
   transform: translate(-50%, -50%) rotate(-3deg) skewX(-2deg);
   --ripple-x: 0px;
   --ripple-y: 0px;
@@ -131,7 +132,8 @@ a {
 .pond-features {
   position: absolute;
   inset: 0;
-  pointer-events: none;
+  pointer-events: auto;
+  z-index: 3;
 }
 
 .pond-feature {
@@ -144,6 +146,7 @@ a {
   box-shadow: 0 0 20px rgba(150, 200, 180, 0.35), inset 0 0 12px rgba(10, 20, 14, 0.7);
   cursor: pointer;
   pointer-events: auto;
+  z-index: 4;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 

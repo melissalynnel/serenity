@@ -1,51 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-const nodes = [
-  {
-    id: "resume",
-    title: "Resume",
-    x: 0,
-    y: -320,
-    centered: true,
-    items: [],
-  },
-  {
-    id: "pro",
-    title: "Professional Portfolio",
-    subtitle: "go-to-market through systemized creativity",
-    x: -450,
-    y: 50,
-    link: "./artemis/",
-    items: [],
-  },
-  {
-    id: "art",
-    title: "Artistic Expressions",
-    subtitle: "creative explorations in gratitude + industry",
-    x: 140,
-    y: 50,
-    items: [
-      {
-        label: "Photography",
-        iconUrl:
-          "https://material-icons.github.io/material-icons-png/png/white/photo_camera/baseline-2x.png",
-        href: "https://www.instagram.com/melissalynnel/",
-      },
-      {
-        label: "Websites",
-        iconUrl:
-          "https://material-icons.github.io/material-icons-png/png/white/language/baseline-2x.png",
-        href:
-          "https://www.notion.so/melissa-leavenworth/Levity-Go-to-market-Strategy-Operations-Consulting-289e8228c7b78091b00fc0afd383ed6e?v=288e8228c7b780418d98000c03e2e0c5&source=copy_link",
-      },
-      {
-        label: "Jewelry",
-        iconUrl: "https://img.icons8.com/ios-filled/50/ffffff/diamond.png",
-        href: "https://www.instagram.com/mellyleaves/",
-      },
-    ],
-  },
-];
+const nodes = [];
 
 const sparkles = Array.from({ length: 48 }).map((_, i) => {
   const angle = i * 0.5;
