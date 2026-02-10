@@ -33,6 +33,17 @@ window.addEventListener("pointermove", handlePointerMove);
 window.addEventListener("touchstart", handleTouchMove, { passive: true });
 window.addEventListener("touchmove", handleTouchMove, { passive: true });
 
+window.addEventListener(
+  "touchmove",
+  (event) => {
+    if (window.innerWidth > 900) return;
+    const scroller = event.target?.closest?.(".toolkit-scroller");
+    if (scroller) return;
+    event.preventDefault();
+  },
+  { passive: false }
+);
+
 const positions = Array.from({ length: cursorTrails.length + 1 }).map(() => ({
   x: pointer.x,
   y: pointer.y,

@@ -403,24 +403,28 @@ a {
   }
   .info-panel.panel-left.is-mobile-open,
   .info-panel.panel-right.is-mobile-open {
-    left: 16px;
-    right: 16px;
-    top: calc(70px + env(safe-area-inset-top, 0px));
+    left: 8px;
+    right: 8px;
+    top: calc(78px + env(safe-area-inset-top, 0px));
     width: auto;
   }
   .tech-panel.is-mobile-open,
-  .projects-panel.is-mobile-open {
-    left: 16px;
-    right: 16px;
+  .projects-panel.is-mobile-open,
+  .pdf-panel.is-mobile-open {
+    left: 8px;
+    right: 8px;
     width: auto;
   }
   .tech-panel.is-mobile-open {
-    bottom: calc(110px + env(safe-area-inset-bottom, 0px));
+    bottom: calc(160px + env(safe-area-inset-bottom, 0px));
     max-height: min(60vh, 520px);
   }
   .projects-panel.is-mobile-open {
-    bottom: calc(110px + env(safe-area-inset-bottom, 0px));
+    bottom: calc(160px + env(safe-area-inset-bottom, 0px));
     max-height: 360px;
+  }
+  .pdf-panel.is-mobile-open {
+    bottom: calc(160px + env(safe-area-inset-bottom, 0px));
   }
 }
 
@@ -484,30 +488,36 @@ a {
 }
 
 .corner-tl {
-  top: calc(16px + env(safe-area-inset-top, 0px));
+  top: calc(76px + env(safe-area-inset-top, 0px));
   left: 16px;
 }
 
 .corner-tr {
-  top: calc(16px + env(safe-area-inset-top, 0px));
+  top: calc(76px + env(safe-area-inset-top, 0px));
   right: 16px;
 }
 
 .corner-bl {
-  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(164px + env(safe-area-inset-bottom, 0px));
   left: 16px;
 }
 
+.corner-bc {
+  bottom: calc(164px + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .corner-br {
-  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(164px + env(safe-area-inset-bottom, 0px));
   right: 16px;
 }
 
 .mobile-toolkit {
   position: fixed;
-  left: 12px;
-  right: 12px;
-  bottom: calc(74px + env(safe-area-inset-bottom, 0px));
+  left: 5px;
+  right: 5px;
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
   padding: 12px 12px 8px;
   border-radius: 18px;
   background: rgba(10, 6, 22, 0.65);

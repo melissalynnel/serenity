@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="https://use.typekit.net/vyy0wuq.css" />
-    <link rel="stylesheet" href="styles.css?v=20260210" />
+    <link rel="stylesheet" href="styles.css?v=20260210-2" />
   </head>
   <body>
     <div class="space" aria-hidden="true">
@@ -67,21 +67,30 @@
     </aside>
 
     <div class="mobile-corners">
-      <button class="mobile-icon corner-tl" type="button" data-target="contact" aria-label="Open contact panel">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M4 6h16v12H4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
-          <path d="M4 7l8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
-        </svg>
-      </button>
-      <button class="mobile-icon corner-tr" type="button" data-target="impacts" aria-label="Open top impacts panel">
+      <button class="mobile-icon corner-tl" type="button" data-target="impacts" aria-label="Open top impacts panel">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path
-            d="M12 3l2.6 5.6 6.2 0.8-4.6 4.3 1.2 6.1-5.4-3-5.4 3 1.2-6.1-4.6-4.3 6.2-0.8z"
+            d="M6 4h12v2h-1.6l-1.6 3.4a4 4 0 0 1-5.6 0L7.6 6H6z"
             fill="none"
             stroke="currentColor"
             stroke-width="1.6"
             stroke-linejoin="round"
           />
+          <path
+            d="M8 6a4 4 0 0 0 8 0"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+          />
+          <path d="M10 13h4v4H10z" fill="none" stroke="currentColor" stroke-width="1.6" />
+          <path d="M8 21h8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+        </svg>
+      </button>
+      <button class="mobile-icon corner-tr" type="button" data-target="contact" aria-label="Open contact panel">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="8" r="3.5" fill="none" stroke="currentColor" stroke-width="1.6" />
+          <path d="M5 20a7 7 0 0 1 14 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
         </svg>
       </button>
       <button class="mobile-icon corner-bl" type="button" data-target="tech" aria-label="Open tech stack panel">
@@ -90,12 +99,17 @@
           <path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
         </svg>
       </button>
+      <button class="mobile-icon corner-bc" type="button" data-target="resume" aria-label="Open resume download">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 4v10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+          <path d="M8 10l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M6 20h12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+        </svg>
+      </button>
       <button class="mobile-icon corner-br" type="button" data-target="projects" aria-label="Open projects panel">
         <svg viewBox="0 0 24 24" aria-hidden="true">
-          <rect x="4" y="4" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6" />
-          <rect x="13" y="4" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6" />
-          <rect x="4" y="13" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6" />
-          <rect x="13" y="13" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6" />
+          <path d="M4 7h7l2 2h7v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+          <path d="M4 7V6a2 2 0 0 1 2-2h5l2 2h7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
         </svg>
       </button>
     </div>
@@ -263,7 +277,7 @@
       </div>
     </aside>
 
-    <aside class="pdf-panel">
+    <aside class="pdf-panel" data-mobile-panel="resume">
       <a class="pdf-download" href="Melissa-Leavenworth_Resume.pdf" target="_blank" rel="noreferrer">
         <span class="pdf-title">Resume PDF</span>
         <span class="pdf-sub">Download</span>
@@ -735,6 +749,6 @@
       </div>
     </div>
 
-    <script src="script.js?v=20260210"></script>
+    <script src="script.js?v=20260210-2"></script>
   </body>
 </html>
