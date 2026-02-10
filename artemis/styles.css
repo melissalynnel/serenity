@@ -428,52 +428,6 @@ a {
   }
 }
 
-:root.force-mobile .tech-panel,
-:root.force-mobile .projects-panel,
-:root.force-mobile .pdf-panel,
-:root.force-mobile .info-panel {
-  display: none;
-}
-
-:root.force-mobile .mobile-panel,
-:root.force-mobile .mobile-corners,
-:root.force-mobile .mobile-toolkit {
-  display: block;
-}
-
-:root.force-mobile [data-mobile-panel].is-mobile-open {
-  display: block;
-}
-
-:root.force-mobile .info-panel.panel-left.is-mobile-open,
-:root.force-mobile .info-panel.panel-right.is-mobile-open {
-  left: 8px;
-  right: 8px;
-  top: calc(78px + env(safe-area-inset-top, 0px));
-  width: auto;
-}
-
-:root.force-mobile .tech-panel.is-mobile-open,
-:root.force-mobile .projects-panel.is-mobile-open,
-:root.force-mobile .pdf-panel.is-mobile-open {
-  left: 8px;
-  right: 8px;
-  width: auto;
-}
-
-:root.force-mobile .tech-panel.is-mobile-open {
-  bottom: calc(160px + env(safe-area-inset-bottom, 0px));
-  max-height: min(60vh, 520px);
-}
-
-:root.force-mobile .projects-panel.is-mobile-open {
-  bottom: calc(160px + env(safe-area-inset-bottom, 0px));
-  max-height: 360px;
-}
-
-:root.force-mobile .pdf-panel.is-mobile-open {
-  bottom: calc(160px + env(safe-area-inset-bottom, 0px));
-}
 
 .mobile-panel {
   position: fixed;
