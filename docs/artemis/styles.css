@@ -574,11 +574,11 @@ a {
   left: 5px;
   right: 5px;
   bottom: calc(14px + env(safe-area-inset-bottom, 0px));
-  padding: 12px 10px 8px;
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.22);
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  box-shadow: 0 20px 50px rgba(12, 8, 28, 0.25);
+  padding: 14px 14px 12px;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 24px 60px rgba(12, 8, 28, 0.3);
   backdrop-filter: blur(12px) saturate(140%);
   display: none;
   opacity: 0;
@@ -597,18 +597,18 @@ a {
 .toolkit-scroller {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: minmax(0, 100%);
-  gap: 14px;
+  grid-auto-columns: minmax(0, 92%);
+  gap: 12px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  padding-bottom: 4px;
+  padding-bottom: 2px;
 }
 
 .toolkit-card {
-  border: 1px solid rgba(72, 240, 255, 0.6);
-  border-radius: 16px;
-  padding: 10px 12px;
-  background: rgba(255, 255, 255, 0.28);
+  border: 1px solid rgba(120, 240, 255, 0.7);
+  border-radius: 22px;
+  padding: 16px 18px;
+  background: rgba(255, 255, 255, 0.22);
   color: #ffffff;
   display: grid;
   gap: 10px;
@@ -617,28 +617,28 @@ a {
   cursor: pointer;
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   width: 100%;
-  min-height: 96px;
-  max-height: 110px;
+  min-height: 120px;
+  max-height: 132px;
   overflow: hidden;
 }
 
 .toolkit-card.is-active {
-  border-color: rgba(72, 240, 255, 0.9);
-  box-shadow: 0 0 18px rgba(72, 240, 255, 0.55), 0 12px 28px rgba(42, 31, 59, 0.25);
+  border-color: rgba(120, 240, 255, 0.95);
+  box-shadow: 0 0 20px rgba(120, 240, 255, 0.6), 0 14px 32px rgba(42, 31, 59, 0.28);
   transform: translateY(-2px);
 }
 
 .toolkit-title {
   font-family: var(--font-display);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: #ffffff;
 }
 
 .toolkit-body {
-  font-size: 0.72rem;
-  line-height: 1.35;
+  font-size: 0.78rem;
+  line-height: 1.45;
   white-space: pre-line;
   color: rgba(255, 255, 255, 0.9);
   display: -webkit-box;
