@@ -11,8 +11,8 @@
   --muted: #c8b1ef;
   --glow-pink: 0 0 35px rgba(255, 79, 216, 0.55);
   --glow-orange: 0 0 35px rgba(255, 140, 43, 0.55);
-  --font-display: "Orbitron", "Oxanium", "Space Grotesk", "IBM Plex Sans", sans-serif;
-  --font-body: "Space Grotesk", "IBM Plex Sans", "Segoe UI", sans-serif;
+  --font-display: "Outfit", "Space Grotesk", "IBM Plex Sans", sans-serif;
+  --font-body: "Outfit", "Space Grotesk", "IBM Plex Sans", sans-serif;
 }
 
 *,
