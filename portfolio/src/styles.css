@@ -312,6 +312,7 @@ body,
   max-width: 520px;
   text-align: center;
   padding: 0 24px 20px;
+  transform: translateY(-12px);
 }
 
 .social-card .resume-header {
