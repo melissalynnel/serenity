@@ -378,7 +378,7 @@ a {
 
 @media (max-width: 900px) {
   .hub {
-    transform: translateY(-45px);
+    transform: translateY(-75px);
   }
   .orbit {
     width: min(520px, 88vw);
@@ -533,28 +533,28 @@ a {
 }
 
 .corner-tl {
-  top: calc(14px + env(safe-area-inset-top, 0px));
+  top: calc(28px + env(safe-area-inset-top, 0px));
   left: 16px;
 }
 
 .corner-tr {
-  top: calc(14px + env(safe-area-inset-top, 0px));
+  top: calc(28px + env(safe-area-inset-top, 0px));
   right: 16px;
 }
 
 .corner-bl {
-  bottom: calc(150px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(190px + env(safe-area-inset-bottom, 0px));
   left: 16px;
 }
 
 .corner-bc {
-  bottom: calc(150px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(190px + env(safe-area-inset-bottom, 0px));
   left: 50%;
   transform: translateX(-50%);
 }
 
 .corner-br {
-  bottom: calc(150px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(190px + env(safe-area-inset-bottom, 0px));
   right: 16px;
 }
 
