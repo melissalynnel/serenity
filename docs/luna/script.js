@@ -2,9 +2,10 @@ const firefliesContainer = document.getElementById("fireflies");
 const pond = document.querySelector(".pond");
 const pondRipples = document.getElementById("pondRipples");
 const grassCanvas = document.getElementById("grassCanvas");
-const galleryPanel = document.getElementById("galleryPanel");
+const galleryOverlay = document.getElementById("galleryOverlay");
 const galleryTitle = document.getElementById("galleryTitle");
-const galleryGrid = document.getElementById("galleryGrid");
+const galleryRowTop = document.getElementById("galleryRowTop");
+const galleryRowBottom = document.getElementById("galleryRowBottom");
 const galleryButtons = document.querySelectorAll(".pond-feature");
 
 if (firefliesContainer) {
@@ -230,35 +231,47 @@ const galleryData = {
   },
 };
 
-const openGallery = (key) => {
-  if (!galleryPanel || !galleryTitle || !galleryGrid) return;
-  const data = galleryData[key];
-  if (!data) return;
-  galleryTitle.textContent = data.title;
-  galleryGrid.innerHTML = "";
-  data.items.forEach((entry, index) => {
+const buildRow = (rowEl, items) => {
+  rowEl.innerHTML = "";
+  const track = document.createElement("div");
+  track.className = "gallery-track";
+  const doubleItems = [...items, ...items];
+  doubleItems.forEach((entry) => {
     const tile = document.createElement("div");
-    tile.className = "gallery-item";
-    if (index % 5 === 1) tile.classList.add("tall");
-    if (index % 5 === 3) tile.classList.add("short");
+    tile.className = "gallery-tile";
     if (typeof entry === "string" && entry.startsWith("assets/")) {
       const img = document.createElement("img");
       img.src = entry;
-      img.alt = data.title;
+      img.alt = "Gallery image";
       tile.appendChild(img);
     } else {
-      tile.textContent = entry;
+      const fallback = document.createElement("div");
+      fallback.className = "gallery-fallback";
+      fallback.textContent = entry;
+      tile.appendChild(fallback);
     }
-    galleryGrid.appendChild(tile);
+    track.appendChild(tile);
   });
-  galleryPanel.classList.add("is-active");
-  galleryPanel.setAttribute("aria-hidden", "false");
+  rowEl.appendChild(track);
+};
+
+const openGallery = (key) => {
+  if (!galleryOverlay || !galleryTitle || !galleryRowTop || !galleryRowBottom) return;
+  const data = galleryData[key];
+  if (!data) return;
+  galleryTitle.textContent = data.title;
+  const topItems = data.items.filter((_, index) => index % 2 === 0);
+  const bottomItems = data.items.filter((_, index) => index % 2 === 1);
+  buildRow(galleryRowTop, topItems);
+  buildRow(galleryRowBottom, bottomItems);
+  galleryOverlay.classList.add("is-active");
+  galleryOverlay.setAttribute("aria-hidden", "false");
 };
 
 const closeGallery = () => {
-  if (!galleryPanel) return;
-  galleryPanel.classList.remove("is-active");
-  galleryPanel.setAttribute("aria-hidden", "true");
+  if (!galleryOverlay) return;
+  galleryOverlay.classList.remove("is-active");
+  galleryOverlay.setAttribute("aria-hidden", "true");
 };
 
 galleryButtons.forEach((button) => {
@@ -268,8 +281,8 @@ galleryButtons.forEach((button) => {
 });
 
 document.addEventListener("click", (event) => {
-  if (!galleryPanel || !galleryPanel.classList.contains("is-active")) return;
-  if (event.target.matches("[data-gallery-close]")) {
+  if (!galleryOverlay || !galleryOverlay.classList.contains("is-active")) return;
+  if (galleryOverlay.contains(event.target)) {
     closeGallery();
   }
 });

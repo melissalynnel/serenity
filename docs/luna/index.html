@@ -56,15 +56,15 @@
       <source src="assets/crickets.mp3" type="audio/mpeg" />
     </audio>
 
-    <div class="gallery-panel" id="galleryPanel" aria-hidden="true">
+    <div class="gallery-overlay" id="galleryOverlay" aria-hidden="true">
       <div class="gallery-backdrop" data-gallery-close="true"></div>
-      <div class="gallery-shell" role="dialog" aria-modal="true" aria-label="Gallery">
-        <button class="gallery-close" type="button" data-gallery-close="true">Close</button>
-        <div class="gallery-header">
+      <div class="gallery-marquee" role="dialog" aria-modal="true" aria-label="Gallery">
+        <div class="gallery-title-wrap">
           <h2 class="gallery-title" id="galleryTitle">Gallery</h2>
-          <p class="gallery-sub">Masonry layout · replace placeholders with your art</p>
+          <p class="gallery-sub">Click anywhere to close</p>
         </div>
-        <div class="gallery-grid" id="galleryGrid"></div>
+        <div class="gallery-row row-top" id="galleryRowTop"></div>
+        <div class="gallery-row row-bottom" id="galleryRowBottom"></div>
       </div>
     </div>
 

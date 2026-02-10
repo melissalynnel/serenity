@@ -5,6 +5,7 @@
   "scripts": {
     "build:portfolio": "npm --prefix portfolio run build",
     "build:artemis": "rm -rf docs/artemis && mkdir -p docs/artemis && cp -R artemis/* docs/artemis/",
-    "build:pages": "npm run build:portfolio && npm run build:artemis"
+    "build:luna": "rm -rf docs/luna && mkdir -p docs/luna && cp -R luna/* docs/luna/",
+    "build:pages": "npm run build:portfolio && npm run build:artemis && npm run build:luna"
   }
 }

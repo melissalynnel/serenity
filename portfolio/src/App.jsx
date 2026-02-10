@@ -24,6 +24,24 @@ const bokeh = Array.from({ length: 16 }).map((_, i) => {
   };
 });
 
+const quickLinks = [
+  {
+    label: "Artemis",
+    href: "./artemis/",
+    icon: "💼",
+  },
+  {
+    label: "Wimbly",
+    href: "https://melissalynnel.github.io/wimbly-biscuit-co/",
+    icon: "🌍",
+  },
+  {
+    label: "Luna",
+    href: "./luna/",
+    icon: "🎨",
+  },
+];
+
 export default function App() {
   const draggingRef = useRef(false);
   const lastRef = useRef({ x: 0, y: 0 });
@@ -356,6 +374,21 @@ export default function App() {
             </p>
             <p className="sporkles">⋆⁺₊⋆ 𖤓 ⋆⁺₊⋆</p>
             <p className="tagline">mimic the universe by creating</p>
+            <div className="icon-list">
+              {quickLinks.map((link) => (
+                <a
+                  key={link.label}
+                  className="icon-button"
+                  data-label={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={link.label}
+                >
+                  <span aria-hidden="true">{link.icon}</span>
+                </a>
+              ))}
+            </div>
           </div>
 
           {nodes.map((node) => (
