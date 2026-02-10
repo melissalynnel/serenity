@@ -924,7 +924,7 @@ a {
   position: absolute;
   width: min(640px, 86vw);
   height: min(640px, 86vw);
-  z-index: 6;
+  z-index: 1;
   transform: rotate(var(--orbit-rotation, 0deg));
   pointer-events: none;
 }
@@ -936,6 +936,7 @@ a {
   inset: 8%;
   border-radius: 50%;
   pointer-events: none;
+  z-index: 0;
 }
 
 .orbit::before {
