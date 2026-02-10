@@ -479,9 +479,7 @@ export default function App() {
           <div className="glass-widget">
             <span className="widget-label">Bay Area Weather</span>
             <span className="widget-value">
-              {weatherTemp}
-              <br />
-              {weatherCondition}
+              {weatherTemp} • {weatherCondition}
             </span>
           </div>
         </div>
