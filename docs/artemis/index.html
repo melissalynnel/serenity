@@ -47,7 +47,11 @@
             $100M+ pipeline standardized
           </button>
         </li>
-        <li>14M+ narrative views</li>
+        <li>
+          <button class="impact-link" type="button" data-project="narrative" aria-haspopup="dialog" aria-controls="project-modal-narrative">
+            14M+ narrative views
+          </button>
+        </li>
         <li>75%+ newsletter open rates</li>
       </ul>
     </aside>
@@ -217,8 +221,8 @@
         <span class="projects-sub">Click to expand</span>
       </button>
       <div class="projects-grid" aria-hidden="true">
-        <div class="projects-item highlight">$100M+ Pipeline</div>
-        <div class="projects-item">Project two</div>
+        <div class="projects-item highlight" data-project="pipeline">$100M+ Pipeline</div>
+        <div class="projects-item" data-project="narrative">14M+ Narrative Views</div>
         <div class="projects-item">Project three</div>
         <div class="projects-item">Project four</div>
         <div class="projects-item">Project five</div>
@@ -328,7 +332,7 @@
       </div>
     </div>
 
-    <div class="project-modal" id="project-modal" role="dialog" aria-label="Project details" aria-hidden="true">
+    <div class="project-modal" id="project-modal" data-project="pipeline" role="dialog" aria-label="Project details" aria-hidden="true">
       <div class="project-backdrop" data-project-close="true"></div>
       <div class="project-pane" role="document">
         <button class="project-close" type="button" aria-label="Close project">X</button>
@@ -548,13 +552,54 @@
               </div>
             </div>
           </div>
-          <div class="project-link">
-            <a href="https://www.notion.so/Instructions-for-Asana-Listing-Marketing-Board-2a9e8228c7b780ecb8f5db9a48094ab9?pvs=21" target="_blank" rel="noreferrer">
-              Instructions for Asana Listing Marketing Board
-            </a>
-          </div>
+        <div class="project-link">
+          <a href="https://www.notion.so/Instructions-for-Asana-Listing-Marketing-Board-2a9e8228c7b780ecb8f5db9a48094ab9?pvs=21" target="_blank" rel="noreferrer">
+            Instructions for Asana Listing Marketing Board
+          </a>
         </div>
       </div>
+    </div>
+
+    <div class="project-modal" id="project-modal-narrative" data-project="narrative" role="dialog" aria-label="Project details" aria-hidden="true">
+      <div class="project-backdrop" data-project-close="true"></div>
+      <div class="project-pane" role="document">
+        <button class="project-close" type="button" aria-label="Close project">X</button>
+        <div class="project-header">
+          <span class="project-eyebrow">Top Impact</span>
+          <h2 class="project-hero adventure">14M+ narrative views</h2>
+        </div>
+
+        <div class="project-section">
+          <h3>Challenge</h3>
+          <p>
+            Before a major PR moment (his appearance on <em>The Joe Rogan Experience</em>), Sam’s web presence was
+            fragmented and outdated.
+          </p>
+        </div>
+
+        <div class="project-section">
+          <h3>Solution</h3>
+          <p>
+            Rebuilt his brand and website from the ground up, aligning visuals and tone with his darkly comedic,
+            literary persona. Integrated e-commerce and event modules to handle traffic surges.
+          </p>
+        </div>
+
+        <div class="project-section">
+          <h3>Impact</h3>
+          <p>
+            Web traffic grew <strong>141%</strong>, book sales skyrocketed ten-fold, and the rebrand helped position Sam
+            as one of the most sought-after touring comics of the year.
+          </p>
+        </div>
+
+        <div class="project-link">
+          <a href="https://www.samtallent.com/" target="_blank" rel="noreferrer">
+            Visit the live site
+          </a>
+        </div>
+      </div>
+    </div>
     </div>
 
     <script src="script.js"></script>

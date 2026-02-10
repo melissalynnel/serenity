@@ -123,7 +123,7 @@ let isHoveringTechPanel = false;
 
 const handleWheel = (event) => {
   if (isHoveringTechPanel) return;
-  if (projectModal?.classList.contains("is-open") || videoModal?.classList.contains("is-open")) {
+  if (document.querySelector(".project-modal.is-open") || videoModal?.classList.contains("is-open")) {
     return;
   }
   event.preventDefault();
@@ -337,11 +337,11 @@ const videoModal = document.querySelector(".video-modal");
 const videoClose = document.querySelector(".video-close");
 const videoBackdrop = document.querySelector(".video-backdrop");
 const videoPlayer = document.querySelector(".video-frame .video-player");
-const projectModal = document.querySelector(".project-modal");
-const projectClose = document.querySelector(".project-close");
-const projectBackdrop = document.querySelector(".project-backdrop");
+const projectModals = Array.from(document.querySelectorAll(".project-modal"));
+const projectCloseButtons = Array.from(document.querySelectorAll(".project-close"));
+const projectBackdrops = Array.from(document.querySelectorAll(".project-backdrop"));
 const projectTriggers = Array.from(document.querySelectorAll(".impact-link"));
-const projectWidget = document.querySelector(".projects-item.highlight");
+const projectWidgets = Array.from(document.querySelectorAll(".projects-item[data-project]"));
 
 const openVideo = () => {
   if (!videoModal) return;
@@ -376,16 +376,20 @@ if (videoBackdrop) {
   videoBackdrop.addEventListener("click", closeVideo);
 }
 
-const openProject = () => {
-  if (!projectModal) return;
-  projectModal.classList.add("is-open");
-  projectModal.setAttribute("aria-hidden", "false");
+const closeProject = () => {
+  projectModals.forEach((modal) => {
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+  });
 };
 
-const closeProject = () => {
-  if (!projectModal) return;
-  projectModal.classList.remove("is-open");
-  projectModal.setAttribute("aria-hidden", "true");
+const openProject = (projectKey) => {
+  if (!projectKey) return;
+  const modal = projectModals.find((item) => item.dataset.project === projectKey);
+  if (!modal) return;
+  closeProject();
+  modal.classList.add("is-open");
+  modal.setAttribute("aria-hidden", "false");
 };
 
 window.addEventListener("keydown", (event) => {
@@ -393,7 +397,7 @@ window.addEventListener("keydown", (event) => {
   if (videoModal?.classList.contains("is-open")) {
     closeVideo();
   }
-  if (projectModal?.classList.contains("is-open")) {
+  if (projectModals.some((modal) => modal.classList.contains("is-open"))) {
     closeProject();
   }
 });
@@ -845,17 +849,21 @@ if (roadmap) {
 }
 
 projectTriggers.forEach((trigger) => {
-  trigger.addEventListener("click", openProject);
+  trigger.addEventListener("click", () => {
+    openProject(trigger.dataset.project);
+  });
 });
 
-if (projectWidget) {
-  projectWidget.addEventListener("click", openProject);
-}
+projectWidgets.forEach((widget) => {
+  widget.addEventListener("click", () => {
+    openProject(widget.dataset.project);
+  });
+});
 
-if (projectClose) {
-  projectClose.addEventListener("click", closeProject);
-}
+projectCloseButtons.forEach((button) => {
+  button.addEventListener("click", closeProject);
+});
 
-if (projectBackdrop) {
-  projectBackdrop.addEventListener("click", closeProject);
-}
+projectBackdrops.forEach((backdrop) => {
+  backdrop.addEventListener("click", closeProject);
+});
