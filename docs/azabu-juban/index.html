@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Azabu Juban | Serenity Portfolio</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <div class="map-shell" role="img" aria-label="Stylized Bay Area map with landmarks">
+        <svg viewBox="0 0 1200 900" class="bay-map" aria-hidden="true">
+          <defs>
+            <linearGradient id="waterGradient" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#ffd17a" />
+              <stop offset="100%" stop-color="#ffb36b" />
+            </linearGradient>
+            <linearGradient id="landGradient" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#ff9ac8" />
+              <stop offset="100%" stop-color="#ff7a9b" />
+            </linearGradient>
+            <linearGradient id="hillsGradient" x1="0" x2="1" y1="1" y2="0">
+              <stop offset="0%" stop-color="#ffa5a5" />
+              <stop offset="100%" stop-color="#ff8f6b" />
+            </linearGradient>
+            <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="6" result="blur" />
+              <feColorMatrix
+                in="blur"
+                type="matrix"
+                values="0 0 0 0 1 0 0 0 0 0.7 0 0 0 0 0.5 0 0 0 0.5 0"
+                result="tint"
+              />
+              <feMerge>
+                <feMergeNode in="tint" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          <rect width="1200" height="900" fill="url(#waterGradient)" />
+
+          <!-- San Francisco peninsula -->
+          <path
+            d="M120 210 L380 180 L610 210 L700 280 L720 350 L680 420 L630 520 L560 660 L470 780 L320 820 L180 760 L110 620 L70 450 L80 300 Z"
+            fill="url(#landGradient)"
+          />
+
+          <!-- Marin headlands -->
+          <path
+            d="M80 120 L280 80 L430 90 L470 150 L380 170 L260 160 L140 190 L60 170 Z"
+            fill="url(#hillsGradient)"
+          />
+
+          <!-- East Bay -->
+          <path
+            d="M760 220 L980 200 L1140 260 L1160 360 L1100 500 L1020 620 L930 760 L820 820 L720 790 L700 700 L740 560 L800 440 L820 320 Z"
+            fill="url(#landGradient)"
+          />
+
+          <!-- Treasure Island -->
+          <path d="M820 260 L880 250 L900 280 L860 300 L810 290 Z" fill="#ffb87a" />
+          <!-- Alcatraz -->
+          <path d="M520 250 L550 245 L565 265 L535 280 L510 265 Z" fill="#ffb87a" />
+
+          <!-- Golden Gate Park -->
+          <rect x="220" y="360" width="220" height="70" rx="20" fill="#ffb07f" />
+
+          <!-- Presidio -->
+          <path d="M250 190 L340 180 L370 230 L300 250 L230 230 Z" fill="#ffb07f" />
+
+          <!-- Twin Peaks -->
+          <path d="M420 520 L470 500 L520 520 L500 560 L440 560 Z" fill="#ffb07f" />
+
+          <!-- Bridges -->
+          <path d="M420 170 L520 210" stroke="#ffedb5" stroke-width="6" stroke-linecap="round" filter="url(#softGlow)" />
+          <path d="M610 250 L820 300" stroke="#ffd5b0" stroke-width="6" stroke-linecap="round" filter="url(#softGlow)" />
+
+          <!-- Landmark labels -->
+          <g class="labels">
+            <text x="260" y="150">Golden Gate Bridge</text>
+            <text x="670" y="280">Bay Bridge</text>
+            <text x="260" y="410">Golden Gate Park</text>
+            <text x="260" y="210">Presidio</text>
+            <text x="440" y="540">Twin Peaks</text>
+            <text x="505" y="240">Alcatraz</text>
+            <text x="820" y="240">Treasure Island</text>
+            <text x="340" y="500" class="city">San Francisco</text>
+          </g>
+
+          <!-- Coastline highlights -->
+          <path
+            d="M120 210 L380 180 L610 210 L700 280 L720 350 L680 420 L630 520 L560 660 L470 780 L320 820 L180 760 L110 620 L70 450 L80 300 Z"
+            fill="none"
+            stroke="#ffe2c9"
+            stroke-width="6"
+            opacity="0.7"
+          />
+          <path
+            d="M760 220 L980 200 L1140 260 L1160 360 L1100 500 L1020 620 L930 760 L820 820 L720 790 L700 700 L740 560 L800 440 L820 320 Z"
+            fill="none"
+            stroke="#ffe2c9"
+            stroke-width="6"
+            opacity="0.7"
+          />
+        </svg>
+      </div>
+    </main>
+  </body>
+</html>
