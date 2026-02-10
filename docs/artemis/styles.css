@@ -584,10 +584,10 @@ a {
 
 .mobile-toolkit {
   position: fixed;
-  left: 5px;
-  right: 5px;
+  left: 0;
+  right: 0;
   bottom: calc(14px + env(safe-area-inset-bottom, 0px));
-  padding: 14px 14px 12px;
+  padding: 14px 8px 12px;
   border-radius: 26px;
   background: rgba(255, 255, 255, 0.18);
   border: 1px solid rgba(255, 255, 255, 0.6);
