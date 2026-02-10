@@ -134,39 +134,6 @@ const handleWheel = (event) => {
 };
 
 window.addEventListener("wheel", handleWheel, { passive: false });
-
-let lastTouch = null;
-const handleTouchStart = (event) => {
-  if (!event.touches || event.touches.length !== 1) return;
-  const touch = event.touches[0];
-  lastTouch = { x: touch.clientX, y: touch.clientY };
-};
-
-const handleTouchMove = (event) => {
-  if (!lastTouch || !event.touches || event.touches.length !== 1) return;
-  if (projectModal?.classList.contains("is-open") || videoModal?.classList.contains("is-open")) {
-    return;
-  }
-  const touch = event.touches[0];
-  const dx = touch.clientX - lastTouch.x;
-  const dy = touch.clientY - lastTouch.y;
-  const delta = dx - dy;
-  if (delta !== 0) {
-    orbitRotation += delta * 0.35;
-    updateOrbit();
-  }
-  lastTouch = { x: touch.clientX, y: touch.clientY };
-  event.preventDefault();
-};
-
-const handleTouchEnd = () => {
-  lastTouch = null;
-};
-
-window.addEventListener("touchstart", handleTouchStart, { passive: true });
-window.addEventListener("touchmove", handleTouchMove, { passive: false });
-window.addEventListener("touchend", handleTouchEnd, { passive: true });
-window.addEventListener("touchcancel", handleTouchEnd, { passive: true });
 window.addEventListener("resize", () => {
   placeNodes();
   updateOrbit();
@@ -285,9 +252,6 @@ const techGrid = document.querySelector(".tech-grid");
 const projectsPanel = document.querySelector(".projects-panel");
 const projectsToggle = document.querySelector(".projects-toggle");
 const projectsGrid = document.querySelector(".projects-grid");
-const contactPanel = document.querySelector("#contact-panel");
-const impactsPanel = document.querySelector("#impacts-panel");
-const mobilePanels = Array.from(document.querySelectorAll(".mobile-panel"));
 
 if (techPanel && techToggle) {
   techToggle.addEventListener("click", () => {
@@ -318,47 +282,6 @@ if (projectsPanel && projectsToggle) {
     }
   });
 }
-
-const closeMobilePanels = () => {
-  [contactPanel, impactsPanel, techPanel, projectsPanel].forEach((panel) => {
-    if (!panel) return;
-    panel.classList.remove("is-open");
-    if (panel === techPanel) {
-      techPanel?.setAttribute("aria-expanded", "false");
-      techGrid?.setAttribute("aria-hidden", "true");
-    }
-    if (panel === projectsPanel) {
-      projectsPanel?.setAttribute("aria-expanded", "false");
-      projectsGrid?.setAttribute("aria-hidden", "true");
-    }
-  });
-};
-
-mobilePanels.forEach((button) => {
-  button.addEventListener("click", () => {
-    const key = button.dataset.panel;
-    const panelMap = {
-      contact: contactPanel,
-      impacts: impactsPanel,
-      tech: techPanel,
-      projects: projectsPanel,
-    };
-    const panel = panelMap[key];
-    if (!panel) return;
-    const willOpen = !panel.classList.contains("is-open");
-    closeMobilePanels();
-    if (!willOpen) return;
-    panel.classList.add("is-open");
-    if (panel === techPanel) {
-      techPanel?.setAttribute("aria-expanded", "true");
-      techGrid?.setAttribute("aria-hidden", "false");
-    }
-    if (panel === projectsPanel) {
-      projectsPanel?.setAttribute("aria-expanded", "true");
-      projectsGrid?.setAttribute("aria-hidden", "false");
-    }
-  });
-});
 
 const techLogos = Array.from(document.querySelectorAll(".tech-item img"));
 

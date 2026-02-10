@@ -390,46 +390,11 @@ a {
   .mobile-panel {
     display: inline-flex;
   }
-
-  .info-panel {
-    width: min(320px, 90vw);
-    left: 50%;
-    right: auto;
-    top: 68px;
-    transform: translateX(-50%);
-  }
-
-  .info-panel.is-open {
-    display: block;
-  }
-
-  .tech-panel.is-open,
-  .projects-panel.is-open {
-    display: block;
-  }
-
-  .tech-panel,
-  .projects-panel {
-    left: 50%;
-    right: auto;
-    bottom: 78px;
-    transform: translateX(-50%);
-    width: min(340px, 92vw);
-  }
-
-  .sphere-text .hub-title,
-  .sphere-text .hub-sub,
-  .video-trigger {
-    transform: none;
-  }
-
-  .video-trigger:hover {
-    transform: translateY(-2px);
-  }
 }
 
 .mobile-panel {
   position: fixed;
+  top: 20px;
   padding: 8px 14px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.2);
@@ -444,23 +409,11 @@ a {
   z-index: 5;
 }
 
-.mobile-top-left {
-  top: 16px;
+.mobile-left {
   left: 16px;
 }
 
-.mobile-top-right {
-  top: 16px;
-  right: 16px;
-}
-
-.mobile-bottom-left {
-  bottom: 16px;
-  left: 16px;
-}
-
-.mobile-bottom-right {
-  bottom: 16px;
+.mobile-right {
   right: 16px;
 }
 
