@@ -249,7 +249,7 @@ const toolkitCards = [];
 let activeNodeIndex = 0;
 let currentViewKey = "area";
 
-const setActiveNode = (index, { scrollToolkit = false } = {}) => {
+const setActiveNode = (index, { scrollToolkit = false, openToolkit = false } = {}) => {
   if (!iconNodes.length) return;
   const total = iconNodes.length;
   activeNodeIndex = ((index % total) + total) % total;
@@ -266,7 +266,7 @@ const setActiveNode = (index, { scrollToolkit = false } = {}) => {
       block: "nearest",
     });
   }
-  if (mobileToolkit) {
+  if (mobileToolkit && openToolkit) {
     mobileToolkit.classList.add("is-active");
   }
   const step = 360 / total;
@@ -289,7 +289,7 @@ const syncToolkitCards = () => {
       card.appendChild(title);
       card.appendChild(body);
       card.addEventListener("click", () => {
-        setActiveNode(index, { scrollToolkit: true });
+        setActiveNode(index, { scrollToolkit: true, openToolkit: true });
       });
       toolkitScroller.appendChild(card);
       toolkitCards.push(card);
@@ -360,7 +360,7 @@ setActiveToggle("area");
 
 iconNodes.forEach((node, index) => {
   node.addEventListener("click", () => {
-    setActiveNode(index, { scrollToolkit: true });
+    setActiveNode(index, { scrollToolkit: true, openToolkit: true });
   });
 });
 
@@ -384,7 +384,7 @@ if (toolkitScroller) {
           closestIndex = index;
         }
       });
-      setActiveNode(closestIndex);
+      setActiveNode(closestIndex, { openToolkit: true });
     });
   });
 }
