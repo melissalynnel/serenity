@@ -2,11 +2,6 @@ const firefliesContainer = document.getElementById("fireflies");
 const pond = document.querySelector(".pond");
 const pondRipples = document.getElementById("pondRipples");
 const grassCanvas = document.getElementById("grassCanvas");
-const galleryOverlay = document.getElementById("galleryOverlay");
-const galleryTitle = document.getElementById("galleryTitle");
-const galleryRowTop = document.getElementById("galleryRowTop");
-const galleryRowBottom = document.getElementById("galleryRowBottom");
-const galleryButtons = document.querySelectorAll(".pond-feature");
 
 if (firefliesContainer) {
   const fireflyCount = 32;
@@ -188,106 +183,120 @@ if (grassCanvas) {
   requestAnimationFrame(draw);
 }
 
-const galleryData = {
-  lotus: {
-    title: "chinatown, sf",
-    items: [
-      "assets/chinatown/01.05.2026_Chinatown_ 001.jpg",
-      "assets/chinatown/01.05.2026_Chinatown_ 002.jpg",
-      "assets/chinatown/01.05.2026_Chinatown_ 003.jpg",
-      "assets/chinatown/01.05.2026_Chinatown_ 004.jpg",
-      "assets/chinatown/01.05.2026_Chinatown_ 005.jpg",
-      "assets/chinatown/01.05.2026_Chinatown_ 006.jpg",
-      "assets/chinatown/01.05.2026_Chinatown_ 007.jpg",
-      "assets/chinatown/01.05.2026_Chinatown_ 008.jpg",
-      "assets/chinatown/01.05.2026_Chinatown_ 009.jpg",
-      "assets/chinatown/01.05.2026_Chinatown_ 010.jpg",
-      "assets/chinatown/01.05.2026_Chinatown_ 011.jpg",
-      "assets/chinatown/01.05.2026_Chinatown_ 012.jpg",
-      "assets/chinatown/01.05.2026_Chinatown_ 013.jpg",
-      "assets/chinatown/01.05.2026_Chinatown_ 014.jpg",
-      "assets/chinatown/01.05.2026_Chinatown_ 015.jpg",
-      "assets/chinatown/01.05.2026_Chinatown_ 016.jpg",
-      "assets/chinatown/01.05.2026_Chinatown_ 017.jpg",
-      "assets/chinatown/01.05.2026_Chinatown_ 018.jpg",
-      "assets/chinatown/01.05.2026_Chinatown_ 019.jpg",
-    ],
-  },
-  "lily-one": {
-    title: "Nocturne Botanica",
-    items: ["Set 01", "Set 02", "Set 03", "Set 04", "Set 05"],
-  },
-  "lily-two": {
-    title: "Still Water",
-    items: ["Frame 01", "Frame 02", "Frame 03", "Frame 04", "Frame 05", "Frame 06"],
-  },
-  "lily-three": {
-    title: "Moonlit Studies",
-    items: ["Study 01", "Study 02", "Study 03", "Study 04"],
-  },
-  "lily-four": {
-    title: "Soft Light",
-    items: ["Light 01", "Light 02", "Light 03", "Light 04", "Light 05"],
-  },
-};
 
-const buildRow = (rowEl, items) => {
-  rowEl.innerHTML = "";
-  const track = document.createElement("div");
-  track.className = "gallery-track";
-  const doubleItems = [...items, ...items];
-  doubleItems.forEach((entry) => {
-    const tile = document.createElement("div");
-    tile.className = "gallery-tile";
-    if (typeof entry === "string" && entry.startsWith("assets/")) {
-      const img = document.createElement("img");
-      img.src = entry;
-      img.alt = "Gallery image";
-      tile.appendChild(img);
-    } else {
-      const fallback = document.createElement("div");
-      fallback.className = "gallery-fallback";
-      fallback.textContent = entry;
-      tile.appendChild(fallback);
-    }
-    track.appendChild(tile);
-  });
-  rowEl.appendChild(track);
-};
+const ambientAudio = document.getElementById("crickets");
 
-const openGallery = (key) => {
-  if (!galleryOverlay || !galleryTitle || !galleryRowTop || !galleryRowBottom) return;
-  const data = galleryData[key];
-  if (!data) return;
-  galleryTitle.textContent = data.title;
-  const topItems = data.items.filter((_, index) => index % 2 === 0);
-  const bottomItems = data.items.filter((_, index) => index % 2 === 1);
-  buildRow(galleryRowTop, topItems);
-  buildRow(galleryRowBottom, bottomItems);
-  galleryOverlay.classList.add("is-active");
-  galleryOverlay.setAttribute("aria-hidden", "false");
+const galleryModal = document.getElementById("galleryModal");
+const galleryGrid = document.getElementById("galleryGrid");
+const galleryMarqueeTrack = document.getElementById("galleryMarqueeTrack");
+const galleryMarqueeTrackReverse = document.getElementById("galleryMarqueeTrackReverse");
+const galleryButtons = document.querySelectorAll(".pond-feature[data-gallery]");
+
+const galleries = {
+  chinatown: [
+    "assets/chinatown/01.05.2026_Chinatown_ 001.jpg",
+    "assets/chinatown/01.05.2026_Chinatown_ 002.jpg",
+    "assets/chinatown/01.05.2026_Chinatown_ 003.jpg",
+    "assets/chinatown/01.05.2026_Chinatown_ 004.jpg",
+    "assets/chinatown/01.05.2026_Chinatown_ 005.jpg",
+    "assets/chinatown/01.05.2026_Chinatown_ 006.jpg",
+    "assets/chinatown/01.05.2026_Chinatown_ 007.jpg",
+    "assets/chinatown/01.05.2026_Chinatown_ 008.jpg",
+    "assets/chinatown/01.05.2026_Chinatown_ 009.jpg",
+    "assets/chinatown/01.05.2026_Chinatown_ 011.jpg",
+    "assets/chinatown/01.05.2026_Chinatown_ 012.jpg",
+    "assets/chinatown/01.05.2026_Chinatown_ 013.jpg",
+    "assets/chinatown/01.05.2026_Chinatown_ 014.jpg",
+    "assets/chinatown/01.05.2026_Chinatown_ 015.jpg",
+    "assets/chinatown/01.05.2026_Chinatown_ 016.jpg",
+    "assets/chinatown/01.05.2026_Chinatown_ 017.jpg",
+    "assets/chinatown/01.05.2026_Chinatown_ 018.jpg",
+    "assets/chinatown/01.05.2026_Chinatown_ 019.jpg",
+  ],
 };
 
 const closeGallery = () => {
-  if (!galleryOverlay) return;
-  galleryOverlay.classList.remove("is-active");
-  galleryOverlay.setAttribute("aria-hidden", "true");
+  if (!galleryModal) return;
+  galleryModal.classList.remove("is-open");
+  galleryModal.setAttribute("aria-hidden", "true");
+  if (galleryGrid) galleryGrid.innerHTML = "";
+  if (galleryMarqueeTrack) galleryMarqueeTrack.innerHTML = "";
+  if (galleryMarqueeTrackReverse) galleryMarqueeTrackReverse.innerHTML = "";
+};
+
+const openGallery = (galleryId) => {
+  if (!galleryModal || !galleryGrid) return;
+  const images = galleries[galleryId];
+  if (!images || images.length === 0) return;
+  const marqueeImages = [];
+  const reverseImages = [];
+  images.forEach((src, index) => {
+    if (index % 2 === 0) {
+      marqueeImages.push(src);
+    } else {
+      reverseImages.push(src);
+    }
+  });
+  galleryGrid.innerHTML = "";
+  if (galleryMarqueeTrack) {
+    galleryMarqueeTrack.innerHTML = "";
+    if (marqueeImages.length > 0) {
+      const createGroup = () => {
+        const group = document.createElement("div");
+        group.className = "gallery-marquee-group";
+        marqueeImages.forEach((src) => {
+          const img = document.createElement("img");
+          img.src = src;
+          img.alt = "";
+          img.loading = "lazy";
+          group.appendChild(img);
+        });
+        return group;
+      };
+      galleryMarqueeTrack.appendChild(createGroup());
+      galleryMarqueeTrack.appendChild(createGroup());
+    }
+  }
+  if (galleryMarqueeTrackReverse) {
+    galleryMarqueeTrackReverse.innerHTML = "";
+    if (reverseImages.length > 0) {
+      const createGroup = () => {
+        const group = document.createElement("div");
+        group.className = "gallery-marquee-group";
+        reverseImages.forEach((src) => {
+          const img = document.createElement("img");
+          img.src = src;
+          img.alt = "";
+          img.loading = "lazy";
+          group.appendChild(img);
+        });
+        return group;
+      };
+      galleryMarqueeTrackReverse.appendChild(createGroup());
+      galleryMarqueeTrackReverse.appendChild(createGroup());
+    }
+  }
+  galleryModal.classList.add("is-open");
+  galleryModal.setAttribute("aria-hidden", "false");
 };
 
 galleryButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    openGallery(button.dataset.gallery);
+    const galleryId = button.getAttribute("data-gallery");
+    if (!galleryId) return;
+    openGallery(galleryId);
   });
 });
 
-document.addEventListener("click", (event) => {
-  if (!galleryOverlay || !galleryOverlay.classList.contains("is-active")) return;
-  if (galleryOverlay.contains(event.target)) {
+if (galleryModal) {
+  galleryModal.addEventListener("click", closeGallery);
+}
+
+window.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
     closeGallery();
   }
 });
-
-const ambientAudio = document.getElementById("crickets");
 
 if (ambientAudio) {
   const tryPlay = () => {
