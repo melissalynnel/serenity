@@ -28,17 +28,17 @@ const quickLinks = [
   {
     label: "Professional",
     href: "./artemis/",
-    iconUrl: "https://img.icons8.com/ios-filled/50/ffffff/briefcase.png",
+    iconUrl: "icons/briefcase.svg",
   },
   {
     label: "Wimbly",
     href: "https://melissalynnel.github.io/wimbly-biscuit-co/",
-    iconUrl: "https://img.icons8.com/ios-filled/50/ffffff/globe.png",
+    iconUrl: "icons/globe.svg",
   },
   {
     label: "Artistic",
     href: "./luna/",
-    iconUrl: "https://img.icons8.com/ios-filled/50/ffffff/paint-palette.png",
+    iconUrl: "icons/palette.svg",
   },
 ];
 
@@ -385,7 +385,7 @@ export default function App() {
                 >
                   <img
                     className="icon-img"
-                    src={link.iconUrl}
+                    src={`${import.meta.env.BASE_URL}${link.iconUrl}`}
                     alt=""
                     aria-hidden="true"
                   />
