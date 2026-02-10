@@ -378,11 +378,22 @@ a {
 
 @media (max-width: 900px) {
   .hub {
-    transform: translateY(-75px);
+    transform: translateY(0);
+    margin-top: calc(64px + env(safe-area-inset-top, 0px));
   }
   .orbit {
     width: min(520px, 88vw);
     height: min(520px, 88vw);
+  }
+  .stage {
+    align-items: flex-start;
+  }
+  .sphere-text .hub-title,
+  .sphere-text .hub-sub {
+    transform: none;
+  }
+  .sphere-text {
+    padding-top: 28px;
   }
   .icon-node {
     gap: 6px;
@@ -543,18 +554,18 @@ a {
 }
 
 .corner-bl {
-  bottom: calc(190px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(205px + env(safe-area-inset-bottom, 0px));
   left: 16px;
 }
 
 .corner-bc {
-  bottom: calc(190px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(205px + env(safe-area-inset-bottom, 0px));
   left: 50%;
   transform: translateX(-50%);
 }
 
 .corner-br {
-  bottom: calc(190px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(205px + env(safe-area-inset-bottom, 0px));
   right: 16px;
 }
 
@@ -562,12 +573,13 @@ a {
   position: fixed;
   left: 5px;
   right: 5px;
-  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  top: calc(62vh);
+  bottom: auto;
   padding: 12px 12px 8px;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.78);
   border: 1px solid rgba(255, 255, 255, 0.85);
-  box-shadow: 0 18px 40px rgba(12, 8, 28, 0.25);
+  box-shadow: 0 18px 40px rgba(12, 8, 28, 0.2);
   backdrop-filter: blur(12px) saturate(140%);
   display: none;
   z-index: 5;
@@ -587,7 +599,7 @@ a {
   border: 1px solid rgba(72, 240, 255, 0.6);
   border-radius: 14px;
   padding: 12px;
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.8);
   color: #2a1f3b;
   display: grid;
   gap: 8px;
