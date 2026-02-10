@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="referrer" content="no-referrer" />
-    <title>Luna | Melissa Leavenworth</title>
+    <title>Melissa Leavenworth ✨ | Artistic Portfolio</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%8C%99%3C/text%3E%3C/svg%3E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,20 +25,14 @@
       <div class="pond">
         <div class="pond-ripple-layer" id="pondRipples" aria-hidden="true"></div>
         <div class="pond-features" aria-hidden="false">
-          <button class="pond-feature lotus" type="button" data-gallery="chinatown">
-            <span class="feature-label">chinatown, sf</span>
+          <button class="pond-feature lotus is-red" type="button" data-gallery="chinatown">
+            <span class="feature-label">rainy night in chinatown</span>
           </button>
-          <button class="pond-feature lily l1" type="button" data-gallery="lily-one">
-            <span class="feature-label">Nocturne Botanica</span>
+          <button class="pond-feature lily l2 is-orange" type="button" data-gallery="golden">
+            <span class="feature-label">everything is golden</span>
           </button>
-          <button class="pond-feature lily l2" type="button" data-gallery="lily-two">
-            <span class="feature-label">Still Water</span>
-          </button>
-          <button class="pond-feature lily l3" type="button" data-gallery="lily-three">
-            <span class="feature-label">Moonlit Studies</span>
-          </button>
-          <button class="pond-feature lily l4" type="button" data-gallery="lily-four">
-            <span class="feature-label">Soft Light</span>
+          <button class="pond-feature lily l4 is-purple" type="button" data-gallery="bay-bridge">
+            <span class="feature-label">dusk in the bay</span>
           </button>
         </div>
       </div>
@@ -46,6 +40,7 @@
     </div>
 
     <main class="page" aria-hidden="true">
+      <div class="neon-kicker">touch some grass</div>
       <div class="name-stack">
         <div class="name-mark">Melissa Leavenworth</div>
         <div class="name-sub">take your time here</div>
@@ -54,7 +49,7 @@
 
     <div class="gallery-modal" id="galleryModal" role="dialog" aria-modal="true" aria-hidden="true">
       <div class="gallery-glass">
-        <div class="gallery-title">chinatown, sf</div>
+        <div class="gallery-title" id="galleryTitle">chinatown, sf</div>
         <div class="gallery-marquee" aria-hidden="true">
           <div class="gallery-marquee-track" id="galleryMarqueeTrack"></div>
         </div>
@@ -68,6 +63,20 @@
     <audio id="crickets" class="ambient-audio" autoplay loop playsinline>
       <source src="assets/crickets.mp3" type="audio/mpeg" />
     </audio>
+
+    <div class="volume-control" aria-hidden="false">
+      <label for="ambientVolume" class="volume-label">ambient</label>
+      <input
+        id="ambientVolume"
+        class="volume-slider"
+        type="range"
+        min="0"
+        max="1"
+        step="0.01"
+        value="0.35"
+        aria-label="Ambient volume"
+      />
+    </div>
 
     <script src="script.js"></script>
   </body>

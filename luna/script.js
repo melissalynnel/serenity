@@ -185,11 +185,13 @@ if (grassCanvas) {
 
 
 const ambientAudio = document.getElementById("crickets");
+const ambientVolume = document.getElementById("ambientVolume");
 
 const galleryModal = document.getElementById("galleryModal");
 const galleryGrid = document.getElementById("galleryGrid");
 const galleryMarqueeTrack = document.getElementById("galleryMarqueeTrack");
 const galleryMarqueeTrackReverse = document.getElementById("galleryMarqueeTrackReverse");
+const galleryTitle = document.getElementById("galleryTitle");
 const galleryButtons = document.querySelectorAll(".pond-feature[data-gallery]");
 
 const galleries = {
@@ -213,6 +215,95 @@ const galleries = {
     "assets/chinatown/01.05.2026_Chinatown_ 018.jpg",
     "assets/chinatown/01.05.2026_Chinatown_ 019.jpg",
   ],
+  "bay-bridge": [
+    "assets/bay-bridge/sf-001.jpg",
+    "assets/bay-bridge/sf-002.jpg",
+    "assets/bay-bridge/sf-003.jpg",
+    "assets/bay-bridge/sf-004.jpg",
+    "assets/bay-bridge/sf-005.jpg",
+    "assets/bay-bridge/sf-006.jpg",
+    "assets/bay-bridge/sf-007.jpg",
+    "assets/bay-bridge/sf-012.jpg",
+    "assets/bay-bridge/sf-013.jpg",
+    "assets/bay-bridge/sf-014.jpg",
+    "assets/bay-bridge/sf-015.jpg",
+    "assets/bay-bridge/sf-016.jpg",
+    "assets/bay-bridge/sf-017.jpg",
+    "assets/bay-bridge/sf-018.jpg",
+  ],
+  golden: [
+    "assets/golden/SF_01212026_001.jpg",
+    "assets/golden/SF_01212026_002.jpg",
+    "assets/golden/SF_01212026_004.jpg",
+    "assets/golden/SF_01212026_005.jpg",
+    "assets/golden/SF_01212026_006.jpg",
+    "assets/golden/SF_01212026_007.jpg",
+    "assets/golden/SF_01212026_009.jpg",
+    "assets/golden/SF_01212026_010.jpg",
+    "assets/golden/SF_01212026_011.jpg",
+    "assets/golden/SF_01212026_012.jpg",
+    "assets/golden/SF_01212026_013.jpg",
+    "assets/golden/SF_01212026_014.jpg",
+    "assets/golden/SF_01212026_015.jpg",
+    "assets/golden/SF_01212026_016.jpg",
+    "assets/golden/SF_01212026_017.jpg",
+    "assets/golden/SF_01212026_018.jpg",
+    "assets/golden/SF_01212026_019.jpg",
+    "assets/golden/SF_01212026_020.jpg",
+  ],
+};
+
+const galleryTitles = {
+  chinatown: "rainy night in chinatown",
+  "bay-bridge": "dusk in the bay",
+  golden: "everything is golden",
+};
+
+const galleryRows = {
+  "bay-bridge": {
+    top: [
+      "assets/bay-bridge/sf-001.jpg",
+      "assets/bay-bridge/sf-002.jpg",
+      "assets/bay-bridge/sf-003.jpg",
+      "assets/bay-bridge/sf-012.jpg",
+      "assets/bay-bridge/sf-013.jpg",
+      "assets/bay-bridge/sf-014.jpg",
+      "assets/bay-bridge/sf-015.jpg",
+      "assets/bay-bridge/sf-016.jpg",
+    ],
+    bottom: [
+      "assets/bay-bridge/sf-004.jpg",
+      "assets/bay-bridge/sf-005.jpg",
+      "assets/bay-bridge/sf-006.jpg",
+      "assets/bay-bridge/sf-007.jpg",
+      "assets/bay-bridge/sf-017.jpg",
+      "assets/bay-bridge/sf-018.jpg",
+    ],
+  },
+  golden: {
+    top: [
+      "assets/golden/SF_01212026_001.jpg",
+      "assets/golden/SF_01212026_002.jpg",
+      "assets/golden/SF_01212026_004.jpg",
+      "assets/golden/SF_01212026_005.jpg",
+      "assets/golden/SF_01212026_009.jpg",
+      "assets/golden/SF_01212026_010.jpg",
+      "assets/golden/SF_01212026_011.jpg",
+      "assets/golden/SF_01212026_012.jpg",
+      "assets/golden/SF_01212026_013.jpg",
+    ],
+    bottom: [
+      "assets/golden/SF_01212026_006.jpg",
+      "assets/golden/SF_01212026_007.jpg",
+      "assets/golden/SF_01212026_014.jpg",
+      "assets/golden/SF_01212026_015.jpg",
+      "assets/golden/SF_01212026_016.jpg",
+      "assets/golden/SF_01212026_017.jpg",
+      "assets/golden/SF_01212026_018.jpg",
+      "assets/golden/SF_01212026_019.jpg",
+      "assets/golden/SF_01212026_020.jpg",
+    ],
+  },
 };
 
 const closeGallery = () => {
@@ -222,21 +313,28 @@ const closeGallery = () => {
   if (galleryGrid) galleryGrid.innerHTML = "";
   if (galleryMarqueeTrack) galleryMarqueeTrack.innerHTML = "";
   if (galleryMarqueeTrackReverse) galleryMarqueeTrackReverse.innerHTML = "";
+  if (galleryTitle) galleryTitle.textContent = "";
 };
 
 const openGallery = (galleryId) => {
   if (!galleryModal || !galleryGrid) return;
   const images = galleries[galleryId];
   if (!images || images.length === 0) return;
-  const marqueeImages = [];
-  const reverseImages = [];
-  images.forEach((src, index) => {
-    if (index % 2 === 0) {
-      marqueeImages.push(src);
-    } else {
-      reverseImages.push(src);
-    }
-  });
+  if (galleryTitle) {
+    galleryTitle.textContent = galleryTitles[galleryId] || galleryId.replace(/-/g, " ");
+  }
+  const rowConfig = galleryRows[galleryId];
+  const marqueeImages = rowConfig ? rowConfig.top : [];
+  const reverseImages = rowConfig ? rowConfig.bottom : [];
+  if (!rowConfig) {
+    images.forEach((src, index) => {
+      if (index % 2 === 0) {
+        marqueeImages.push(src);
+      } else {
+        reverseImages.push(src);
+      }
+    });
+  }
   galleryGrid.innerHTML = "";
   if (galleryMarqueeTrack) {
     galleryMarqueeTrack.innerHTML = "";
@@ -299,6 +397,13 @@ window.addEventListener("keydown", (event) => {
 });
 
 if (ambientAudio) {
+  if (ambientVolume) {
+    ambientAudio.volume = Number(ambientVolume.value);
+    ambientVolume.addEventListener("input", () => {
+      ambientAudio.volume = Number(ambientVolume.value);
+    });
+  }
+
   const tryPlay = () => {
     ambientAudio.volume = 0.35;
     ambientAudio.play().catch(() => {});
