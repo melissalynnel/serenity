@@ -1927,6 +1927,7 @@ a {
 
 @media (max-width: 900px) {
   .icon-node::after {
+    display: none;
     left: 50%;
     right: auto;
     top: auto;
