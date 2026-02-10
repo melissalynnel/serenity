@@ -574,7 +574,7 @@ a {
   left: 5px;
   right: 5px;
   bottom: calc(14px + env(safe-area-inset-bottom, 0px));
-  padding: 14px 14px 10px;
+  padding: 12px 10px 8px;
   border-radius: 22px;
   background: rgba(255, 255, 255, 0.22);
   border: 1px solid rgba(255, 255, 255, 0.55);
@@ -597,7 +597,7 @@ a {
 .toolkit-card {
   border: 1px solid rgba(72, 240, 255, 0.6);
   border-radius: 16px;
-  padding: 14px 16px;
+  padding: 10px 12px;
   background: rgba(255, 255, 255, 0.28);
   color: #ffffff;
   display: grid;
@@ -607,6 +607,9 @@ a {
   cursor: pointer;
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   width: 100%;
+  min-height: 96px;
+  max-height: 110px;
+  overflow: hidden;
 }
 
 .toolkit-card.is-active {
@@ -617,17 +620,21 @@ a {
 
 .toolkit-title {
   font-family: var(--font-display);
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: #ffffff;
 }
 
 .toolkit-body {
-  font-size: 0.75rem;
-  line-height: 1.5;
+  font-size: 0.72rem;
+  line-height: 1.35;
   white-space: pre-line;
   color: rgba(255, 255, 255, 0.9);
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .toggle-bar {
