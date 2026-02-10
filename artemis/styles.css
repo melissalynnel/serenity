@@ -631,7 +631,7 @@ a {
 }
 
 .hub-title {
-  font-family: var(--font-display);
+  font-family: "filmotype-lacrosse", sans-serif;
   font-size: clamp(3.8rem, 7vw, 5.6rem);
   letter-spacing: 0.05em;
   text-transform: none;
@@ -640,7 +640,7 @@ a {
 }
 
 .hub-title.adventure {
-  font-family: "adventures-unlimited", "Adventure", var(--font-display);
+  font-family: "filmotype-lacrosse", sans-serif;
 }
 
 .hub-sub {
