@@ -382,8 +382,8 @@ a {
     margin-top: calc(12px + env(safe-area-inset-top, 0px));
   }
   .orbit {
-    width: min(560px, 92vw);
-    height: min(560px, 92vw);
+    width: min(640px, 96vw);
+    height: min(640px, 96vw);
   }
   .stage {
     align-items: flex-start;

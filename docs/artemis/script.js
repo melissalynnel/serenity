@@ -114,7 +114,7 @@ const scheduleAnchorUpdate = () => {
 const placeNodes = () => {
   if (!orbit || iconNodes.length === 0) return;
   const isNarrow = window.innerWidth <= 900;
-  const radius = orbit.clientWidth / (isNarrow ? 2.7 : 2.1);
+  const radius = orbit.clientWidth / (isNarrow ? 2.35 : 2.1);
   const centerX = orbit.clientWidth / 2;
   const centerY = orbit.clientHeight / 2;
   const step = (Math.PI * 2) / iconNodes.length;
