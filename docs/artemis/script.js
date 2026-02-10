@@ -55,6 +55,11 @@ const animate = () => {
     el.style.transform = `translate(${positions[index + 1].x}px, ${positions[index + 1].y}px)`;
   });
 
+  if (orbitRotation !== lastOrbitRotation) {
+    lastOrbitRotation = orbitRotation;
+    updateTooltipAnchors();
+  }
+
   requestAnimationFrame(animate);
 };
 
@@ -64,6 +69,7 @@ const orbit = document.querySelector(".orbit");
 const iconNodes = Array.from(document.querySelectorAll(".icon-node"));
 let orbitRotation = 0;
 let anchorFrame = null;
+let lastOrbitRotation = orbitRotation;
 
 const updateOrbit = () => {
   if (!orbit) return;
@@ -96,7 +102,8 @@ const scheduleAnchorUpdate = () => {
 
 const placeNodes = () => {
   if (!orbit || iconNodes.length === 0) return;
-  const radius = orbit.clientWidth / 2.1;
+  const isNarrow = window.innerWidth <= 900;
+  const radius = orbit.clientWidth / (isNarrow ? 2.7 : 2.1);
   const centerX = orbit.clientWidth / 2;
   const centerY = orbit.clientHeight / 2;
   const step = (Math.PI * 2) / iconNodes.length;
@@ -116,6 +123,9 @@ let isHoveringTechPanel = false;
 
 const handleWheel = (event) => {
   if (isHoveringTechPanel) return;
+  if (projectModal?.classList.contains("is-open") || videoModal?.classList.contains("is-open")) {
+    return;
+  }
   event.preventDefault();
   const delta = event.deltaX - event.deltaY;
   if (delta === 0) return;
@@ -170,31 +180,32 @@ const viewData = {
   role: [
     {
       label: "Colorado State University\n2014–2018",
-      tip: "Colorado State University\n2014–2018\nFort Collins, CO\n• B.A. Journalism & Media Communication\n• B.S. Psychology",
+      tip: "Colorado State University\nFort Collins, CO\n2014–2018\n• B.A. Journalism & Media Communication\n• B.S. Psychology",
     },
     {
       label: "Venture Programs\n2017–2018",
-      tip: "Venture programs\n2017–2018\nCSU\n• Venture Accelerator\n• Venture Validator\n• Customer discovery + early GTM validation",
+      tip: "Venture programs\nCSU\n2017–2018\n• Venture Accelerator\n• Venture Validator\n• Customer discovery + early GTM validation",
     },
     {
       label: "Editorial\n2015–2018",
       tip: "Rocky Mountain Collegian + CSU Student Media\n2015–2018\n• Editor coordinating multi-writer coverage\n• Enforced AP Style + deadline rigor",
     },
     {
-      label: "Content & Product Operations Coordinator\n2019–2021",
-      tip: "Content & Product Operations Coordinator\nOct 2019–Dec 2021\nFort Collins, CO\n• Built workflow automations boosting efficiency by 78%\n• Developed asset-sorting scripts cutting filing time by 90%\n• Streamlined product rollout workflows with sales/design",
+      label: "Content & Product\nOperations Coordinator\n2019–2021",
+      nowrap: true,
+      tip: "Content & Product Operations Coordinator\nFort Collins, CO\nOct 2019–Dec 2021\n• Built workflow automations boosting efficiency by 78%\n• Developed asset-sorting scripts cutting filing time by 90%\n• Streamlined product rollout workflows with sales/design",
     },
     {
       label: "Head of Communications\n2022",
-      tip: "Head of Communications\nMay 2022–Dec 2022\nRemote\n• Shaped GTM storytelling supporting a $9M fundraise\n• Increased media visibility by 100%\n• Coordinated launch ops contributing to 1.7M TVL",
+      tip: "Head of Communications\nRemote\nMay 2022–Dec 2022\n• Shaped GTM storytelling supporting a $9M fundraise\n• Increased media visibility by 100%\n• Coordinated launch ops contributing to 1.7M TVL",
     },
     {
       label: "Founder & GTM Consultant\n2023–Now",
-      tip: "Founder & GTM Consultant\nJan 2023–Present\nDenver, CO\n• Built GTM + operational systems for early-stage founders\n• Playbooks improved outreach efficiency by 66%\n• Reduced manual coordination by 35% across workflows",
+      tip: "Founder & GTM Consultant\nDenver, CO\nJan 2023–Present\n• Built GTM + operational systems for early-stage founders\n• Playbooks improved outreach efficiency by 66%\n• Reduced manual coordination by 35% across workflows",
     },
     {
-      label: "Marketing & Content Operations Lead\n2024–2025",
-      tip: "Marketing & Content Operations Lead\nSep 2024–Dec 2025\nDenver, CO\n• Standardized GTM processes across a $100M+ pipeline\n• Cross-functional initiatives doubled campaign delivery speed\n• Built Asana systems cutting turnaround time by 66% (3 markets)",
+      label: "Marketing & Content\nOperations Lead\n2024–2025",
+      tip: "Marketing & Content\nOperations Lead\nDenver, CO\nSep 2024–Dec 2025\n• Standardized GTM processes across a $100M+ pipeline\n• Cross-functional initiatives doubled campaign delivery speed\n• Built Asana systems cutting turnaround time by 66% (3 markets)",
     },
     {
       label: "Certifications\n2025–2026",
@@ -213,6 +224,7 @@ const applyView = (viewKey) => {
     const label = node.querySelector(".icon-label");
     if (label) label.textContent = entry.label;
     node.setAttribute("data-tip", entry.tip);
+    node.setAttribute("data-nowrap", entry.nowrap ? "true" : "false");
   });
 };
 
@@ -319,3 +331,531 @@ techLogos.forEach((logo) => {
   };
   logo.addEventListener("error", handleError);
 });
+
+const videoTrigger = document.querySelector(".video-trigger");
+const videoModal = document.querySelector(".video-modal");
+const videoClose = document.querySelector(".video-close");
+const videoBackdrop = document.querySelector(".video-backdrop");
+const videoPlayer = document.querySelector(".video-frame .video-player");
+const projectModal = document.querySelector(".project-modal");
+const projectClose = document.querySelector(".project-close");
+const projectBackdrop = document.querySelector(".project-backdrop");
+const projectTriggers = Array.from(document.querySelectorAll(".impact-link"));
+const projectWidget = document.querySelector(".projects-item.highlight");
+
+const openVideo = () => {
+  if (!videoModal) return;
+  videoModal.classList.add("is-open");
+  videoModal.setAttribute("aria-hidden", "false");
+  if (videoPlayer && videoPlayer.dataset.src) {
+    videoPlayer.src = videoPlayer.dataset.src;
+    videoPlayer.play().catch(() => {});
+  }
+};
+
+const closeVideo = () => {
+  if (!videoModal) return;
+  videoModal.classList.remove("is-open");
+  videoModal.setAttribute("aria-hidden", "true");
+  if (videoPlayer) {
+    videoPlayer.pause();
+    videoPlayer.removeAttribute("src");
+    videoPlayer.load();
+  }
+};
+
+if (videoTrigger) {
+  videoTrigger.addEventListener("click", openVideo);
+}
+
+if (videoClose) {
+  videoClose.addEventListener("click", closeVideo);
+}
+
+if (videoBackdrop) {
+  videoBackdrop.addEventListener("click", closeVideo);
+}
+
+const openProject = () => {
+  if (!projectModal) return;
+  projectModal.classList.add("is-open");
+  projectModal.setAttribute("aria-hidden", "false");
+};
+
+const closeProject = () => {
+  if (!projectModal) return;
+  projectModal.classList.remove("is-open");
+  projectModal.setAttribute("aria-hidden", "true");
+};
+
+window.addEventListener("keydown", (event) => {
+  if (event.key !== "Escape") return;
+  if (videoModal?.classList.contains("is-open")) {
+    closeVideo();
+  }
+  if (projectModal?.classList.contains("is-open")) {
+    closeProject();
+  }
+});
+
+const roadmapNodes = Array.from(document.querySelectorAll(".roadmap-node"));
+const nodePopovers = new WeakMap();
+roadmapNodes.forEach((node) => {
+  const popover = node.querySelector(".node-popover");
+  if (popover) {
+    nodePopovers.set(node, popover);
+  }
+
+  const button = node.querySelector(".main-node");
+  if (button) {
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const isExpanded = node.classList.contains("is-expanded");
+      roadmapNodes.forEach((item) => {
+        item.classList.remove("is-expanded");
+        const itemPopover = nodePopovers.get(item);
+        if (itemPopover) {
+          itemPopover.classList.remove("is-expanded");
+        }
+      });
+      if (!isExpanded) {
+        node.classList.add("is-expanded");
+        const activePopover = nodePopovers.get(node);
+        if (activePopover) {
+          const rect = node.getBoundingClientRect();
+          activePopover.style.left = `${rect.left + rect.width / 2}px`;
+          activePopover.style.top = `${rect.top + rect.height + 12}px`;
+          activePopover.classList.add("is-expanded");
+          activePopover.classList.add("is-visible");
+        }
+      }
+    });
+  }
+
+  const close = node.querySelector(".node-popover-close");
+  if (close) {
+    close.addEventListener("click", (event) => {
+      event.stopPropagation();
+      node.classList.remove("is-expanded");
+      const activePopover = nodePopovers.get(node);
+      if (activePopover) {
+        activePopover.classList.remove("is-expanded");
+        activePopover.classList.remove("is-visible");
+      }
+    });
+  }
+
+  if (popover) {
+    if (!popover.dataset.portal) {
+      popover.dataset.portal = "true";
+      document.body.appendChild(popover);
+    }
+
+    let overNode = false;
+    let overPopover = false;
+
+    const position = () => {
+      const rect = node.getBoundingClientRect();
+      popover.style.left = `${rect.left + rect.width / 2}px`;
+      popover.style.top = `${rect.top + rect.height + 12}px`;
+    };
+
+    const show = () => {
+      position();
+      popover.classList.add("is-visible");
+      if (node.classList.contains("is-expanded")) {
+        popover.classList.add("is-expanded");
+      } else {
+        popover.classList.remove("is-expanded");
+      }
+    };
+
+    const hide = () => {
+      if (node.classList.contains("is-expanded") || overNode || overPopover) {
+        return;
+      }
+      popover.classList.remove("is-visible");
+    };
+
+    node.addEventListener("mouseenter", () => {
+      overNode = true;
+      show();
+    });
+    node.addEventListener("mouseleave", () => {
+      overNode = false;
+      hide();
+    });
+    popover.addEventListener("mouseenter", () => {
+      overPopover = true;
+      show();
+    });
+    popover.addEventListener("mouseleave", () => {
+      overPopover = false;
+      hide();
+    });
+  }
+});
+
+const roadmap = document.querySelector(".roadmap");
+const roadmapLines = document.querySelector(".roadmap-lines");
+const graphNodes = [];
+const graphEdges = [];
+const nodeByElement = new Map();
+const dragState = { node: null, offsetX: 0, offsetY: 0 };
+
+const createNode = (el, type, opts = {}) => {
+  const node = {
+    el,
+    type,
+    x: opts.x || 0,
+    y: opts.y || 0,
+    vx: 0,
+    vy: 0,
+    radius: type === "main" ? 42 : 24,
+    fixed: false,
+    baseX: opts.x || 0,
+    baseY: opts.y || 0,
+  };
+  graphNodes.push(node);
+  nodeByElement.set(el, node);
+  return node;
+};
+
+const addEdge = (a, b, length, strength) => {
+  graphEdges.push({ a, b, length, strength });
+};
+
+if (roadmap) {
+  roadmap.classList.add("is-graph");
+  const rect = roadmap.getBoundingClientRect();
+  const centerX = rect.width / 2;
+  const startY = 140;
+  const stepY = 210;
+  const totalHeight = startY + (roadmapNodes.length - 1) * stepY + 200;
+  roadmap.style.minHeight = `${totalHeight}px`;
+  const xLeft = centerX - 90;
+  const xRight = centerX + 180;
+  const yLayout = [140, 220, 300, 380, 470, 550];
+
+  roadmapNodes.forEach((node, index) => {
+    const x = index % 2 === 0 ? xLeft : xRight;
+    const y = yLayout[index] ?? startY + index * stepY;
+    const main = createNode(node, "main", { x, y });
+    main.baseX = x;
+    main.baseY = y;
+    main.fixed = true;
+    node.style.left = `${x}px`;
+    node.style.top = `${y}px`;
+
+    const offshoots = Array.from(node.querySelectorAll(".offshoot-node"));
+    const isLeft = x <= centerX;
+    offshoots.forEach((offshoot, offIndex) => {
+      if (!offshoot.dataset.parent) {
+        offshoot.dataset.parent = node.dataset.node || `node-${index + 1}`;
+      }
+      offshoot.dataset.side = isLeft ? "left" : "right";
+      roadmap.appendChild(offshoot);
+      offshoot.classList.add("graph-node");
+      const stackGap = 34;
+      const stackHeight = (offshoots.length - 1) * stackGap;
+      const jitterX = 0;
+      const jitterY = 0;
+      const oy = y - stackHeight / 2 + offIndex * stackGap + jitterY;
+      const offsetX = isLeft ? 520 : 320;
+      const ox = isLeft ? x - offsetX + jitterX : x + offsetX + jitterX;
+      const sub = createNode(offshoot, "sub", { x: ox, y: oy });
+      sub.parent = main;
+      sub.stackIndex = offIndex;
+      sub.stackCount = offshoots.length;
+      sub.stackGap = stackGap;
+      sub.offsetX = offsetX;
+      offshoot.style.left = `${ox}px`;
+      offshoot.style.top = `${oy}px`;
+      addEdge(main, sub, 120 + (offIndex % 2) * 20, 0.02);
+    });
+  });
+
+  for (let i = 0; i < roadmapNodes.length - 1; i += 1) {
+    const a = nodeByElement.get(roadmapNodes[i]);
+    const b = nodeByElement.get(roadmapNodes[i + 1]);
+    if (a && b) addEdge(a, b, 180, 0.01);
+  }
+
+  const maxY = graphNodes.reduce((max, node) => Math.max(max, node.y), 0);
+  roadmap.style.minHeight = `${Math.max(520, maxY + 120)}px`;
+}
+
+let activeDrag = null;
+let lineFrame = null;
+
+const renderRoadmapLines = () => {
+  if (!roadmap || !roadmapLines) return;
+  if (lineFrame) return;
+  lineFrame = requestAnimationFrame(() => {
+    lineFrame = null;
+    const rect = roadmap.getBoundingClientRect();
+    const lines = [];
+    graphEdges.forEach((edge) => {
+      const aRect = edge.a.el.getBoundingClientRect();
+      const bRect = edge.b.el.getBoundingClientRect();
+      const kind = edge.a.type === "main" && edge.b.type === "main" ? "main" : "offshoot";
+      const aDot = edge.a.el.querySelector(".node-index");
+      const bDot = edge.b.el.querySelector(".node-index");
+      const aDotRect = aDot ? aDot.getBoundingClientRect() : aRect;
+      const bDotRect = bDot ? bDot.getBoundingClientRect() : bRect;
+
+      const x1 = aDotRect.left + aDotRect.width / 2 - rect.left;
+      const y1 = aDotRect.top + aDotRect.height / 2 - rect.top;
+      const subSide = edge.b.el.dataset.side;
+      const subDot = edge.b.el.querySelector(".sub-dot");
+      const subDotRect = subDot ? subDot.getBoundingClientRect() : bRect;
+      const x2 =
+        edge.b.type === "sub"
+          ? subDotRect.left + subDotRect.width / 2 - rect.left
+          : bDotRect.left + bDotRect.width / 2 - rect.left;
+      const y2 =
+        edge.b.type === "sub"
+          ? subDotRect.top + subDotRect.height / 2 - rect.top
+          : bDotRect.top + bDotRect.height / 2 - rect.top;
+
+      lines.push({ x1, y1, x2, y2, kind });
+    });
+    roadmapLines.setAttribute("viewBox", `0 0 ${rect.width} ${rect.height}`);
+    roadmapLines.innerHTML = lines
+      .map((line) => `<line class="${line.kind}" x1="${line.x1}" y1="${line.y1}" x2="${line.x2}" y2="${line.y2}" />`)
+      .join("");
+  });
+};
+
+const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+
+const tickGraph = () => {
+  if (!roadmap) return;
+  const rect = roadmap.getBoundingClientRect();
+  const centerX = rect.width / 2;
+  const centerY = rect.height / 2;
+
+  for (let i = 0; i < graphNodes.length; i += 1) {
+    for (let j = i + 1; j < graphNodes.length; j += 1) {
+      const a = graphNodes[i];
+      const b = graphNodes[j];
+      const dx = b.x - a.x;
+      const dy = b.y - a.y;
+      const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+      const minDist = a.radius + b.radius + 60;
+      if (dist < minDist) {
+        const force = (minDist - dist) * 0.015;
+        const fx = (dx / dist) * force;
+        const fy = (dy / dist) * force;
+        if (!a.fixed) {
+          a.vx -= fx;
+          a.vy -= fy;
+        }
+        if (!b.fixed) {
+          b.vx += fx;
+          b.vy += fy;
+        }
+      }
+    }
+  }
+
+  graphEdges.forEach((edge) => {
+    const dx = edge.b.x - edge.a.x;
+    const dy = edge.b.y - edge.a.y;
+    const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+    const diff = dist - edge.length;
+    const force = diff * edge.strength;
+    const fx = (dx / dist) * force;
+    const fy = (dy / dist) * force;
+    if (!edge.a.fixed) {
+      edge.a.vx += fx;
+      edge.a.vy += fy;
+    }
+    if (!edge.b.fixed) {
+      edge.b.vx -= fx;
+      edge.b.vy -= fy;
+    }
+  });
+
+  graphNodes.forEach((node) => {
+    if (node.type === "main") {
+      if (node.fixed) {
+        node.el.style.left = `${node.x}px`;
+        node.el.style.top = `${node.y}px`;
+        return;
+      }
+      node.x += (node.baseX - node.x) * 0.2;
+      node.y += (node.baseY - node.y) * 0.2;
+      node.vx *= 0.5;
+      node.vy *= 0.5;
+      node.el.style.left = `${node.x}px`;
+      node.el.style.top = `${node.y}px`;
+      return;
+    }
+    if (node.fixed) return;
+    if (node.type === "sub" && node.parent) {
+      const isLeft = node.parent.x <= centerX;
+      node.el.dataset.side = isLeft ? "left" : "right";
+      const stackHeight = (node.stackCount - 1) * node.stackGap;
+      const targetY = node.parent.y - stackHeight / 2 + node.stackIndex * node.stackGap;
+      const targetX = isLeft ? node.parent.x - node.offsetX : node.parent.x + node.offsetX;
+      node.vx += (targetX - node.x) * 0.02;
+      node.vy += (targetY - node.y) * 0.02;
+    } else {
+      const cx = (centerX - node.x) * 0.0008;
+      const cy = (centerY - node.y) * 0.0008;
+      node.vx += cx;
+      node.vy += cy;
+    }
+    node.vx *= 0.88;
+    node.vy *= 0.88;
+    node.x += node.vx;
+    node.y += node.vy;
+    node.x = clamp(node.x, 60, rect.width - 60);
+    node.y = clamp(node.y, 60, rect.height - 60);
+    node.el.style.left = `${node.x}px`;
+    node.el.style.top = `${node.y}px`;
+  });
+
+  renderRoadmapLines();
+  requestAnimationFrame(tickGraph);
+};
+
+let glitchContext = null;
+const playGlitch = () => {
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+  if (!AudioCtx) return;
+  if (!glitchContext) glitchContext = new AudioCtx();
+  const ctx = glitchContext;
+  const now = ctx.currentTime;
+
+  const gain = ctx.createGain();
+  gain.gain.value = 0.0001;
+  gain.connect(ctx.destination);
+
+  const noiseBuffer = ctx.createBuffer(1, ctx.sampleRate * 0.06, ctx.sampleRate);
+  const data = noiseBuffer.getChannelData(0);
+  for (let i = 0; i < data.length; i += 1) {
+    data[i] = (Math.random() * 2 - 1) * (1 - i / data.length);
+  }
+  const noise = ctx.createBufferSource();
+  noise.buffer = noiseBuffer;
+  const noiseFilter = ctx.createBiquadFilter();
+  noiseFilter.type = "bandpass";
+  noiseFilter.frequency.value = 1800;
+  noiseFilter.Q.value = 6;
+  noise.connect(noiseFilter).connect(gain);
+
+  const osc = ctx.createOscillator();
+  osc.type = "square";
+  osc.frequency.setValueAtTime(1200, now);
+  osc.frequency.exponentialRampToValueAtTime(520, now + 0.05);
+  osc.connect(gain);
+
+  const osc2 = ctx.createOscillator();
+  osc2.type = "triangle";
+  osc2.frequency.setValueAtTime(2200, now);
+  osc2.frequency.exponentialRampToValueAtTime(900, now + 0.04);
+  osc2.connect(gain);
+
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.exponentialRampToValueAtTime(0.07, now + 0.008);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.06);
+
+  noise.start(now);
+  noise.stop(now + 0.06);
+  osc.start(now);
+  osc.stop(now + 0.07);
+  osc2.start(now);
+  osc2.stop(now + 0.06);
+};
+
+const bindDrag = (handle, nodeEl) => {
+  handle.addEventListener("pointerdown", (event) => {
+    event.preventDefault();
+    const graphNode = nodeByElement.get(nodeEl);
+    if (!graphNode) return;
+    const rect = roadmap.getBoundingClientRect();
+    dragState.node = graphNode;
+    dragState.offsetX = rect.left + graphNode.x - event.clientX;
+    dragState.offsetY = rect.top + graphNode.y - event.clientY;
+    graphNode.fixed = true;
+    nodeEl.classList.add("is-dragging");
+    handle.setPointerCapture(event.pointerId);
+  });
+
+  handle.addEventListener("pointermove", (event) => {
+    if (!dragState.node) return;
+    const rect = roadmap.getBoundingClientRect();
+    dragState.node.x = event.clientX - rect.left + dragState.offsetX;
+    dragState.node.y = event.clientY - rect.top + dragState.offsetY;
+  });
+
+  handle.addEventListener("pointerup", (event) => {
+    if (!dragState.node) return;
+    if (dragState.node.type === "main") {
+      dragState.node.fixed = true;
+      dragState.node.baseX = dragState.node.x;
+      dragState.node.baseY = dragState.node.y;
+    } else {
+      dragState.node.fixed = false;
+    }
+    nodeEl.classList.remove("is-dragging");
+    handle.releasePointerCapture(event.pointerId);
+    dragState.node = null;
+  });
+
+  handle.addEventListener("pointercancel", (event) => {
+    if (!dragState.node) return;
+    if (dragState.node.type === "main") {
+      dragState.node.fixed = true;
+      dragState.node.baseX = dragState.node.x;
+      dragState.node.baseY = dragState.node.y;
+    } else {
+      dragState.node.fixed = false;
+    }
+    nodeEl.classList.remove("is-dragging");
+    handle.releasePointerCapture(event.pointerId);
+    dragState.node = null;
+  });
+};
+
+roadmapNodes.forEach((node) => {
+  const handle = node.querySelector(".main-node");
+  if (handle) bindDrag(handle, node);
+});
+
+const subNodes = Array.from(document.querySelectorAll(".offshoot-node.graph-node"));
+subNodes.forEach((sub) => {
+  bindDrag(sub, sub);
+});
+
+const clickTargets = Array.from(document.querySelectorAll(".main-node, .offshoot-node"));
+clickTargets.forEach((target) => {
+  target.addEventListener("click", () => {
+    playGlitch();
+  });
+});
+
+window.addEventListener("resize", renderRoadmapLines);
+window.addEventListener("scroll", renderRoadmapLines, { passive: true });
+renderRoadmapLines();
+if (roadmap) {
+  tickGraph();
+}
+
+projectTriggers.forEach((trigger) => {
+  trigger.addEventListener("click", openProject);
+});
+
+if (projectWidget) {
+  projectWidget.addEventListener("click", openProject);
+}
+
+if (projectClose) {
+  projectClose.addEventListener("click", closeProject);
+}
+
+if (projectBackdrop) {
+  projectBackdrop.addEventListener("click", closeProject);
+}
