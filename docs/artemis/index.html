@@ -28,7 +28,7 @@
       <div class="cursor-trail"></div>
     </div>
 
-    <aside class="info-panel panel-left">
+    <aside class="info-panel panel-left" id="contact-panel">
       <h3>Contact</h3>
       <p class="contact-email">
         mlleavenworth@gmail.com
@@ -39,7 +39,7 @@
       <p>720-585-5238</p>
     </aside>
 
-    <aside class="info-panel panel-right">
+    <aside class="info-panel panel-right" id="impacts-panel">
       <h3>Top Impacts</h3>
       <ul>
         <li>
@@ -52,14 +52,20 @@
       </ul>
     </aside>
 
-    <button class="mobile-panel mobile-left" type="button">
+    <button class="mobile-panel mobile-top-left" type="button" data-panel="contact" aria-controls="contact-panel">
       Contact
     </button>
-    <button class="mobile-panel mobile-right" type="button">
+    <button class="mobile-panel mobile-top-right" type="button" data-panel="impacts" aria-controls="impacts-panel">
       Top Impacts
     </button>
+    <button class="mobile-panel mobile-bottom-left" type="button" data-panel="tech" aria-controls="tech-panel">
+      Tech Stack
+    </button>
+    <button class="mobile-panel mobile-bottom-right" type="button" data-panel="projects" aria-controls="projects-panel">
+      Projects
+    </button>
 
-    <aside class="tech-panel tech-left" aria-expanded="false">
+    <aside class="tech-panel tech-left" id="tech-panel" aria-expanded="false">
       <button class="tech-toggle" type="button">
         <span class="tech-title">Tech Stack</span>
         <span class="tech-sub">Click to expand</span>
@@ -211,7 +217,7 @@
       </div>
     </aside>
 
-    <aside class="projects-panel" aria-expanded="false">
+    <aside class="projects-panel" id="projects-panel" aria-expanded="false">
       <button class="projects-toggle" type="button">
         <span class="projects-title">Projects</span>
         <span class="projects-sub">Click to expand</span>
