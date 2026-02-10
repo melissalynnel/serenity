@@ -426,6 +426,35 @@ a {
   .pdf-panel.is-mobile-open {
     bottom: calc(160px + env(safe-area-inset-bottom, 0px));
   }
+  .info-panel.panel-left.is-mobile-open,
+  .info-panel.panel-right.is-mobile-open,
+  .tech-panel.is-mobile-open,
+  .projects-panel.is-mobile-open,
+  .pdf-panel.is-mobile-open {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    color: #2a1f3b;
+  }
+  .info-panel.panel-left.is-mobile-open h3,
+  .info-panel.panel-right.is-mobile-open h3,
+  .projects-title,
+  .tech-title,
+  .pdf-title {
+    color: #2a1f3b;
+  }
+  .info-panel.panel-left.is-mobile-open p,
+  .info-panel.panel-right.is-mobile-open p,
+  .info-panel.panel-left.is-mobile-open li,
+  .info-panel.panel-right.is-mobile-open li,
+  .projects-sub,
+  .tech-sub,
+  .pdf-sub {
+    color: rgba(42, 31, 59, 0.75);
+  }
+  .tech-item,
+  .projects-item {
+    border-color: rgba(42, 31, 59, 0.25);
+  }
 }
 
 
@@ -521,9 +550,9 @@ a {
   bottom: calc(12px + env(safe-area-inset-bottom, 0px));
   padding: 12px 12px 8px;
   border-radius: 18px;
-  background: rgba(10, 6, 22, 0.65);
-  border: 1px solid rgba(255, 140, 43, 0.35);
-  box-shadow: 0 18px 40px rgba(12, 8, 28, 0.45);
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 18px 40px rgba(12, 8, 28, 0.25);
   backdrop-filter: blur(12px) saturate(140%);
   display: none;
   z-index: 5;
@@ -540,11 +569,11 @@ a {
 }
 
 .toolkit-card {
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(42, 31, 59, 0.2);
   border-radius: 14px;
   padding: 12px;
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--text);
+  background: rgba(255, 255, 255, 0.75);
+  color: #2a1f3b;
   display: grid;
   gap: 8px;
   text-align: left;
@@ -554,8 +583,8 @@ a {
 }
 
 .toolkit-card.is-active {
-  border-color: rgba(72, 240, 255, 0.7);
-  box-shadow: 0 12px 28px rgba(72, 240, 255, 0.18);
+  border-color: rgba(42, 31, 59, 0.5);
+  box-shadow: 0 12px 28px rgba(42, 31, 59, 0.2);
   transform: translateY(-2px);
 }
 
@@ -570,7 +599,7 @@ a {
   font-size: 0.72rem;
   line-height: 1.5;
   white-space: pre-line;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(42, 31, 59, 0.85);
 }
 
 .toggle-bar {
