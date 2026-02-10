@@ -26,19 +26,19 @@ const bokeh = Array.from({ length: 16 }).map((_, i) => {
 
 const quickLinks = [
   {
-    label: "Artemis",
+    label: "Professional",
     href: "./artemis/",
-    icon: "💼",
+    iconUrl: "https://img.icons8.com/ios-filled/50/ffffff/briefcase.png",
   },
   {
     label: "Wimbly",
     href: "https://melissalynnel.github.io/wimbly-biscuit-co/",
-    icon: "🌍",
+    iconUrl: "https://img.icons8.com/ios-filled/50/ffffff/globe.png",
   },
   {
-    label: "Luna",
+    label: "Artistic",
     href: "./luna/",
-    icon: "🎨",
+    iconUrl: "https://img.icons8.com/ios-filled/50/ffffff/paint-palette.png",
   },
 ];
 
@@ -47,7 +47,6 @@ export default function App() {
   const lastRef = useRef({ x: 0, y: 0 });
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
-  const [showResume, setShowResume] = useState(false);
   const [showSocial, setShowSocial] = useState(false);
   const [showMarketing, setShowMarketing] = useState(false);
   const [timeString, setTimeString] = useState("");
@@ -79,17 +78,16 @@ export default function App() {
   ];
 
   useEffect(() => {
-    if (!showResume && !showSocial && !showMarketing) return undefined;
+    if (!showSocial && !showMarketing) return undefined;
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
-        setShowResume(false);
         setShowSocial(false);
         setShowMarketing(false);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [showResume, showSocial, showMarketing]);
+  }, [showSocial, showMarketing]);
 
   useEffect(() => {
     const updateTime = () => {
@@ -274,7 +272,7 @@ export default function App() {
 
   const handlePointerDown = (event) => {
     if (isMobile) return;
-    if (showResume || showSocial || showMarketing) return;
+    if (showSocial || showMarketing) return;
     if (
       event.target.closest(".node") ||
       event.target.closest(".spotify-player") ||
@@ -385,7 +383,12 @@ export default function App() {
                   rel="noreferrer"
                   aria-label={link.label}
                 >
-                  <span aria-hidden="true">{link.icon}</span>
+                  <img
+                    className="icon-img"
+                    src={link.iconUrl}
+                    alt=""
+                    aria-hidden="true"
+                  />
                 </a>
               ))}
             </div>
@@ -401,7 +404,6 @@ export default function App() {
                   : `translate(${node.x}px, ${node.y}px)`,
               }}
               onClick={() => {
-                if (node.id === "resume") setShowResume(true);
                 if (node.link) window.open(node.link, "_blank", "noreferrer");
               }}
               role={node.link ? "link" : undefined}
@@ -511,168 +513,6 @@ export default function App() {
           src={`${import.meta.env.BASE_URL}fairy-sparkle.mp3`}
           preload="none"
         />
-
-        {showResume && (
-          <div
-            className="resume-overlay"
-            role="dialog"
-            aria-modal="true"
-            onPointerDown={(event) => event.stopPropagation()}
-          >
-            <div className="resume-card" onPointerDown={(event) => event.stopPropagation()}>
-              <button
-                className="resume-close"
-                aria-label="Close resume"
-                onClick={() => setShowResume(false)}
-              >
-                ✕
-              </button>
-              <div className="resume-header">
-                <div>
-                  <h2>MELISSA LEAVENWORTH</h2>
-                  <p>San Francisco, CA • 720-585-5238 • mlleavenworth@gmail.com</p>
-                </div>
-                <a className="resume-download" href="/resume.pdf" download>
-                  Download PDF
-                </a>
-              </div>
-
-            <section>
-              <h3>Relevant Experience</h3>
-              <div className="resume-item">
-                <div className="resume-role">
-                  <span>Founder &amp; GTM Consultant</span>
-                  <span>Levity Ltd.</span>
-                </div>
-                <div className="resume-meta">Jan 2023 - Present • Denver, CO</div>
-                <ul>
-                  <li>
-                    Built GTM and operational systems for early-stage founders, reducing execution friction
-                    and clarifying priorities across marketing, product, and operations.
-                  </li>
-                  <li>
-                    Designed playbooks and automated workflows that improved outreach efficiency by 66% and
-                    reduced manual coordination by 35%.
-                  </li>
-                  <li>
-                    Directed cross-functional execution across 20+ projects, delivering faster GTM readiness
-                    and systematized operations.
-                  </li>
-                  <li>
-                    Produced and optimized newsletters achieving 75%+ open rates through improved positioning
-                    and audience segmentation.
-                  </li>
-                  <li>
-                    Led narrative and content strategy driving 14M+ combined views, including placement on
-                    The Joe Rogan Experience.
-                  </li>
-                </ul>
-              </div>
-
-              <div className="resume-item">
-                <div className="resume-role">
-                  <span>Marketing &amp; Content Operations Lead</span>
-                  <span>Live.Laugh.Colorado. Real Estate Group</span>
-                </div>
-                <div className="resume-meta">Sep 2024 – Dec 2025 • Denver, CO</div>
-                <ul>
-                  <li>
-                    Standardized GTM processes, enabling consistent brand execution and measurable ROI across
-                    a $100M+ annual revenue pipeline.
-                  </li>
-                  <li>
-                    Led cross-functional initiatives connecting design, content, and operations, improving
-                    campaign delivery speed by 100%.
-                  </li>
-                  <li>
-                    Built Asana-based operational systems streamlining listing workflows, reducing turnaround
-                    time by 66% across teams in 3 markets.
-                  </li>
-                  <li>
-                    Overhauled digital listing content and distribution, increasing engagement by 30% and
-                    strengthening referral pipelines.
-                  </li>
-                  <li>
-                    Produced and optimized newsletters consistently achieving 75%+ open rates through improved
-                    positioning and targeting.
-                  </li>
-                </ul>
-              </div>
-
-              <div className="resume-item">
-                <div className="resume-role">
-                  <span>Head of Communications</span>
-                  <span>Primitive</span>
-                </div>
-                <div className="resume-meta">May 2022 – Dec 2022 • Remote</div>
-                <ul>
-                  <li>
-                    Shaped GTM storytelling and external communications for an AMM-based fintech product
-                    supporting a $9M fundraise.
-                  </li>
-                  <li>Increased media visibility by 100% through targeted outreach and narrative positioning.</li>
-                  <li>
-                    Coordinated launch operations across product, engineering, and PR teams, contributing to
-                    1.7M TVL.
-                  </li>
-                  <li>
-                    Translated complex blockchain mechanics into investor-ready decks, scripts, and documentation.
-                  </li>
-                  <li>
-                    Edited white papers, technical documentation, and product content for accuracy, clarity,
-                    and narrative cohesion.
-                  </li>
-                  <li>
-                    Coordinated closely with founders, engineering, and business development to align storytelling
-                    with product strategy and launch goals.
-                  </li>
-                </ul>
-              </div>
-
-              <div className="resume-item">
-                <div className="resume-role">
-                  <span>Content &amp; Product Operations Coordinator</span>
-                  <span>Learning Advantage, Inc.</span>
-                </div>
-                <div className="resume-meta">Oct 2019 – Dec 2021 • Fort Collins, CO</div>
-                <ul>
-                  <li>
-                    Built workflow automations integrating photography, editing, and publishing pipelines,
-                    increasing operational efficiency by 78%.
-                  </li>
-                  <li>Developed automated asset-sorting scripts, reducing manual filing time by 90%.</li>
-                  <li>Partnered with sales/design teams to streamline product rollout workflows.</li>
-                </ul>
-              </div>
-            </section>
-
-            <section>
-              <h3>Education</h3>
-              <p>
-                Colorado State University • Fort Collins, CO
-                <br />
-                B.A. Journalism &amp; Media Communication &amp; B.S. Psychology
-              </p>
-              <p>
-                Completed Venture Accelerator &amp; Venture Validator programs focused on customer discovery
-                and early GTM validation.
-              </p>
-              <p>
-                Editor at Rocky Mountain Collegian &amp; CSU Student Media, coordinating multi-writer coverage
-                and enforcing AP Style while building strong deadline discipline and operational foundations.
-              </p>
-            </section>
-
-            <section>
-              <h3>Certifications</h3>
-              <ul>
-                <li>Notion Certified Admin • Jan 2026</li>
-                <li>Notion Academy Essentials • Workflows • Advanced • Dec 2025</li>
-              </ul>
-            </section>
-          </div>
-        </div>
-      )}
 
         {showSocial && (
           <div className="resume-overlay" role="dialog" aria-modal="true">
