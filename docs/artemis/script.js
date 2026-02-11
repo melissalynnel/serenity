@@ -395,7 +395,7 @@ const techGrid = document.querySelector(".tech-grid");
 const projectsPanel = document.querySelector(".projects-panel");
 const projectsToggle = document.querySelector(".projects-toggle");
 const projectsGrid = document.querySelector(".projects-grid");
-const mobileIcons = Array.from(document.querySelectorAll(".mobile-icon[data-target]"));
+const mobileIcons = Array.from(document.querySelectorAll(".mobile-icon"));
 const mobilePanels = Array.from(document.querySelectorAll("[data-mobile-panel]"));
 const bubbleSound = typeof Audio !== "undefined" ? new Audio("assets/audio/bubble.wav") : null;
 if (bubbleSound) {
