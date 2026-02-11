@@ -610,13 +610,13 @@ a {
 .toolkit-scroller {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: minmax(0, 190%);
+  grid-auto-columns: minmax(0, calc(100vw - 24px));
   gap: 12px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   padding-bottom: 2px;
-  padding-left: 0;
-  padding-right: 0;
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .toolkit-card {
@@ -632,6 +632,7 @@ a {
   cursor: pointer;
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   width: 100%;
+  min-width: calc(100vw - 24px);
   min-height: 120px;
   max-height: 132px;
   overflow: hidden;
