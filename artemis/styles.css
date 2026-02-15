@@ -83,6 +83,11 @@ a {
   margin-top: -5px;
 }
 
+.contact-link {
+  display: inline-block;
+  cursor: pointer;
+}
+
 .linkedin-link {
   display: inline-flex;
   align-items: center;
@@ -912,6 +917,7 @@ a {
   z-index: 3;
   pointer-events: auto;
   width: 100%;
+  transform: none;
 }
 
 .hub-title-wrap {
@@ -926,7 +932,7 @@ a {
   letter-spacing: 0.02em;
   text-align: center;
   width: 100%;
-  transform: translateX(-22px);
+  transform: none;
   pointer-events: none;
 }
 
@@ -936,7 +942,7 @@ a {
   text-shadow: 0 0 10px rgba(72, 240, 255, 0.8), 0 0 20px rgba(72, 240, 255, 0.6);
   text-align: center;
   width: 100%;
-  transform: translate(-22px, -6px);
+  transform: translateY(-6px);
   pointer-events: none;
 }
 
@@ -1015,12 +1021,12 @@ a {
   text-transform: uppercase;
   cursor: pointer;
   box-shadow: 0 0 18px rgba(72, 240, 255, 0.35);
-  transform: translateX(-32px);
+  transform: none;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .video-trigger:hover {
-  transform: translate(-32px, -2px);
+  transform: translateY(-2px);
   box-shadow: 0 0 26px rgba(255, 79, 216, 0.45);
   border-color: rgba(255, 79, 216, 0.7);
 }
@@ -1047,11 +1053,14 @@ a {
 
 .orbit {
   position: absolute;
+  top: 50%;
+  left: 50%;
   width: min(640px, 86vw);
   height: min(640px, 86vw);
   z-index: 1;
-  transform: rotate(var(--orbit-rotation, 0deg));
-  pointer-events: none;
+  isolation: isolate;
+  transform: translate(-50%, -50%) rotate(var(--orbit-rotation, 0deg));
+  pointer-events: auto;
 }
 
 .orbit::before,
@@ -1061,7 +1070,7 @@ a {
   inset: 8%;
   border-radius: 50%;
   pointer-events: none;
-  z-index: 0;
+  z-index: 1;
 }
 
 .orbit::before {
@@ -1097,7 +1106,7 @@ a {
   text-transform: uppercase;
   letter-spacing: 0.2em;
   font-size: 0.65rem;
-  z-index: 7;
+  z-index: 5;
   pointer-events: auto;
 }
 
@@ -1158,7 +1167,7 @@ a {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
-  z-index: 20;
+  z-index: 6;
 }
 
 .icon-node:hover::after {
@@ -1167,14 +1176,35 @@ a {
 
 @media (min-width: 901px) {
   .stage {
-    padding-top: 96px;
-    padding-bottom: 104px;
+    --desktop-wheel-y-offset: -22px;
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+
+  .sphere-text {
+    transform: translateX(-40px);
+  }
+
+  .hub {
+    transform: translateY(var(--desktop-wheel-y-offset));
   }
 
   .orbit {
     width: min(560px, 72vw, calc(100dvh - 220px));
     height: min(560px, 72vw, calc(100dvh - 220px));
+    top: calc(50% + var(--desktop-wheel-y-offset));
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(var(--orbit-rotation, 0deg));
     z-index: 1;
+  }
+
+  .icon-node {
+    min-width: 96px;
+  }
+
+  .icon-content {
+    width: 96px;
+    justify-items: center;
   }
 }
 
@@ -2118,8 +2148,22 @@ a {
 }
 
 @media (max-width: 900px) {
+  .hub {
+    pointer-events: none;
+  }
+
   .orbit {
     transform: rotate(var(--orbit-rotation, 0deg));
+    z-index: 8;
+  }
+
+  .icon-node {
+    z-index: 20;
+    pointer-events: auto;
+  }
+
+  .video-trigger {
+    pointer-events: auto;
   }
 
   .icon-node::after {

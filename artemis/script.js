@@ -136,7 +136,8 @@ const updateTooltipAnchors = () => {
   const centerX = orbitRect.left + orbitRect.width / 2;
   const centerY = orbitRect.top + orbitRect.height / 2;
   iconNodes.forEach((node) => {
-    const rect = node.getBoundingClientRect();
+    const dot = node.querySelector(".icon-dot");
+    const rect = (dot || node).getBoundingClientRect();
     const nodeCenterX = rect.left + rect.width / 2;
     const nodeCenterY = rect.top + rect.height / 2;
     const dx = nodeCenterX - centerX;
@@ -168,18 +169,33 @@ const scheduleAnchorUpdate = () => {
 
 const placeNodes = () => {
   if (!orbit || iconNodes.length === 0) return;
-  const radius = orbit.clientWidth / 2.1;
+  const isNarrow = window.innerWidth <= 900;
+  const radius = orbit.clientWidth * (isNarrow ? 0.425 : 0.372);
   const centerX = orbit.clientWidth / 2;
   const centerY = orbit.clientHeight / 2;
   const step = (Math.PI * 2) / iconNodes.length;
 
   iconNodes.forEach((node, index) => {
+    const dot = node.querySelector(".icon-dot");
     const angle = -Math.PI / 2 + index * step;
     const x = centerX + Math.cos(angle) * radius;
-    const y = centerY + Math.sin(angle) * radius;
+    let y = centerY + Math.sin(angle) * radius;
     node.style.left = `${x}px`;
     node.style.top = `${y}px`;
     node.style.transform = "translate(-50%, -50%)";
+
+    // Align the actual dot center to the computed ring center.
+    if (dot) {
+      const nodeRect = node.getBoundingClientRect();
+      const dotRect = dot.getBoundingClientRect();
+      const nodeCenterY = nodeRect.top + nodeRect.height / 2;
+      const dotCenterY = dotRect.top + dotRect.height / 2;
+      const dotOffsetY = dotCenterY - nodeCenterY;
+      if (dotOffsetY !== 0) {
+        y -= dotOffsetY;
+        node.style.top = `${y}px`;
+      }
+    }
   });
   scheduleAnchorUpdate();
 };
