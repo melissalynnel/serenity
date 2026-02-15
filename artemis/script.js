@@ -593,6 +593,18 @@ const closeMobilePanels = () => {
   mobilePanels.forEach((panel) => {
     panel.classList.remove("is-mobile-open");
   });
+  if (techPanel) {
+    techPanel.setAttribute("aria-expanded", "false");
+  }
+  if (techGrid) {
+    techGrid.setAttribute("aria-hidden", "true");
+  }
+  if (projectsPanel) {
+    projectsPanel.setAttribute("aria-expanded", "false");
+  }
+  if (projectsGrid) {
+    projectsGrid.setAttribute("aria-hidden", "true");
+  }
 };
 
 const closeToolkit = () => {
@@ -627,6 +639,12 @@ mobileIcons.forEach((icon) => {
         techPanel.setAttribute("aria-expanded", "true");
         if (techGrid) {
           techGrid.setAttribute("aria-hidden", "false");
+        }
+      }
+      if (target === "projects" && projectsPanel) {
+        projectsPanel.setAttribute("aria-expanded", "true");
+        if (projectsGrid) {
+          projectsGrid.setAttribute("aria-hidden", "false");
         }
       }
     }

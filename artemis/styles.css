@@ -456,6 +456,9 @@ a {
       60vh,
       calc(100dvh - 328px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px))
     );
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
   }
   .tech-panel.is-mobile-open .tech-toggle {
     pointer-events: none;
@@ -473,6 +476,19 @@ a {
       360px,
       calc(100dvh - 328px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px))
     );
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+  .projects-panel.is-mobile-open .projects-toggle {
+    pointer-events: none;
+  }
+  .projects-panel.is-mobile-open .projects-sub {
+    display: none;
+  }
+  .projects-panel.is-mobile-open .projects-grid {
+    opacity: 1;
+    transform: translateY(0);
   }
   .pdf-panel.is-mobile-open {
     bottom: calc(160px + env(safe-area-inset-bottom, 0px));
