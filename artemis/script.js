@@ -419,6 +419,7 @@ const syncToolkitCards = () => {
     const entry = viewEntries[index % viewEntries.length] || {};
     const card = toolkitCards[index];
     if (!card) return;
+    card.dataset.view = currentViewKey;
     if (entry.id) {
       card.dataset.role = entry.id;
     } else {
@@ -426,15 +427,41 @@ const syncToolkitCards = () => {
     }
     const title = card.querySelector(".toolkit-title");
     const body = card.querySelector(".toolkit-body");
-    if (title) title.textContent = label.replace(/\s*\n\s*/g, " ");
     if (body) {
       const tipLines = tip.split("\n").map((line) => line.trim()).filter(Boolean);
       const bulletStart = tipLines.findIndex((line) => line.startsWith("•"));
       const bullets = bulletStart >= 0 ? tipLines.slice(bulletStart) : [];
-      const companyLine =
-        currentViewKey === "role" && entry.company ? entry.company : "";
-      const content = [companyLine, ...bullets].filter(Boolean).join("\n");
-      body.textContent = content;
+
+      if (currentViewKey === "role") {
+        const labelLines = (entry.label || label)
+          .split("\n")
+          .map((line) => line.trim())
+          .filter(Boolean);
+        const yearLine =
+          labelLines.find((line) => /\b(19|20)\d{2}\b/.test(line)) || "";
+        const roleLines = labelLines.filter((line) => line !== yearLine);
+        const roleText = roleLines.join(" ");
+        const metaLine = [entry.company || "", yearLine].filter(Boolean).join(" | ");
+        const bulletLines = bullets
+          .map((line) => line.replace(/^•\s*/, "").trim())
+          .filter(Boolean)
+          .map((line) => `• ${line}`);
+        if (title) title.textContent = roleText || label.replace(/\s*\n\s*/g, " ");
+        body.textContent = [metaLine, ...bulletLines]
+          .filter(Boolean)
+          .join("\n")
+          .replace(/\n{2,}/g, "\n")
+          .trim();
+      } else {
+        if (title) title.textContent = label.replace(/\s*\n\s*/g, " ");
+        body.textContent = bullets
+          .map((line) => line.replace(/^•\s*/, "").trim())
+          .filter(Boolean)
+          .map((line) => `• ${line}`)
+          .join("\n")
+          .replace(/\n{2,}/g, "\n")
+          .trim();
+      }
     }
   });
 

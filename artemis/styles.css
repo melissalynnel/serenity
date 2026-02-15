@@ -679,7 +679,7 @@ a {
 .toolkit-scroller {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: 300px;
+  grid-auto-columns: 320px;
   gap: 6px;
   overflow-x: auto;
   overflow-y: hidden;
@@ -706,7 +706,7 @@ a {
   scroll-snap-align: center;
   cursor: pointer;
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-  width: 300px;
+  width: 320px;
   min-width: 0;
   min-height: 100px;
   max-height: 112px;
@@ -736,6 +736,30 @@ a {
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.toolkit-card[data-view="role"] {
+  min-height: 100px;
+  max-height: 112px;
+  gap: 6px;
+  padding: 12px 14px;
+  overflow: hidden;
+}
+
+.toolkit-card[data-view="role"] .toolkit-title {
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  line-height: 1.2;
+}
+
+.toolkit-card[data-view="role"] .toolkit-body {
+  font-size: 0.64rem;
+  line-height: 1.24;
+  display: block;
+  -webkit-line-clamp: unset;
+  -webkit-box-orient: initial;
+  overflow: visible;
+  white-space: pre-line;
 }
 
 .toggle-bar {
