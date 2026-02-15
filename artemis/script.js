@@ -168,8 +168,7 @@ const scheduleAnchorUpdate = () => {
 
 const placeNodes = () => {
   if (!orbit || iconNodes.length === 0) return;
-  const isNarrow = window.innerWidth <= 900;
-  const radius = orbit.clientWidth / (isNarrow ? 2.35 : 2.1);
+  const radius = orbit.clientWidth / 2.1;
   const centerX = orbit.clientWidth / 2;
   const centerY = orbit.clientHeight / 2;
   const step = (Math.PI * 2) / iconNodes.length;
@@ -467,6 +466,7 @@ const setActiveToggle = (viewKey) => {
 
 toggleButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
+    playBubble();
     const view = btn.dataset.view;
     setActiveToggle(view);
   });
@@ -589,6 +589,23 @@ if (projectsPanel && projectsToggle) {
   });
 }
 
+const closeDesktopPanels = () => {
+  if (techPanel) {
+    techPanel.classList.remove("is-open");
+    techPanel.setAttribute("aria-expanded", "false");
+  }
+  if (techGrid) {
+    techGrid.setAttribute("aria-hidden", "true");
+  }
+  if (projectsPanel) {
+    projectsPanel.classList.remove("is-open");
+    projectsPanel.setAttribute("aria-expanded", "false");
+  }
+  if (projectsGrid) {
+    projectsGrid.setAttribute("aria-hidden", "true");
+  }
+};
+
 const closeMobilePanels = () => {
   mobilePanels.forEach((panel) => {
     panel.classList.remove("is-mobile-open");
@@ -677,6 +694,18 @@ const handleOutsideClose = (event) => {
 
 document.addEventListener("click", handleOutsideClose);
 document.addEventListener("touchend", handleOutsideClose);
+
+const handleDesktopPanelClose = (event) => {
+  if (window.innerWidth <= 900) return;
+  const target = event.target;
+  if (target.closest(".tech-panel")) return;
+  if (target.closest(".projects-panel")) return;
+  if (target.closest(".tech-toggle")) return;
+  if (target.closest(".projects-toggle")) return;
+  closeDesktopPanels();
+};
+
+document.addEventListener("click", handleDesktopPanelClose);
 
 const techLogos = Array.from(document.querySelectorAll(".tech-item img"));
 
