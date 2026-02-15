@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="https://use.typekit.net/vyy0wuq.css" />
-    <link rel="stylesheet" href="styles.css?v=20260210-34" />
+    <link rel="stylesheet" href="styles.css?v=20260210-39" />
   </head>
   <body>
     <div class="space" aria-hidden="true">
@@ -271,16 +271,17 @@
         <div class="projects-item highlight" data-project="pipeline" onclick="document.querySelectorAll('.project-modal').forEach((m)=>{m.classList.remove('is-open');m.setAttribute('aria-hidden','true');});const modal=document.getElementById('project-modal');if(modal){modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');}">$100M+ Pipeline</div>
         <div class="projects-item" data-project="narrative" onclick="document.querySelectorAll('.project-modal').forEach((m)=>{m.classList.remove('is-open');m.setAttribute('aria-hidden','true');});const modal=document.getElementById('project-modal-narrative');if(modal){modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');}">14M+ Narrative Views</div>
         <div class="projects-item" data-project="fundraising" onclick="document.querySelectorAll('.project-modal').forEach((m)=>{m.classList.remove('is-open');m.setAttribute('aria-hidden','true');});const modal=document.getElementById('project-modal-fundraising');if(modal){modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');}">$9M Fundraising Round</div>
-        <div class="projects-item">Project four</div>
-        <div class="projects-item">Project five</div>
-        <div class="projects-item">Project six</div>
       </div>
     </aside>
 
     <aside class="pdf-panel" data-mobile-panel="resume">
-      <a class="pdf-download" href="Melissa-Leavenworth_Resume.pdf" target="_blank" rel="noreferrer">
-        <span class="pdf-title">Resume PDF</span>
-        <span class="pdf-sub">Download</span>
+      <a class="pdf-download" href="Melissa-Leavenworth_Resume.pdf" target="_blank" rel="noreferrer" aria-label="Download resume PDF">
+        <span class="pdf-label">Resume</span>
+        <svg class="pdf-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 4v10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M8 10l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M6 20h12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </svg>
       </a>
     </aside>
 
@@ -749,6 +750,6 @@
       </div>
     </div>
 
-    <script src="script.js?v=20260210-34"></script>
+    <script src="script.js?v=20260210-39"></script>
   </body>
 </html>

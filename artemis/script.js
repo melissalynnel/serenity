@@ -81,6 +81,7 @@ const iconNodes = Array.from(document.querySelectorAll(".icon-node"));
 let orbitRotation = 0;
 let anchorFrame = null;
 let lastOrbitRotation = orbitRotation;
+let orbitTweenFrame = null;
 
 const updateOrbit = () => {
   if (!orbit) return;
@@ -90,16 +91,70 @@ const updateOrbit = () => {
   scheduleAnchorUpdate();
 };
 
+const stopOrbitTween = () => {
+  if (!orbitTweenFrame) return;
+  cancelAnimationFrame(orbitTweenFrame);
+  orbitTweenFrame = null;
+};
+
+const getClosestRotationTarget = (target, from) => {
+  let adjusted = target;
+  while (adjusted - from > 180) adjusted -= 360;
+  while (adjusted - from < -180) adjusted += 360;
+  return adjusted;
+};
+
+const easeInOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : 1 - ((-2 * t + 2) ** 3) / 2);
+
+const animateOrbitTo = (targetRotation, duration = 520) => {
+  stopOrbitTween();
+  const startRotation = orbitRotation;
+  const destination = getClosestRotationTarget(targetRotation, startRotation);
+  const start = performance.now();
+
+  const frame = (now) => {
+    const elapsed = now - start;
+    const progress = Math.min(1, elapsed / duration);
+    const eased = easeInOutCubic(progress);
+    orbitRotation = startRotation + (destination - startRotation) * eased;
+    updateOrbit();
+    if (progress < 1) {
+      orbitTweenFrame = requestAnimationFrame(frame);
+      return;
+    }
+    orbitRotation = destination;
+    updateOrbit();
+    orbitTweenFrame = null;
+  };
+
+  orbitTweenFrame = requestAnimationFrame(frame);
+};
+
 const updateTooltipAnchors = () => {
   if (!orbit) return;
   const orbitRect = orbit.getBoundingClientRect();
   const centerX = orbitRect.left + orbitRect.width / 2;
+  const centerY = orbitRect.top + orbitRect.height / 2;
   iconNodes.forEach((node) => {
     const rect = node.getBoundingClientRect();
     const nodeCenterX = rect.left + rect.width / 2;
-    const isRightSide = nodeCenterX > centerX + 4;
-    node.classList.toggle("tooltip-right", isRightSide);
-    node.classList.toggle("tooltip-left", !isRightSide);
+    const nodeCenterY = rect.top + rect.height / 2;
+    const dx = nodeCenterX - centerX;
+    const dy = nodeCenterY - centerY;
+    const dominantAxis = Math.abs(dx) >= Math.abs(dy) ? "x" : "y";
+    const direction =
+      dominantAxis === "x"
+        ? dx >= 0
+          ? "right"
+          : "left"
+        : dy >= 0
+          ? "bottom"
+          : "top";
+
+    node.classList.toggle("tooltip-right", direction === "right");
+    node.classList.toggle("tooltip-left", direction === "left");
+    node.classList.toggle("tooltip-top", direction === "top");
+    node.classList.toggle("tooltip-bottom", direction === "bottom");
   });
 };
 
@@ -139,6 +194,7 @@ const handleWheel = (event) => {
     return;
   }
   event.preventDefault();
+  stopOrbitTween();
   const delta = event.deltaX - event.deltaY;
   if (delta === 0) return;
   orbitRotation += delta * 0.08;
@@ -249,7 +305,7 @@ const toolkitCards = [];
 let activeNodeIndex = 7;
 let currentViewKey = "area";
 
-const setActiveNode = (index, { scrollToolkit = false } = {}) => {
+const setActiveNode = (index, { scrollToolkit = false, animateRotation = false } = {}) => {
   if (!iconNodes.length) return;
   const total = iconNodes.length;
   activeNodeIndex = ((index % total) + total) % total;
@@ -270,7 +326,13 @@ const setActiveNode = (index, { scrollToolkit = false } = {}) => {
     mobileToolkit.classList.add("is-active");
   }
   const step = 360 / total;
-  orbitRotation = -activeNodeIndex * step;
+  const targetRotation = -activeNodeIndex * step;
+  if (animateRotation) {
+    animateOrbitTo(targetRotation);
+    return;
+  }
+  stopOrbitTween();
+  orbitRotation = targetRotation;
   updateOrbit();
 };
 
@@ -360,7 +422,11 @@ setActiveToggle("area");
 
 iconNodes.forEach((node, index) => {
   node.addEventListener("click", () => {
-    setActiveNode(index, { scrollToolkit: true });
+    if (window.innerWidth > 900) return;
+    setActiveNode(index, {
+      scrollToolkit: true,
+      animateRotation: false,
+    });
   });
 });
 

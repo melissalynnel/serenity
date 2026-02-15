@@ -298,7 +298,7 @@ a {
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: 10px;
   padding: 0 16px 16px;
   opacity: 0;
@@ -349,8 +349,8 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding: 12px 22px;
+  gap: 8px;
+  padding: 12px 18px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(255, 140, 43, 0.8);
@@ -362,18 +362,21 @@ a {
   white-space: nowrap;
 }
 
-.pdf-title {
+.pdf-label {
   font-family: var(--font-display);
   font-size: 0.75rem;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
-.pdf-sub {
-  font-size: 0.7rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.8);
+.pdf-icon {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.pdf-download:hover .pdf-icon {
+  transform: translateY(1px);
 }
 
 @media (max-width: 900px) {
@@ -394,14 +397,17 @@ a {
   }
   .sphere-text {
     padding-top: 28px;
+    pointer-events: none;
   }
   .icon-node {
     gap: 6px;
     font-size: 0.5rem;
     letter-spacing: 0.14em;
+    z-index: 9;
   }
   .icon-label {
     line-height: 1.05;
+    pointer-events: none;
   }
   .tech-panel {
     display: none;
@@ -611,12 +617,16 @@ a {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: minmax(0, calc(100vw - 24px));
-  gap: 12px;
+  gap: 5px;
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
+  overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
   padding-bottom: 2px;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-left: 32px;
+  padding-right: 32px;
 }
 
 .toolkit-card {
@@ -1002,6 +1012,14 @@ a {
   pointer-events: auto;
 }
 
+.icon-node::before {
+  content: "";
+  position: absolute;
+  inset: -18px;
+  border-radius: 999px;
+  background: transparent;
+}
+
 .icon-content {
   display: grid;
   justify-items: center;
@@ -1063,7 +1081,7 @@ a {
   right: auto;
   top: 50%;
   bottom: auto;
-  transform: translate(2px, -50%) rotate(var(--orbit-rotation-neg, 0deg));
+  transform: translate(6px, -50%) rotate(var(--orbit-rotation-neg, 0deg));
 }
 
 .icon-node.tooltip-left::after {
@@ -1071,7 +1089,23 @@ a {
   left: auto;
   top: 50%;
   bottom: auto;
-  transform: translate(-2px, -50%) rotate(var(--orbit-rotation-neg, 0deg));
+  transform: translate(-6px, -50%) rotate(var(--orbit-rotation-neg, 0deg));
+}
+
+.icon-node.tooltip-top::after {
+  left: 50%;
+  right: auto;
+  top: auto;
+  bottom: 100%;
+  transform: translate(-50%, -6px) rotate(var(--orbit-rotation-neg, 0deg));
+}
+
+.icon-node.tooltip-bottom::after {
+  left: 50%;
+  right: auto;
+  top: 100%;
+  bottom: auto;
+  transform: translate(-50%, 6px) rotate(var(--orbit-rotation-neg, 0deg));
 }
 
 .icon-node:hover .icon-dot {
