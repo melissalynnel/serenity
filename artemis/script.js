@@ -142,6 +142,9 @@ const updateTooltipAnchors = () => {
     const nodeCenterY = rect.top + rect.height / 2;
     const dx = nodeCenterX - centerX;
     const dy = nodeCenterY - centerY;
+    const distance = Math.hypot(dx, dy) || 1;
+    const normX = dx / distance;
+    const normY = dy / distance;
     const dominantAxis = Math.abs(dx) >= Math.abs(dy) ? "x" : "y";
     const direction =
       dominantAxis === "x"
@@ -156,6 +159,8 @@ const updateTooltipAnchors = () => {
     node.classList.toggle("tooltip-left", direction === "left");
     node.classList.toggle("tooltip-top", direction === "top");
     node.classList.toggle("tooltip-bottom", direction === "bottom");
+    node.style.setProperty("--tip-x", `${normX}`);
+    node.style.setProperty("--tip-y", `${normY}`);
   });
 };
 
@@ -367,6 +372,34 @@ const viewData = {
   ],
 };
 
+const getRoleMetaFromLabel = (entry, fallbackLabel = "") => {
+  const labelLines = (entry.label || fallbackLabel)
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
+  const yearLine = labelLines.find((line) => /\b(19|20)\d{2}\b/.test(line)) || "";
+  const roleText = labelLines.filter((line) => line !== yearLine).join(" ");
+  const metaLine = [entry.company || "", yearLine].filter(Boolean).join(" | ");
+  return { roleText, metaLine };
+};
+
+const buildRoleTip = (entry, fallbackLabel = "") => {
+  const { roleText, metaLine } = getRoleMetaFromLabel(entry, fallbackLabel);
+  const bulletLines = (entry.tip || "")
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line.startsWith("•"))
+    .map((line) => line.replace(/^•\s*/, "").trim())
+    .filter(Boolean)
+    .map((line) => `• ${line}`);
+
+  return [roleText, metaLine, ...bulletLines]
+    .filter(Boolean)
+    .join("\n")
+    .replace(/\n{2,}/g, "\n")
+    .trim();
+};
+
 const toggleButtons = Array.from(document.querySelectorAll(".toggle-btn"));
 const mobileToolkit = document.querySelector(".mobile-toolkit");
 const toolkitScroller = document.querySelector(".toolkit-scroller");
@@ -491,7 +524,8 @@ const applyView = (viewKey) => {
     const entry = data[index % data.length];
     const label = node.querySelector(".icon-label");
     if (label) label.textContent = entry.label;
-    node.setAttribute("data-tip", entry.tip);
+    const tip = viewKey === "role" ? buildRoleTip(entry, entry.label) : entry.tip;
+    node.setAttribute("data-tip", tip);
     node.setAttribute("data-nowrap", entry.nowrap ? "true" : "false");
   });
   syncToolkitCards();

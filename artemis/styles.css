@@ -1146,9 +1146,16 @@ a {
 .icon-node::after {
   content: attr(data-tip);
   position: absolute;
-  bottom: calc(100% + 2px);
+  top: 50%;
   left: 50%;
-  transform: translate(-50%, -2px) rotate(var(--orbit-rotation-neg, 0deg));
+  --tip-distance: 108px;
+  transform:
+    translate(-50%, -50%)
+    translate(
+      calc(var(--tip-x, 0) * var(--tip-distance)),
+      calc(var(--tip-y, -1) * var(--tip-distance))
+    )
+    rotate(var(--orbit-rotation-neg, 0deg));
   transform-origin: center;
   width: max-content;
   max-width: none;
@@ -1209,35 +1216,31 @@ a {
 }
 
 .icon-node.tooltip-right::after {
-  left: 100%;
-  right: auto;
   top: 50%;
+  left: 50%;
+  right: auto;
   bottom: auto;
-  transform: translate(6px, -50%) rotate(var(--orbit-rotation-neg, 0deg));
 }
 
 .icon-node.tooltip-left::after {
-  right: 100%;
-  left: auto;
   top: 50%;
+  left: 50%;
+  right: auto;
   bottom: auto;
-  transform: translate(-6px, -50%) rotate(var(--orbit-rotation-neg, 0deg));
 }
 
 .icon-node.tooltip-top::after {
+  top: 50%;
   left: 50%;
   right: auto;
-  top: auto;
-  bottom: 100%;
-  transform: translate(-50%, -6px) rotate(var(--orbit-rotation-neg, 0deg));
+  bottom: auto;
 }
 
 .icon-node.tooltip-bottom::after {
+  top: 50%;
   left: 50%;
   right: auto;
-  top: 100%;
   bottom: auto;
-  transform: translate(-50%, 6px) rotate(var(--orbit-rotation-neg, 0deg));
 }
 
 .icon-node:hover .icon-dot {
