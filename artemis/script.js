@@ -202,6 +202,60 @@ const handleWheel = (event) => {
 };
 
 window.addEventListener("wheel", handleWheel, { passive: false });
+
+const orbitTouchState = {
+  id: null,
+  x: 0,
+  y: 0,
+};
+
+const handleOrbitTouchStart = (event) => {
+  if (window.innerWidth > 900) return;
+  const touch = event.changedTouches?.[0];
+  if (!touch) return;
+  orbitTouchState.id = touch.identifier;
+  orbitTouchState.x = touch.clientX;
+  orbitTouchState.y = touch.clientY;
+  stopOrbitTween();
+};
+
+const handleOrbitTouchMove = (event) => {
+  if (window.innerWidth > 900) return;
+  if (orbitTouchState.id == null) return;
+  if (document.querySelector(".project-modal.is-open") || videoModal?.classList.contains("is-open")) {
+    return;
+  }
+  const touch = Array.from(event.changedTouches || []).find(
+    (item) => item.identifier === orbitTouchState.id
+  );
+  if (!touch) return;
+  const deltaX = touch.clientX - orbitTouchState.x;
+  const deltaY = touch.clientY - orbitTouchState.y;
+  orbitTouchState.x = touch.clientX;
+  orbitTouchState.y = touch.clientY;
+  const delta = deltaX - deltaY;
+  if (delta === 0) return;
+  event.preventDefault();
+  orbitRotation += delta * 0.08;
+  updateOrbit();
+};
+
+const handleOrbitTouchEnd = (event) => {
+  if (orbitTouchState.id == null) return;
+  const endedTouch = Array.from(event.changedTouches || []).find(
+    (item) => item.identifier === orbitTouchState.id
+  );
+  if (!endedTouch) return;
+  orbitTouchState.id = null;
+};
+
+if (orbit) {
+  orbit.addEventListener("touchstart", handleOrbitTouchStart, { passive: true });
+  orbit.addEventListener("touchmove", handleOrbitTouchMove, { passive: false });
+  orbit.addEventListener("touchend", handleOrbitTouchEnd, { passive: true });
+  orbit.addEventListener("touchcancel", handleOrbitTouchEnd, { passive: true });
+}
+
 window.addEventListener("resize", () => {
   placeNodes();
   updateOrbit();
@@ -351,7 +405,7 @@ const syncToolkitCards = () => {
       card.appendChild(title);
       card.appendChild(body);
       card.addEventListener("click", () => {
-        setActiveNode(index, { scrollToolkit: true });
+        setActiveNode(index, { scrollToolkit: true, animateRotation: window.innerWidth <= 900 });
       });
       toolkitScroller.appendChild(card);
       toolkitCards.push(card);
@@ -425,7 +479,7 @@ iconNodes.forEach((node, index) => {
     if (window.innerWidth > 900) return;
     setActiveNode(index, {
       scrollToolkit: true,
-      animateRotation: false,
+      animateRotation: true,
     });
   });
 });
@@ -450,6 +504,28 @@ if (toolkitScroller) {
           closestIndex = index;
         }
       });
+      if (window.innerWidth <= 900) {
+        activeNodeIndex = closestIndex;
+        iconNodes.forEach((node, nodeIndex) => {
+          node.classList.toggle("is-selected", nodeIndex === activeNodeIndex);
+        });
+        toolkitCards.forEach((card, cardIndex) => {
+          card.classList.toggle("is-active", cardIndex === activeNodeIndex);
+        });
+
+        const firstCard = toolkitCards[0];
+        if (firstCard) {
+          const scrollerStyle = getComputedStyle(toolkitScroller);
+          const gap = parseFloat(scrollerStyle.columnGap || scrollerStyle.gap || "0") || 0;
+          const step = firstCard.getBoundingClientRect().width + gap;
+          if (step > 0) {
+            const rawIndex = toolkitScroller.scrollLeft / step;
+            orbitRotation = -rawIndex * (360 / toolkitCards.length);
+            updateOrbit();
+          }
+        }
+        return;
+      }
       setActiveNode(closestIndex);
     });
   });
@@ -547,6 +623,12 @@ mobileIcons.forEach((icon) => {
     closeMobilePanels();
     if (!isOpen) {
       panel.classList.add("is-mobile-open");
+      if (target === "tech" && techPanel) {
+        techPanel.setAttribute("aria-expanded", "true");
+        if (techGrid) {
+          techGrid.setAttribute("aria-hidden", "false");
+        }
+      }
     }
   });
 });
@@ -571,8 +653,6 @@ const handleOutsideClose = (event) => {
   if (isTouchScrolling) return;
   const target = event.target;
   if (target.closest(".mobile-icon")) return;
-  if (target.closest("[data-mobile-panel].is-mobile-open")) return;
-  if (target.closest(".mobile-toolkit")) return;
   closeMobilePanels();
   closeToolkit();
 };

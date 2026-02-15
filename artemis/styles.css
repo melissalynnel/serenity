@@ -440,7 +440,7 @@ a {
   .info-panel.panel-right.is-mobile-open {
     left: 8px;
     right: 8px;
-    top: calc(78px + env(safe-area-inset-top, 0px));
+    top: calc(86px + env(safe-area-inset-top, 0px));
     width: auto;
   }
   .tech-panel.is-mobile-open,
@@ -451,12 +451,28 @@ a {
     width: auto;
   }
   .tech-panel.is-mobile-open {
-    bottom: calc(160px + env(safe-area-inset-bottom, 0px));
-    max-height: min(60vh, 520px);
+    bottom: calc(244px + env(safe-area-inset-bottom, 0px));
+    max-height: min(
+      60vh,
+      calc(100dvh - 328px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px))
+    );
+  }
+  .tech-panel.is-mobile-open .tech-toggle {
+    pointer-events: none;
+  }
+  .tech-panel.is-mobile-open .tech-sub {
+    display: none;
+  }
+  .tech-panel.is-mobile-open .tech-grid {
+    opacity: 1;
+    transform: translateY(0);
   }
   .projects-panel.is-mobile-open {
-    bottom: calc(160px + env(safe-area-inset-bottom, 0px));
-    max-height: 360px;
+    bottom: calc(244px + env(safe-area-inset-bottom, 0px));
+    max-height: min(
+      360px,
+      calc(100dvh - 328px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px))
+    );
   }
   .pdf-panel.is-mobile-open {
     bottom: calc(160px + env(safe-area-inset-bottom, 0px));
@@ -466,16 +482,18 @@ a {
   .tech-panel.is-mobile-open,
   .projects-panel.is-mobile-open,
   .pdf-panel.is-mobile-open {
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.85);
-    color: #2a1f3b;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 140, 43, 0.8);
+    box-shadow: 0 16px 40px rgba(20, 6, 44, 0.35);
+    backdrop-filter: blur(12px) saturate(140%);
+    color: var(--text);
   }
   .info-panel.panel-left.is-mobile-open h3,
   .info-panel.panel-right.is-mobile-open h3,
   .projects-title,
   .tech-title,
   .pdf-title {
-    color: #2a1f3b;
+    color: var(--text);
   }
   .info-panel.panel-left.is-mobile-open p,
   .info-panel.panel-right.is-mobile-open p,
@@ -484,11 +502,11 @@ a {
   .projects-sub,
   .tech-sub,
   .pdf-sub {
-    color: rgba(42, 31, 59, 0.75);
+    color: rgba(255, 255, 255, 0.8);
   }
   .tech-item,
   .projects-item {
-    border-color: rgba(42, 31, 59, 0.25);
+    border-color: rgba(255, 255, 255, 0.35);
   }
 }
 
@@ -527,6 +545,7 @@ a {
 }
 
 .mobile-icon {
+  --icon-base-transform: translate3d(0, 0, 0);
   position: absolute;
   width: 44px;
   height: 44px;
@@ -539,6 +558,7 @@ a {
   place-items: center;
   pointer-events: auto;
   backdrop-filter: blur(12px) saturate(140%);
+  transform: var(--icon-base-transform);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -548,7 +568,7 @@ a {
 }
 
 .mobile-icon:active {
-  transform: scale(0.96);
+  transform: var(--icon-base-transform) scale(0.96);
   box-shadow: 0 8px 18px rgba(20, 6, 44, 0.3);
 }
 
@@ -567,32 +587,32 @@ a {
 }
 
 .corner-bl {
-  bottom: calc(215px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(185px + env(safe-area-inset-bottom, 0px));
   left: 16px;
 }
 
 .corner-bc {
-  bottom: calc(215px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(185px + env(safe-area-inset-bottom, 0px));
   left: 50%;
-  transform: translateX(-50%);
+  --icon-base-transform: translateX(-50%);
 }
 
 .corner-br {
-  bottom: calc(215px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(185px + env(safe-area-inset-bottom, 0px));
   right: 16px;
 }
 
 @keyframes bob {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-  100% { transform: translateY(0); }
+  0% { transform: var(--icon-base-transform) translateY(0); }
+  50% { transform: var(--icon-base-transform) translateY(-6px); }
+  100% { transform: var(--icon-base-transform) translateY(0); }
 }
 
 .mobile-toolkit {
   position: fixed;
-  left: 0;
-  right: 0;
-  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  left: 8.5px;
+  right: 8.5px;
+  bottom: calc(7px + env(safe-area-inset-bottom, 0px));
   padding: 14px 0 12px;
   border-radius: 26px;
   background: rgba(255, 255, 255, 0.18);
@@ -616,17 +636,19 @@ a {
 .toolkit-scroller {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: minmax(0, calc(100vw - 24px));
-  gap: 5px;
+  grid-auto-columns: 300px;
+  gap: 6px;
   overflow-x: auto;
   overflow-y: hidden;
   scroll-snap-type: x proximity;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   touch-action: pan-x;
+  margin-top: -7px;
+  padding-top: 10px;
   padding-bottom: 2px;
-  padding-left: 32px;
-  padding-right: 32px;
+  padding-left: 6px;
+  padding-right: 6px;
 }
 
 .toolkit-card {
@@ -641,10 +663,10 @@ a {
   scroll-snap-align: center;
   cursor: pointer;
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-  width: 100%;
-  min-width: calc(100vw - 24px);
-  min-height: 120px;
-  max-height: 132px;
+  width: 300px;
+  min-width: 0;
+  min-height: 100px;
+  max-height: 112px;
   overflow: hidden;
 }
 
