@@ -537,7 +537,7 @@ export default function App() {
                 >
                   <img
                     className="social-icon-img"
-                    src="https://cdn.simpleicons.org/instagram/fff"
+                    src="icons/instagram.svg"
                     alt=""
                     aria-hidden="true"
                   />
@@ -551,7 +551,7 @@ export default function App() {
                 >
                   <img
                     className="social-icon-img"
-                    src="https://logo.svgcdn.com/bxl/linkedin-square-dark.png"
+                    src="icons/linkedin.png"
                     alt=""
                     aria-hidden="true"
                   />
@@ -565,7 +565,7 @@ export default function App() {
                 >
                   <img
                     className="social-icon-img"
-                    src="https://cdn.simpleicons.org/github/fff"
+                    src="icons/github.svg"
                     alt=""
                     aria-hidden="true"
                   />
