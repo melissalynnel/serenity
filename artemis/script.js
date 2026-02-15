@@ -175,7 +175,7 @@ const scheduleAnchorUpdate = () => {
 const placeNodes = () => {
   if (!orbit || iconNodes.length === 0) return;
   const isNarrow = window.innerWidth <= 900;
-  const radius = orbit.clientWidth * (isNarrow ? 0.425 : 0.372);
+  const radius = orbit.clientWidth * (isNarrow ? 0.425 : 0.372) + (isNarrow ? 0 : 15);
   const centerX = orbit.clientWidth / 2;
   const centerY = orbit.clientHeight / 2;
   const step = (Math.PI * 2) / iconNodes.length;
@@ -638,6 +638,7 @@ const triggerBob = (el) => {
 
 if (techPanel && techToggle) {
   techToggle.addEventListener("click", () => {
+    playBubble();
     const isOpen = techPanel.classList.toggle("is-open");
     techPanel.setAttribute("aria-expanded", isOpen ? "true" : "false");
     if (techGrid) {
@@ -658,6 +659,7 @@ if (techPanel && techToggle) {
 
 if (projectsPanel && projectsToggle) {
   projectsToggle.addEventListener("click", () => {
+    playBubble();
     const isOpen = projectsPanel.classList.toggle("is-open");
     projectsPanel.setAttribute("aria-expanded", isOpen ? "true" : "false");
     if (projectsGrid) {
@@ -706,6 +708,15 @@ const closeToolkit = () => {
     mobileToolkit.classList.add("is-active");
   }
 };
+
+const syncPanelsForViewport = () => {
+  if (window.innerWidth > 900) {
+    closeMobilePanels();
+  }
+};
+
+window.addEventListener("resize", syncPanelsForViewport);
+syncPanelsForViewport();
 
 const markScrolling = () => {
   isTouchScrolling = true;

@@ -2254,4 +2254,9 @@ a {
   .toggle-bar {
     gap: 10px;
   }
+
+  /* Keep corner-button panels above all mobile scene layers. */
+  [data-mobile-panel].is-mobile-open {
+    z-index: 200001 !important;
+  }
 }
