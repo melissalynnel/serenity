@@ -28,27 +28,44 @@ const quickLinks = [
   {
     label: "Professional",
     href: "./artemis/",
-    iconUrl: "/serenity/icons/briefcase.svg",
+    iconUrl: `${import.meta.env.BASE_URL}icons/briefcase.svg`,
   },
   {
     label: "Wimbly",
     href: "https://melissalynnel.github.io/wimbly-biscuit-co/",
-    iconUrl: "/serenity/icons/globe.svg",
+    iconUrl: `${import.meta.env.BASE_URL}icons/globe.svg`,
   },
   {
     label: "Artistic",
     href: "./luna/",
-    iconUrl: "/serenity/icons/palette.svg",
+    iconUrl: `${import.meta.env.BASE_URL}icons/palette.svg`,
+  },
+];
+
+const blogArticles = [
+  {
+    id: "on-arrival",
+    title: "on arrival",
+    dateLabel: "January 11th, 2026, 7:09am",
+    cardDateLabel: "January 2026",
+    body: [
+      "I am in a perpetual, deep state of gratitude.",
+      "Moving to San Francisco feels like one of the best things I have ever done for myself, despite the fact that my condo remains unrented back in Colorado and the impending doom of nearly $4.6k in monthly living expenses will hit on the first next month. Oh, and I still haven't found a job.",
+      "There is something extreme motivating behind being on the edge of running your bank account dry. I have been living the healthiest I have in my life, strictly out of necessity. Did you know that Trader Joe's standardizes pricing across the country, so groceries are actually not too bad if you stick to them? It's eating out and apparently gas (my car has been parked in two hour parking for nine days, I am not even sure where to get gas in this city) that break the bank.",
+      "Somewhere in between pondering the sale of my 2023 Subaru Crosstrek or renting it on Turo for \"extra income\" (after it covers the $700 in insurance and parking expenses?? it's already paid off 💀), I daydream about buying a Vespa and living my Lizzie McGuire life. The only thing is, I probably have rampant ADHD that I refuse a diagnosis for, and I never took the lien letter from the bank to the DMV. So I don't even have the title to my car, therefore cannot register it, drive it on Turo, or sell it - oh and my registration expired in January (2025). Don't worry, I called the bank and I am solving this lmao.",
+      "When I leave my cute ass apartment each day, I pop out right next to a cute ass pizza shop. I live in the heart of San Francisco, Union Square. There are beautiful scenic views down every street and I am consistently captivated by the way the sunlight filters through the clouds to produce a constant golden hour effect. It's a photographer's paradise. I deeply appreciate the Victorian architecture of row homes, painted colorfully and adorned in fire escapes. I am in perpetual awe.",
+      "I average walking/running about six miles a day here. My heart doesn't hurt when I run like it did in Colorado. While I traverse this beautiful city, I think a lot about who I am and the person I am becoming. I believe that with perseverance, devotion, and tenacity, everything will \"fall\" into place. I feel extremely hopeful for my trajectory and I genuinely savor that this is a special time, in my special little expensive as fuck apartment in the most stunning city I have ever lived in.",
+      "Thank you for having me, San Francisco. I love you so much already.",
+      "Best,\nMelissa",
+    ],
   },
 ];
 
 export default function App() {
-  const draggingRef = useRef(false);
-  const lastRef = useRef({ x: 0, y: 0 });
-  const [pan, setPan] = useState({ x: 0, y: 0 });
-  const [isDragging, setIsDragging] = useState(false);
   const [showSocial, setShowSocial] = useState(false);
   const [showMarketing, setShowMarketing] = useState(false);
+  const [showBlogList, setShowBlogList] = useState(false);
+  const [activeBlogArticle, setActiveBlogArticle] = useState(null);
   const [timeString, setTimeString] = useState("");
   const [weatherTemp, setWeatherTemp] = useState("--°F");
   const [weatherCondition, setWeatherCondition] = useState("Weather");
@@ -56,7 +73,6 @@ export default function App() {
   const [isRouletteSpinning, setIsRouletteSpinning] = useState(false);
   const [rouletteBurst, setRouletteBurst] = useState(false);
   const [hue, setHue] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
   const rouletteTimerRef = useRef(null);
   const rouletteTimeoutRef = useRef(null);
   const rouletteAudioRef = useRef(null);
@@ -78,16 +94,20 @@ export default function App() {
   ];
 
   useEffect(() => {
-    if (!showSocial && !showMarketing) return undefined;
+    if (!showSocial && !showMarketing && !showBlogList && !activeBlogArticle) {
+      return undefined;
+    }
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
         setShowSocial(false);
         setShowMarketing(false);
+        setShowBlogList(false);
+        setActiveBlogArticle(null);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [showSocial, showMarketing]);
+  }, [showSocial, showMarketing, showBlogList, activeBlogArticle]);
 
   useEffect(() => {
     const updateTime = () => {
@@ -155,18 +175,6 @@ export default function App() {
     };
   }, []);
 
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 720px)");
-    const update = () => setIsMobile(mediaQuery.matches);
-    update();
-    if (mediaQuery.addEventListener) {
-      mediaQuery.addEventListener("change", update);
-      return () => mediaQuery.removeEventListener("change", update);
-    }
-    mediaQuery.addListener(update);
-    return () => mediaQuery.removeListener(update);
-  }, []);
-
   const prepareAudio = () => {
     if (!rouletteAudioRef.current) return;
     const audio = rouletteAudioRef.current;
@@ -220,6 +228,12 @@ export default function App() {
     []
   );
 
+  const activeBlogIndex = activeBlogArticle
+    ? blogArticles.findIndex((article) => article.id === activeBlogArticle.id)
+    : -1;
+  const hasPreviousBlog = activeBlogIndex > 0;
+  const hasNextBlog = activeBlogIndex >= 0 && activeBlogIndex < blogArticles.length - 1;
+
   useEffect(() => {
     const weatherCodeToText = (code) => {
       const map = {
@@ -270,48 +284,9 @@ export default function App() {
     return () => clearInterval(timer);
   }, []);
 
-  const handlePointerDown = (event) => {
-    if (isMobile) return;
-    if (showSocial || showMarketing) return;
-    if (
-      event.target.closest(".node") ||
-      event.target.closest(".spotify-player") ||
-      event.target.closest(".roulette-widget") ||
-      event.target.closest(".utility-widgets") ||
-      event.target.closest(".hue-control")
-    ) {
-      return;
-    }
-    draggingRef.current = true;
-    setIsDragging(true);
-    lastRef.current = { x: event.clientX, y: event.clientY };
-    event.currentTarget.setPointerCapture(event.pointerId);
-  };
-
-  const handlePointerMove = (event) => {
-    if (!draggingRef.current) return;
-    const dx = event.clientX - lastRef.current.x;
-    const dy = event.clientY - lastRef.current.y;
-    setPan((prev) => ({ x: prev.x + dx, y: prev.y + dy }));
-    lastRef.current = { x: event.clientX, y: event.clientY };
-  };
-
-  const endDrag = (event) => {
-    if (!draggingRef.current) return;
-    draggingRef.current = false;
-    setIsDragging(false);
-    event.currentTarget.releasePointerCapture(event.pointerId);
-  };
-
-
   return (
     <div
-      className={`scene ${isDragging ? "dragging" : ""}`}
-      onPointerDown={handlePointerDown}
-      onPointerMove={handlePointerMove}
-      onPointerUp={endDrag}
-      onPointerLeave={endDrag}
-      onPointerCancel={endDrag}
+      className="scene"
       style={{ "--hue": `${hue}deg` }}
     >
       <div className="scene-filter">
@@ -362,7 +337,7 @@ export default function App() {
         <div
           className="map"
           style={{
-            transform: `translate(-50%, -50%) translate(${pan.x}px, ${pan.y}px)`,
+            transform: "translate(-50%, -50%)",
           }}
         >
           <div className="node center" onClick={() => setShowSocial(true)}>
@@ -384,7 +359,7 @@ export default function App() {
                   aria-label={link.label}
                 >
                   <img
-                    className="icon-img"
+                    className={`icon-img ${link.label === "Artistic" ? "icon-img-artistic" : ""}`}
                     src={link.iconUrl}
                     alt=""
                     aria-hidden="true"
@@ -473,11 +448,19 @@ export default function App() {
 
         <div className="utility-widgets">
           <div className="glass-widget">
-            <span className="widget-label">Bay Area Time</span>
+            <span className="widget-label">
+              Bay Area
+              <br />
+              Time
+            </span>
             <span className="widget-value">{timeString || "—:—"}</span>
           </div>
           <div className="glass-widget">
-            <span className="widget-label">Bay Area Weather</span>
+            <span className="widget-label">
+              Bay Area
+              <br />
+              Weather
+            </span>
             <span className="widget-value">
               {weatherTemp} • {weatherCondition}
             </span>
@@ -506,6 +489,33 @@ export default function App() {
             {roulettePick}
           </div>
         </button>
+        <button
+          className="blog-widget"
+          type="button"
+          aria-label="Blog"
+          onClick={() => setShowBlogList((prev) => !prev)}
+        >
+          <span className="widget-label">blog</span>
+          <span className="blog-subtext">tap to expand</span>
+        </button>
+        {showBlogList && (
+          <div className="blog-list" aria-label="Blog articles">
+            {blogArticles.map((article) => (
+              <button
+                key={article.id}
+                className="blog-card"
+                type="button"
+                onClick={() => {
+                  setActiveBlogArticle(article);
+                  setShowBlogList(false);
+                }}
+              >
+                <span className="blog-card-title">{article.title}</span>
+                <span className="blog-card-date">• {article.cardDateLabel}</span>
+              </button>
+            ))}
+          </div>
+        )}
         <audio
           ref={rouletteAudioRef}
           src={`${import.meta.env.BASE_URL}fairy-sparkle.mp3`}
@@ -704,6 +714,63 @@ export default function App() {
                 </div>
               </section>
               </div>
+            </div>
+          </div>
+        )}
+
+        {activeBlogArticle && (
+          <div
+            className="resume-overlay blog-overlay"
+            role="dialog"
+            aria-modal="true"
+            onPointerDown={() => setActiveBlogArticle(null)}
+          >
+            <div className="blog-panel-wrap" onPointerDown={(event) => event.stopPropagation()}>
+              <button
+                className="blog-nav blog-nav-prev"
+                type="button"
+                aria-label="Previous blog post"
+                onClick={() => {
+                  if (!hasPreviousBlog) return;
+                  setActiveBlogArticle(blogArticles[activeBlogIndex - 1]);
+                }}
+                disabled={!hasPreviousBlog}
+              >
+                ‹
+              </button>
+              <div className="resume-card blog-panel">
+                <button
+                  className="resume-close"
+                  aria-label="Close blog article"
+                  onClick={() => setActiveBlogArticle(null)}
+                >
+                  ✕
+                </button>
+                <div className="resume-header">
+                  <div>
+                    <h2>{activeBlogArticle.title}</h2>
+                    <p>{activeBlogArticle.dateLabel}</p>
+                    <br />
+                  </div>
+                </div>
+                <article className="blog-article">
+                  {activeBlogArticle.body.map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+                </article>
+              </div>
+              <button
+                className="blog-nav blog-nav-next"
+                type="button"
+                aria-label="Next blog post"
+                onClick={() => {
+                  if (!hasNextBlog) return;
+                  setActiveBlogArticle(blogArticles[activeBlogIndex + 1]);
+                }}
+                disabled={!hasNextBlog}
+              >
+                ›
+              </button>
             </div>
           </div>
         )}

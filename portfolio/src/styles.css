@@ -38,13 +38,9 @@ body,
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  cursor: grab;
+  cursor: default;
   user-select: none;
   touch-action: none;
-}
-
-.scene.dragging {
-  cursor: grabbing;
 }
 
 .scene-filter {
@@ -231,6 +227,10 @@ body,
   width: 22px;
   height: 22px;
   display: block;
+}
+
+.icon-img-artistic {
+  transform: rotate(90deg);
 }
 
 .icon-button::after {
@@ -430,12 +430,14 @@ body,
   left: 24px;
   bottom: 24px;
   display: flex;
+  width: 296px;
   gap: 10px;
   z-index: 10;
 }
 
 .glass-widget {
-  width: 120px;
+  flex: 1;
+  min-width: 0;
   padding: 8px 10px;
   border-radius: 16px;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.08));
@@ -446,6 +448,14 @@ body,
   flex-direction: column;
   gap: 4px;
   text-align: right;
+}
+
+.utility-widgets .glass-widget:first-child {
+  flex: 1;
+}
+
+.utility-widgets .glass-widget:last-child {
+  flex: 2;
 }
 
 .utility-widgets .glass-widget:last-child {
@@ -469,7 +479,7 @@ body,
   right: 24px;
   top: 24px;
   z-index: 10;
-  min-width: 190px;
+  width: 296px;
   padding: 12px 14px;
   border-radius: 16px;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.08));
@@ -481,6 +491,156 @@ body,
   color: inherit;
   text-align: left;
   cursor: pointer;
+}
+
+.blog-widget {
+  position: fixed;
+  left: 24px;
+  top: 24px;
+  z-index: 10;
+  width: 296px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.08));
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 12px 28px rgba(12, 6, 34, 0.35);
+  display: grid;
+  gap: 8px;
+  color: inherit;
+  text-align: left;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.blog-subtext {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: lowercase;
+}
+
+.blog-list {
+  position: fixed;
+  left: 24px;
+  top: 104px;
+  z-index: 11;
+  width: 296px;
+  display: grid;
+  gap: 10px;
+}
+
+.blog-card {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.08));
+  backdrop-filter: blur(14px);
+  box-shadow: 0 12px 28px rgba(12, 6, 34, 0.35);
+  color: #fff;
+  text-align: left;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.blog-card-title {
+  margin-right: 6px;
+}
+
+.blog-card-date {
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.blog-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(255, 178, 110, 0.45);
+}
+
+.blog-panel {
+  width: min(780px, 90vw);
+  max-height: calc(85vh - 30px);
+  overflow-y: auto;
+}
+
+.blog-panel::-webkit-scrollbar {
+  width: 10px;
+}
+
+.blog-panel::-webkit-scrollbar-track {
+  margin-block: 18px;
+}
+
+.blog-panel::-webkit-scrollbar-thumb {
+  background: rgba(28, 18, 40, 0.6);
+  border-radius: 999px;
+}
+
+.blog-panel-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blog-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.38));
+  backdrop-filter: blur(14px);
+  box-shadow:
+    0 10px 24px rgba(255, 255, 255, 0.18),
+    0 8px 20px rgba(12, 6, 34, 0.22);
+  color: rgba(24, 16, 40, 0.95);
+  font-size: 1.8rem;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  z-index: 22;
+}
+
+.blog-nav:hover:not(:disabled) {
+  transform: translateY(-50%) scale(1.04);
+  box-shadow:
+    0 12px 24px rgba(255, 255, 255, 0.26),
+    0 10px 24px rgba(255, 178, 110, 0.28);
+}
+
+.blog-nav:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.blog-nav-prev {
+  left: -64px;
+}
+
+.blog-nav-next {
+  right: -64px;
+}
+
+.blog-article p {
+  margin: 0 0 14px;
+  white-space: pre-line;
+}
+
+.blog-article p:last-child {
+  margin-bottom: 0;
 }
 
 
@@ -524,6 +684,10 @@ body,
   justify-content: center;
   z-index: 20;
   padding: 24px;
+}
+
+.blog-overlay {
+  padding-bottom: 120px;
 }
 
 .resume-card {
@@ -706,7 +870,10 @@ body,
     flex-direction: column;
     align-items: center;
     --mobile-card-width: min(92vw, 360px);
-    transform: translateY(-25px);
+    --mobile-stack-gap: 10px;
+    --mobile-control-min-height: 72px;
+    gap: var(--mobile-stack-gap);
+    transform: translateY(-10px);
   }
 
   .backdrop {
@@ -724,8 +891,8 @@ body,
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
-    padding: 20px 16px 0;
+    gap: var(--mobile-stack-gap);
+    padding: 36px 16px 0;
     order: 1;
   }
 
@@ -779,9 +946,9 @@ body,
     justify-content: center;
     flex-wrap: nowrap;
     padding: 0;
-    margin: 8px 0;
+    margin: 0;
     order: 3;
-    gap: 8px;
+    gap: var(--mobile-stack-gap);
   }
 
   .glass-widget {
@@ -791,11 +958,26 @@ body,
 
   .spotify-player,
   .roulette-widget,
+  .blog-widget,
+  .blog-list,
   .hue-control {
     position: static;
-    margin: 8px auto;
+    margin: 0 auto;
     transform: none;
     width: var(--mobile-card-width);
+  }
+
+  .roulette-widget,
+  .blog-widget {
+    min-height: var(--mobile-control-min-height);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .blog-card {
+    min-height: 0;
+    display: block;
   }
 
   .node-resume {
@@ -811,10 +993,49 @@ body,
   }
 
   .roulette-widget {
-    display: block;
     order: 2;
     text-align: center;
-    margin-top: 12px;
+  }
+
+  .blog-widget {
+    order: 2;
+    text-align: center;
+  }
+
+  .blog-list {
+    display: grid;
+    gap: var(--mobile-stack-gap);
+    order: 2;
+    margin-top: 0;
+  }
+
+  .blog-panel {
+    width: min(92vw, 720px);
+  }
+
+  .blog-overlay {
+    align-items: flex-start;
+    padding-top: 24px;
+    padding-bottom: 160px;
+  }
+
+  .blog-nav {
+    position: fixed;
+    top: auto;
+    bottom: 24px;
+    transform: none;
+  }
+
+  .blog-nav:hover:not(:disabled) {
+    transform: scale(1.04);
+  }
+
+  .blog-nav-prev {
+    left: 16px;
+  }
+
+  .blog-nav-next {
+    right: 16px;
   }
 
   .spotify-player {
