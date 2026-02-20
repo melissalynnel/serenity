@@ -193,6 +193,78 @@ const galleryMarqueeTrack = document.getElementById("galleryMarqueeTrack");
 const galleryMarqueeTrackReverse = document.getElementById("galleryMarqueeTrackReverse");
 const galleryTitle = document.getElementById("galleryTitle");
 const galleryButtons = document.querySelectorAll(".pond-feature[data-gallery]");
+let plopAudioContext;
+let plopNoiseBuffer;
+
+const ensurePlopAudioContext = () => {
+  if (plopAudioContext) return plopAudioContext;
+  const AudioContextCtor = window.AudioContext || window.webkitAudioContext;
+  if (!AudioContextCtor) return null;
+  plopAudioContext = new AudioContextCtor();
+  return plopAudioContext;
+};
+
+const ensurePlopNoiseBuffer = (ctx) => {
+  if (plopNoiseBuffer) return plopNoiseBuffer;
+  const sampleRate = ctx.sampleRate;
+  const length = Math.floor(sampleRate * 0.22);
+  const buffer = ctx.createBuffer(1, length, sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < length; i += 1) {
+    data[i] = (Math.random() * 2 - 1) * (1 - i / length);
+  }
+  plopNoiseBuffer = buffer;
+  return plopNoiseBuffer;
+};
+
+const playPlopSound = () => {
+  const ctx = ensurePlopAudioContext();
+  if (!ctx) return;
+  if (ctx.state === "suspended") {
+    ctx.resume().catch(() => {});
+  }
+
+  const now = ctx.currentTime;
+  const osc = ctx.createOscillator();
+  const toneGain = ctx.createGain();
+  const toneFilter = ctx.createBiquadFilter();
+  const noise = ctx.createBufferSource();
+  const noiseGain = ctx.createGain();
+  const noiseFilter = ctx.createBiquadFilter();
+
+  osc.type = "sine";
+  osc.frequency.setValueAtTime(245 + Math.random() * 22, now);
+  osc.frequency.exponentialRampToValueAtTime(86 + Math.random() * 12, now + 0.18);
+
+  toneFilter.type = "lowpass";
+  toneFilter.frequency.setValueAtTime(620, now);
+  toneFilter.Q.value = 1.1;
+
+  toneGain.gain.setValueAtTime(0.0001, now);
+  toneGain.gain.exponentialRampToValueAtTime(0.16, now + 0.01);
+  toneGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.2);
+
+  noise.buffer = ensurePlopNoiseBuffer(ctx);
+  noiseFilter.type = "bandpass";
+  noiseFilter.frequency.setValueAtTime(700 + Math.random() * 120, now);
+  noiseFilter.Q.value = 1.4;
+  noiseGain.gain.setValueAtTime(0.0001, now);
+  noiseGain.gain.exponentialRampToValueAtTime(0.016, now + 0.004);
+  noiseGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.042);
+
+  osc.connect(toneFilter);
+  toneFilter.connect(toneGain);
+  toneGain.connect(ctx.destination);
+
+  noise.connect(noiseFilter);
+  noiseFilter.connect(noiseGain);
+  noiseGain.connect(ctx.destination);
+
+  osc.start(now);
+  noise.start(now);
+  osc.stop(now + 0.21);
+  noise.stop(now + 0.045);
+};
 
 const galleries = {
   chinatown: [
@@ -379,7 +451,14 @@ const openGallery = (galleryId) => {
 };
 
 galleryButtons.forEach((button) => {
+  button.addEventListener("mouseenter", playPlopSound);
+  button.addEventListener("focus", playPlopSound);
   button.addEventListener("click", () => {
+    if (ambientAudio) {
+      const reducedVolume = Math.max(0, ambientAudio.volume * 0.6);
+      ambientAudio.volume = reducedVolume;
+      if (ambientVolume) ambientVolume.value = String(reducedVolume);
+    }
     const galleryId = button.getAttribute("data-gallery");
     if (!galleryId) return;
     openGallery(galleryId);
@@ -405,8 +484,9 @@ if (ambientAudio) {
   }
 
   const tryPlay = () => {
-    ambientAudio.volume = 0.35;
+    ambientAudio.volume = 0.21;
     ambientAudio.play().catch(() => {});
+    ensurePlopAudioContext();
     document.removeEventListener("click", tryPlay);
     document.removeEventListener("touchstart", tryPlay);
   };

@@ -153,96 +153,95 @@ a {
 
 .pond-feature {
   position: absolute;
-  width: 70px;
-  height: 34px;
+  width: 64px;
+  height: 64px;
   border: none;
-  background: rgba(120, 220, 200, 0.95);
-  border-radius: 0;
-  clip-path: polygon(2% 50%, 12% 30%, 30% 18%, 52% 16%, 70% 26%, 86% 32%, 98% 40%, 98% 60%, 86% 68%, 70% 74%, 52% 84%, 30% 82%, 12% 70%);
+  background:
+    radial-gradient(circle at 35% 28%, rgba(235, 255, 248, 0.9), rgba(235, 255, 248, 0.12) 34%, rgba(0, 0, 0, 0) 52%),
+    radial-gradient(circle at 56% 60%, rgba(120, 220, 200, 0.95) 0%, rgba(90, 190, 170, 0.9) 52%, rgba(56, 130, 118, 0.9) 100%);
+  border-radius: 50%;
   box-shadow:
-    0 0 12px rgba(120, 220, 255, 0.5),
-    0 0 28px rgba(120, 220, 255, 0.75),
-    0 0 48px rgba(120, 220, 255, 0.55);
+    0 0 12px rgba(255, 198, 138, 0.58),
+    0 0 26px rgba(255, 186, 120, 0.5),
+    0 0 52px rgba(255, 168, 92, 0.38);
   cursor: pointer;
   pointer-events: auto;
   z-index: 4;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  filter: blur(0.2px) saturate(1.2);
-  animation: fish-drift 7s ease-in-out infinite;
-  transform: translate(var(--float-x, 0px), var(--float-y, 0px)) rotate(var(--float-rotate, 0deg)) scale(var(--hover-scale, 1));
+  transition: box-shadow 0.22s ease, filter 0.22s ease;
+  filter: blur(0.3px) saturate(1.14) brightness(0.92);
+  animation: fish-drift 10.5s ease-in-out infinite;
+  will-change: transform;
+  transform: translate(var(--float-x, 0px), var(--float-y, 0px))
+    rotate(calc(var(--swim-angle, -8deg) + var(--float-rotate, 0deg))) scale(var(--hover-scale, 1));
 }
 
 .pond-feature:hover {
-  --hover-scale: 1.08;
+  --hover-scale: 1;
   box-shadow:
-    0 0 16px rgba(140, 235, 255, 0.7),
-    0 0 36px rgba(140, 235, 255, 0.85),
-    0 0 60px rgba(140, 235, 255, 0.65);
+    0 0 16px rgba(255, 208, 152, 0.72),
+    0 0 36px rgba(255, 192, 128, 0.62),
+    0 0 66px rgba(255, 172, 96, 0.45);
+  filter: blur(0.22px) saturate(1.18) brightness(0.98);
 }
 
 .pond-feature.lotus {
-  width: 80px;
-  height: 38px;
+  width: 72px;
+  height: 72px;
 }
 
 .pond-feature.is-red {
-  background: rgba(255, 90, 90, 0.98);
+  background:
+    radial-gradient(circle at 35% 28%, rgba(255, 245, 245, 0.9), rgba(255, 245, 245, 0.12) 34%, rgba(0, 0, 0, 0) 52%),
+    radial-gradient(circle at 56% 60%, rgba(255, 90, 90, 0.98) 0%, rgba(232, 68, 68, 0.9) 52%, rgba(164, 38, 38, 0.9) 100%);
   box-shadow:
-    0 0 12px rgba(255, 120, 120, 0.6),
-    0 0 28px rgba(255, 120, 120, 0.85),
-    0 0 52px rgba(255, 120, 120, 0.6);
+    0 0 12px rgba(255, 198, 138, 0.58),
+    0 0 26px rgba(255, 186, 120, 0.5),
+    0 0 52px rgba(255, 168, 92, 0.38);
 }
 
 .pond-feature.is-orange {
-  background: rgba(255, 165, 70, 0.98);
+  background:
+    radial-gradient(circle at 35% 28%, rgba(255, 250, 236, 0.9), rgba(255, 250, 236, 0.12) 34%, rgba(0, 0, 0, 0) 52%),
+    radial-gradient(circle at 56% 60%, rgba(255, 165, 70, 0.98) 0%, rgba(234, 142, 50, 0.9) 52%, rgba(170, 96, 30, 0.9) 100%);
   box-shadow:
-    0 0 12px rgba(255, 190, 90, 0.6),
-    0 0 28px rgba(255, 190, 90, 0.85),
-    0 0 52px rgba(255, 190, 90, 0.6);
+    0 0 12px rgba(255, 198, 138, 0.58),
+    0 0 26px rgba(255, 186, 120, 0.5),
+    0 0 52px rgba(255, 168, 92, 0.38);
 }
 
 .pond-feature.lily {
-  background: rgba(130, 220, 190, 0.98);
+  background:
+    radial-gradient(circle at 35% 28%, rgba(240, 255, 248, 0.9), rgba(240, 255, 248, 0.12) 34%, rgba(0, 0, 0, 0) 52%),
+    radial-gradient(circle at 56% 60%, rgba(130, 220, 190, 0.98) 0%, rgba(98, 194, 164, 0.9) 52%, rgba(62, 138, 114, 0.9) 100%);
 }
 
 .pond-feature.is-purple {
-  background: rgba(180, 120, 255, 0.98);
+  background:
+    radial-gradient(circle at 35% 28%, rgba(246, 232, 255, 0.9), rgba(246, 232, 255, 0.12) 34%, rgba(0, 0, 0, 0) 52%),
+    radial-gradient(circle at 56% 60%, rgba(180, 120, 255, 0.98) 0%, rgba(148, 92, 232, 0.9) 52%, rgba(96, 54, 172, 0.9) 100%);
   box-shadow:
-    0 0 12px rgba(190, 140, 255, 0.6),
-    0 0 28px rgba(190, 140, 255, 0.85),
-    0 0 52px rgba(190, 140, 255, 0.6);
+    0 0 12px rgba(255, 198, 138, 0.58),
+    0 0 26px rgba(255, 186, 120, 0.5),
+    0 0 52px rgba(255, 168, 92, 0.38);
 }
 
 .pond-feature::before {
-  content: "";
-  position: absolute;
-  right: -10px;
-  top: 50%;
-  width: 18px;
-  height: 18px;
-  background: inherit;
-  clip-path: polygon(0 50%, 100% 0, 82% 50%, 100% 100%);
-  transform: translateY(-50%);
-  filter: saturate(1.1);
-  box-shadow: 0 0 16px rgba(255, 255, 255, 0.15);
+  content: none;
 }
 
 .pond-feature::after {
   content: "";
   position: absolute;
-  inset: 4px 10px 4px 4px;
+  left: 14px;
+  top: 13px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
   background:
-    radial-gradient(circle at 20% 40%, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 60%);
-  opacity: 0.6;
-  mix-blend-mode: screen;
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(255, 230, 255, 0.42) 62%, rgba(255, 230, 255, 0) 100%);
+  opacity: 0.9;
+  box-shadow: 0 0 12px rgba(255, 230, 255, 0.42);
   pointer-events: none;
-}
-.pond-feature.is-purple {
-  background: rgba(180, 120, 255, 0.98);
-  box-shadow:
-    0 0 12px rgba(190, 140, 255, 0.6),
-    0 0 28px rgba(190, 140, 255, 0.85),
-    0 0 52px rgba(190, 140, 255, 0.6);
 }
 
 .pond-feature .feature-label {
@@ -416,12 +415,12 @@ a {
   100% {
     --float-x: 0px;
     --float-y: 0px;
-    --float-rotate: -2deg;
+    --float-rotate: -1.2deg;
   }
   50% {
-    --float-x: 4px;
-    --float-y: -3px;
-    --float-rotate: 2deg;
+    --float-x: 2px;
+    --float-y: -1.5px;
+    --float-rotate: 1.2deg;
   }
 }
 
@@ -568,15 +567,56 @@ a {
   top: 28px;
   left: 4vw;
   font-family: "futura-pt", "Futura", "Trebuchet MS", sans-serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.45em;
-  text-transform: uppercase;
-  color: rgba(150, 255, 215, 0.9);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: none;
+  line-height: 1.5;
+  max-width: min(760px, 92vw);
+  color: rgba(184, 255, 232, 0.95);
   text-shadow:
-    0 0 6px rgba(120, 240, 200, 0.6),
-    0 0 18px rgba(120, 240, 200, 0.35),
-    0 0 28px rgba(100, 220, 180, 0.3);
+    0 0 4px rgba(120, 240, 200, 0.42),
+    0 0 10px rgba(120, 240, 200, 0.24);
   pointer-events: none;
+}
+
+.neon-kicker-note {
+  display: inline-block;
+  margin-top: 4px;
+  color: rgba(214, 255, 242, 0.88);
+  animation: broken-neon 3.2s steps(1, end) infinite;
+}
+
+@keyframes broken-neon {
+  0%,
+  8%,
+  12%,
+  20%,
+  31%,
+  37%,
+  55%,
+  100% {
+    opacity: 0.95;
+    text-shadow:
+      0 0 4px rgba(150, 255, 225, 0.45),
+      0 0 10px rgba(120, 240, 200, 0.3);
+  }
+  9%,
+  11%,
+  21%,
+  22%,
+  38%,
+  39%,
+  56%,
+  57% {
+    opacity: 0.18;
+    text-shadow: none;
+  }
+  23%,
+  24%,
+  58% {
+    opacity: 0.55;
+    text-shadow: 0 0 2px rgba(150, 255, 225, 0.3);
+  }
 }
 
 .name-stack {
@@ -1023,5 +1063,52 @@ a {
   .grass-ring {
     width: 86vw;
     height: 64vw;
+  }
+
+  .name-stack {
+    transform: none;
+  }
+
+  .name-mark,
+  .name-sub {
+    position: absolute;
+    left: 50%;
+    width: 92vw;
+    text-align: center;
+    transform: translateX(-50%);
+  }
+
+  .name-mark {
+    font-size: clamp(3.38rem, 7.8vw, 6.5rem);
+    top: calc(45% - 26vw - 94px);
+  }
+
+  .name-sub {
+    top: calc(45% + 26vw + 54px);
+  }
+
+  .pond-feature {
+    width: 45px;
+    height: 45px;
+  }
+
+  .pond-feature.lotus {
+    width: 50px;
+    height: 50px;
+  }
+
+  .pond-feature.lotus {
+    left: 24%;
+    top: 24%;
+  }
+
+  .pond-feature.lily.l2 {
+    left: 66%;
+    top: 30%;
+  }
+
+  .pond-feature.lily.l4 {
+    left: 45%;
+    top: 72%;
   }
 }
