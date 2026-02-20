@@ -137,9 +137,10 @@ const updateTooltipAnchors = () => {
   const centerY = orbitRect.top + orbitRect.height / 2;
   iconNodes.forEach((node) => {
     const dot = node.querySelector(".icon-dot");
-    const rect = (dot || node).getBoundingClientRect();
-    const nodeCenterX = rect.left + rect.width / 2;
-    const nodeCenterY = rect.top + rect.height / 2;
+    const nodeRect = node.getBoundingClientRect();
+    const targetRect = (dot || node).getBoundingClientRect();
+    const nodeCenterX = targetRect.left + targetRect.width / 2;
+    const nodeCenterY = targetRect.top + targetRect.height / 2;
     const dx = nodeCenterX - centerX;
     const dy = nodeCenterY - centerY;
     const distance = Math.hypot(dx, dy) || 1;
@@ -161,6 +162,8 @@ const updateTooltipAnchors = () => {
     node.classList.toggle("tooltip-bottom", direction === "bottom");
     node.style.setProperty("--tip-x", `${normX}`);
     node.style.setProperty("--tip-y", `${normY}`);
+    node.style.setProperty("--tip-origin-x", `${nodeCenterX - (nodeRect.left + nodeRect.width / 2)}px`);
+    node.style.setProperty("--tip-origin-y", `${nodeCenterY - (nodeRect.top + nodeRect.height / 2)}px`);
   });
 };
 
@@ -193,12 +196,17 @@ const placeNodes = () => {
     if (dot) {
       const nodeRect = node.getBoundingClientRect();
       const dotRect = dot.getBoundingClientRect();
+      const nodeCenterX = nodeRect.left + nodeRect.width / 2;
       const nodeCenterY = nodeRect.top + nodeRect.height / 2;
+      const dotCenterX = dotRect.left + dotRect.width / 2;
       const dotCenterY = dotRect.top + dotRect.height / 2;
+      const dotOffsetX = dotCenterX - nodeCenterX;
       const dotOffsetY = dotCenterY - nodeCenterY;
+      if (dotOffsetX !== 0) {
+        node.style.left = `${x - dotOffsetX}px`;
+      }
       if (dotOffsetY !== 0) {
-        y -= dotOffsetY;
-        node.style.top = `${y}px`;
+        node.style.top = `${y - dotOffsetY}px`;
       }
     }
   });
@@ -210,7 +218,7 @@ let isHoveringTechPanel = false;
 const handleWheel = (event) => {
   if (window.innerWidth <= 900) return;
   if (isHoveringTechPanel) return;
-  if (document.querySelector(".project-modal.is-open") || videoModal?.classList.contains("is-open")) {
+  if (document.querySelector(".project-modal.is-open")) {
     return;
   }
   event.preventDefault();
@@ -242,7 +250,7 @@ const handleOrbitTouchStart = (event) => {
 const handleOrbitTouchMove = (event) => {
   if (window.innerWidth > 900) return;
   if (orbitTouchState.id == null) return;
-  if (document.querySelector(".project-modal.is-open") || videoModal?.classList.contains("is-open")) {
+  if (document.querySelector(".project-modal.is-open")) {
     return;
   }
   const touch = Array.from(event.changedTouches || []).find(
@@ -287,36 +295,36 @@ updateOrbit();
 const viewData = {
   area: [
     {
-      label: "Creative",
-      tip: "• Narrative + content strategy (14M+ views)\n• Joe Rogan Experience placement\n• Edited white papers + product content",
+      label: "Brand & Story",
+      tip: "• Built brand narratives and messaging systems that increased media visibility by 100%\n• Produced investor-ready content (decks, scripts, written materials) for executive and fundraising communication\n• Created editorial frameworks for consistent voice across campaigns and channels",
     },
     {
-      label: "Marketing",
-      tip: "• Built GTM systems for early-stage founders\n• Playbooks improved outreach by 66%\n• Standardized GTM across $100M+ pipeline",
+      label: "Content & Creative",
+      tip: "• Led narrative-first content strategy that drove 14M+ views across digital platforms\n• Developed multi-format assets (campaign content, white papers, technical edits) to support GTM goals\n• Improved creative throughput by standardizing briefs, templates, and production handoffs",
     },
     {
-      label: "Sales",
-      tip: "• Cross-functional execution (20+ projects)\n• Coordinated launch ops (product, eng, PR)\n• Doubled campaign delivery speed",
+      label: "Marketing Operations",
+      tip: "• Designed Asana-based marketing operations that reduced campaign turnaround by 66%\n• Standardized workflows across teams and markets to increase execution consistency and speed\n• Implemented automations that improved operational efficiency by 78%",
     },
     {
-      label: "Revenue",
-      tip: "• Supported $9M fundraise (Primitive)\n• Contributed to 1.7M TVL\n• Enabled $100M+ annual revenue pipeline",
+      label: "GTM & Launch\nExecution",
+      tip: "• Built GTM systems for founders and growth teams to improve launch readiness and repeatability\n• Coordinated cross-functional launches across product, design, engineering, and marketing\n• Increased outreach and execution performance through playbooks that improved efficiency by 66%",
     },
     {
-      label: "Ops",
-      tip: "• Automated workflows cut coordination 35%\n• Asana system cut turnaround 66%\n• Ops efficiency up 78%",
+      label: "Analytics &\nOptimization",
+      tip: "• Integrated KPI tracking and reporting systems for real-time campaign and funnel visibility\n• Used performance insights to improve prioritization, delivery cadence, and campaign quality\n• Structured measurement loops that connected creative output to business outcomes",
     },
     {
-      label: "Story",
-      tip: "• Newsletters at 75%+ open rates\n• Investor-ready decks + scripts\n• Media visibility up 100%",
+      label: "Revenue\nOutcomes",
+      tip: "• Supported strategic communications tied to a $9M fundraising round\n• Contributed to growth initiatives connected to 1.7M TVL and expanded market visibility\n• Operationalized marketing systems supporting a $100M+ annual revenue pipeline",
     },
     {
-      label: "Insight",
-      tip: "• Audience segmentation + positioning\n• Customer discovery (Venture programs)\n• Alignment across design/eng/sales",
+      label: "Cross-Functional\nLeadership",
+      tip: "• Led execution across 20+ cross-functional projects with clear ownership and accountability\n• Aligned stakeholders across design, marketing, product, and leadership to reduce execution friction\n• Built collaboration rhythms that doubled campaign delivery speed",
     },
     {
       label: "Systems",
-      tip: "• Asset-sorting scripts cut filing 90%\n• GTM ops systems built end-to-end\n• Playbooks streamlined execution",
+      tip: "• Built end-to-end systems that transformed manual workflows into scalable operations\n• Automated recurring processes to reduce coordination overhead by 35%\n• Developed workflow and asset systems that cut file and process handling time by 90%",
     },
   ],
   role: [
@@ -844,49 +852,11 @@ techLogos.forEach((logo) => {
   logo.addEventListener("error", handleError);
 });
 
-const videoTrigger = document.querySelector(".video-trigger");
-const videoModal = document.querySelector(".video-modal");
-const videoClose = document.querySelector(".video-close");
-const videoBackdrop = document.querySelector(".video-backdrop");
-const videoPlayer = document.querySelector(".video-frame .video-player");
 const projectModals = Array.from(document.querySelectorAll(".project-modal"));
 const projectCloseButtons = Array.from(document.querySelectorAll(".project-close"));
 const projectBackdrops = Array.from(document.querySelectorAll(".project-backdrop"));
 const projectTriggers = Array.from(document.querySelectorAll(".impact-link"));
 const projectWidgets = Array.from(document.querySelectorAll(".projects-item[data-project]"));
-
-const openVideo = () => {
-  if (!videoModal) return;
-  videoModal.classList.add("is-open");
-  videoModal.setAttribute("aria-hidden", "false");
-  if (videoPlayer && videoPlayer.dataset.src) {
-    videoPlayer.src = videoPlayer.dataset.src;
-    videoPlayer.play().catch(() => {});
-  }
-};
-
-const closeVideo = () => {
-  if (!videoModal) return;
-  videoModal.classList.remove("is-open");
-  videoModal.setAttribute("aria-hidden", "true");
-  if (videoPlayer) {
-    videoPlayer.pause();
-    videoPlayer.removeAttribute("src");
-    videoPlayer.load();
-  }
-};
-
-if (videoTrigger) {
-  videoTrigger.addEventListener("click", openVideo);
-}
-
-if (videoClose) {
-  videoClose.addEventListener("click", closeVideo);
-}
-
-if (videoBackdrop) {
-  videoBackdrop.addEventListener("click", closeVideo);
-}
 
 const closeProject = () => {
   projectModals.forEach((modal) => {
@@ -916,9 +886,6 @@ window.openProjectModal = openProject;
 
 window.addEventListener("keydown", (event) => {
   if (event.key !== "Escape") return;
-  if (videoModal?.classList.contains("is-open")) {
-    closeVideo();
-  }
   if (projectModals.some((modal) => modal.classList.contains("is-open"))) {
     closeProject();
   }
