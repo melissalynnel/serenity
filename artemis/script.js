@@ -652,6 +652,9 @@ if (techPanel && techToggle) {
     if (techGrid) {
       techGrid.setAttribute("aria-hidden", isOpen ? "false" : "true");
     }
+    if (!isOpen) {
+      techPanel.scrollTop = 0;
+    }
   });
 
   techPanel.addEventListener("mouseenter", () => {
@@ -680,6 +683,7 @@ const closeDesktopPanels = () => {
   if (techPanel) {
     techPanel.classList.remove("is-open");
     techPanel.setAttribute("aria-expanded", "false");
+    techPanel.scrollTop = 0;
   }
   if (techGrid) {
     techGrid.setAttribute("aria-hidden", "true");
@@ -699,6 +703,7 @@ const closeMobilePanels = () => {
   });
   if (techPanel) {
     techPanel.setAttribute("aria-expanded", "false");
+    techPanel.scrollTop = 0;
   }
   if (techGrid) {
     techGrid.setAttribute("aria-hidden", "true");
