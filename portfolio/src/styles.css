@@ -853,14 +853,20 @@ body,
 }
 
 @media (max-width: 720px) {
+  html,
   body {
-    overflow: hidden;
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .scene {
-    overflow: hidden;
-    touch-action: none;
+    width: 100%;
+    height: auto;
     min-height: 100vh;
+    overflow: visible;
+    touch-action: pan-y;
   }
 
   .scene-filter {
@@ -872,8 +878,9 @@ body,
     --mobile-card-width: min(92vw, 360px);
     --mobile-stack-gap: 10px;
     --mobile-control-min-height: 72px;
+    --mobile-hue-reserve: 116px;
     gap: var(--mobile-stack-gap);
-    transform: translateY(-10px);
+    padding-bottom: var(--mobile-hue-reserve);
   }
 
   .backdrop {

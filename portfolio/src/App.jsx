@@ -31,18 +31,43 @@ const quickLinks = [
     iconUrl: `${import.meta.env.BASE_URL}icons/briefcase.svg`,
   },
   {
-    label: "Wimbly",
-    href: "https://melissalynnel.github.io/wimbly-biscuit-co/",
-    iconUrl: `${import.meta.env.BASE_URL}icons/globe.svg`,
+    label: "Project Archive",
+    href: "https://melissa-leavenworth.notion.site/portfolio?v=292e8228c7b7807d8e75000c09204ce7",
+    iconUrl: `${import.meta.env.BASE_URL}icons/clock.svg`,
   },
   {
     label: "Artistic",
     href: "./luna/",
     iconUrl: `${import.meta.env.BASE_URL}icons/palette.svg`,
   },
+  {
+    label: "Wimbly",
+    href: "https://melissalynnel.github.io/wimbly-biscuit-co/",
+    iconUrl: `${import.meta.env.BASE_URL}icons/globe.svg`,
+  },
 ];
 
 const blogArticles = [
+  {
+    id: "on-love",
+    title: "on love",
+    dateLabel: "February 2026",
+    cardDateLabel: "February 2026",
+    body: [
+      "I am a lover girl through and through. It is rough out here lol.",
+      "When I think about myself in the context of love, I know that I have a very soft heart and feel deeply. I have loved every person I have been with for drastically different reasons. I end up seeing the good in people quite easily, and my strong sense of empathy often makes it hard to exit relationships that have probably run their course.",
+      "Dating in SF is actually so fun. These men keep me well fed, and the ladies keep a smile on my face. It didn't take long to realize, though, that it is extremely rare to connect with someone on the level that I seek.",
+      "There is a really lovely man that I met through Hinge. We matched before I even moved here, and then we matched again after I nuked that account for being too overwhelming (I had 1,000 potential matches on Hinge before I arrived to the Bay Area - that is the cap of matches lol). There was nothing particularly stand-out about his profile, he is just very handsome - no, wait, there was something stand-out... he said he is looking for someone who \"minimizes shareholder value\" and I thought that was so funny. But after getting to know him better, this is actually a huge indication of his value system.",
+      "The thing about this man, is that he said something on our first date that brought my heart much sorrow. I asked what his intention in dating is, and he said he dates casually, likes to make friends and go on adventures, \"but [he's] not tryna miss out on the love of [his] life.\" And I felt sorrow because, for so many years... seven years to be more precise... I had attributed the \"love of my life\" title to a man who yes, I had loved very deeply, but who had treated me so, so poorly. And in giving him this title, I sought love that was dampened. Because I did not believe I could love the same way again. Because the love of your life is mean to be a once-in-a-lifetime love. So how could I really ever love someone like that again?",
+      "Over the following week, I pondered... what would it actually look like for me to believe that exists for me beyond what I had allowed myself up to this point? What does it look like for me to believe that the \"love of my life\" is still out there? How would I love differently? How would I accept love differently? I wept for myself when I realized that I could be loved more fully than I had before, and that I had put this burden of non-love on myself for so long that I had not sought partnerships that could meet me in my wholeness.",
+      "And what does it look like for me to relinquish the anticipatory disappointment that I have accrued over time? To set that aside and to let myself be disappointed sometimes? To attach with the apparent possibility of detachment, which my body has read as abandonment for so long. Writing this, I realize perhaps abandonment saves me from certain people who are not meant to access me. Who cannot begin to hold my fullness, just as the man who I designated the love of my life could not.",
+      "So I am practicing a lot when it comes to love. I am practicing emotional pacing. I am practicing softness, playfulness, fearlessness. I am allowing myself to caretake in certain ways, but only if they are somehow reciprocated. When I think about the kind of love that I would consider something as serious as marriage for, there is a deep intimacy. There is an intimacy in that we would be able to experience deep spiritual practice together, and take care of one another in ways that I just have not experienced before.",
+      "The man that prompted this thought, we have been seeing each other a couple times a week since we met and I don't think a man has ever treated me this good. He is certainly setting a standard for anyone who might come after him. And my body feels so relaxed with him. There is no guessing. No desperation. There is a strong calmness in knowing he will accept my bids for connection, and that he means it when he says he wants to be my friend and care for me. I know he means it because I can see how he shows up for everyone around him.",
+      "What is really crazy about the timing of these thoughts, is the man I thought was the love of my life reached out to me for the first time in over seven years. I honestly thought his contact was blocked in every way possible. I was not very open to making amends, but I took his call. And we talked for several hours. It felt natural in a way that also brings me sorrow. We exchanged apologies and took accountability, and we did make amends. And it must have been divine timing because maybe it did bring me some closure I did not know I needed...",
+      "I deleted Hinge a while ago. I realize many people just want to access a body, any body. And I do not really want it to be mine. I feel safer when I am not physically intimate with many people, or people I do not know well anymore. I used to seek very detached physical intimacy, but I think I am in a place where I just really don't want that.",
+      "I am too steeped in gratitude and love lately to entertain anything that is not full of meaning and light.",
+    ],
+  },
   {
     id: "on-arrival",
     title: "on arrival",
