@@ -33,7 +33,7 @@ const quickLinks = [
   {
     label: "Project Archive",
     href: "https://melissa-leavenworth.notion.site/portfolio?v=292e8228c7b7807d8e75000c09204ce7",
-    iconUrl: `${import.meta.env.BASE_URL}icons/clock.png`,
+    iconUrl: `${import.meta.env.BASE_URL}icons/clock.svg`,
   },
   {
     label: "Artistic",
