@@ -26,28 +26,52 @@ const bokeh = Array.from({ length: 16 }).map((_, i) => {
 
 const quickLinks = [
   {
-    label: "Professional",
-    href: "./artemis/",
-    iconUrl: `${import.meta.env.BASE_URL}icons/briefcase.svg`,
+    label: "Instagram",
+    href: "https://www.instagram.com/melissalynnel/",
+    iconUrl: `${import.meta.env.BASE_URL}icons/instagram.svg`,
+    whiteIcon: true,
   },
   {
-    label: "Project Archive",
-    href: "https://melissa-leavenworth.notion.site/portfolio?v=292e8228c7b7807d8e75000c09204ce7",
-    iconUrl: `${import.meta.env.BASE_URL}icons/clock.svg`,
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/melissaleavenworth/",
+    iconUrl: `${import.meta.env.BASE_URL}icons/linkedin.png`,
   },
   {
-    label: "Artistic",
-    href: "./luna/",
-    iconUrl: `${import.meta.env.BASE_URL}icons/palette.svg`,
-  },
-  {
-    label: "Wimbly",
-    href: "https://melissalynnel.github.io/wimbly-biscuit-co/",
-    iconUrl: `${import.meta.env.BASE_URL}icons/globe.svg`,
+    label: "GitHub",
+    href: "https://github.com/melissalynnel",
+    iconUrl: `${import.meta.env.BASE_URL}icons/github.svg`,
+    whiteIcon: true,
   },
 ];
 
 const blogArticles = [
+  {
+    id: "march-2026",
+    title: "on faith",
+    dateLabel: "March 2026",
+    cardDateLabel: "March 2026",
+    body: [
+      "When logic fails, fills the gap between the inexplicable and belief.",
+      "Somewhere between finding where I belong, figuring out where I don't, and falling in love, I became Muslim. Part of me thinks \"I would have never thought -\" and the other part of me knows how... me-coded becoming Muslim is lol.",
+      "I guess I will just tell the story of how I got here.",
+      "I think Allah has been whispering to me since I was a child. Through my lovely friend down the street in the fourth grade. To the intuition that people are good despite what my Fox News grandparents said based on the media they consumed. To the desire to learn Arabic in high school and every presentation about Islam meant to sway my classmates into believing that it's not inherently evil.",
+      "I was raised Christian, but I have been everything including an Athiest, an Agnostic, loosely Buddhist, Agnostic again, and now Muslim.",
+      "During Ramadan, I called on Allah to help me overcome my addiction to certain substances, and it finally stuck. I decided Ramadan would be the time to reframe my relationship with \"discipline,\" which I had primarily experienced as simply punishment.",
+      "At this time, I also decided to inventory my beliefs. To line up what I thought about good and evil, about the creation of life, and so many things in between.",
+      "I was listening to several religious texts during this time. The Tao De Ching, the Taoist text, was heavily based in nature which I loved, but also based in inaction, to which I do not relate. The Bhagavad Gita was a re-read for me, and to be honest I didn't get very far into it this time becase it was the Quran that really took my attention.",
+      "I decided to fast to \"gain compassion for my Muslim friends,\" and woke up for Sahoor before the sun made its appearance each day.",
+      "I had many conversations with old friends about why they left and did, or didn't, return to Islam. And my old friend from the fourth grade, now a physicist who studies light, gave me so much information. We talked about how Islam aligned with science and how his studies only convinced him further of the presence of Allah. We talked about how there are not good and bad people, but good and bad actions. How people can misconstrue and misinterpret the Prophet Muhammad (Peace Be Upon Him) for the purpose of control.",
+      "I went to the local Masjid to \"get more information\" and after another talk about science, good and evil, addiction, and much more, the Imam asked if I wanted to take my Shahada. To which I said \"umm I don't know if I'm ready for that\" and he said \"well you have tried every other religion and you seem ready.\" And he was right. So I did.",
+      "I repeated each syllable after him: \"Ash-hadu `allā ilāha illallâh wa ash-hadu anna muħammadan rasūlullâh.\" And I felt relief wash over me.",
+      "Recently, I heard Sheik Mikaeel Smith say \"you think you are 'giving energy to the universe,' but you are making du'a to your creator.\" The funny thing about that, is that after I took my Shahada, I realized that I had been calling Allah \"the universe\" for some time now.",
+      "Everything began to fall into place. There were so many \"coincidences\" that follwed suite, that it couldn't be described as \"coincidental.\" It was more like dominoes. Everything just beautifully falling into place.",
+      "You see, I am never really early, but I was about five mintues early to the Masjid that day. And in the stairwell on the way to talk with the Imam, I ran into another Muslim who invited me to learn more at an iftar a couple days later.",
+      "So I went to that iftar, and from there, he suggested that I go to Taraweeh on Potrero Hill. And it was there that I met so many lovely Muslims that introduced me to other lovely Muslims. And each time I was in awe of the way Allah was putting me right in the places I needed to be at the exact times I needed to be there.",
+      "What I really love about Islam is the sense of agency. There is a formula for getting what you want: intention + action + god willing. For so long, I have felt on my own, and I am intentional and I work so hard... and sometimes that hard work doesn't get me where I want so I work even harder and guilt myself for not working hard enough. But the component of god willing? It brought me an immense peace that I had never found anywhere else. It gave me permission to let things go and to be more fluid in my direction. To lean into ease and release what is not really meant for me.",
+      "Now every day, when I look around, I don't thank the universe. I say \"Subhan'Allah,\" for the way golden hour hits the skyscrapers of San Francisco, for the beauty of the sunset, for the love that I feel. Alhamdulillah.",
+      "Best,\nMelissa",
+    ],
+  },
   {
     id: "on-love",
     title: "on love",
@@ -66,12 +90,13 @@ const blogArticles = [
       "What is really crazy about the timing of these thoughts, is the man I thought was the love of my life reached out to me for the first time in over seven years. I honestly thought his contact was blocked in every way possible. I was not very open to making amends, but I took his call. And we talked for several hours. It felt natural in a way that also brings me sorrow. We exchanged apologies and took accountability, and we did make amends. And it must have been divine timing because maybe it did bring me some closure I did not know I needed...",
       "I deleted Hinge a while ago. I realize many people just want to access a body, any body. And I do not really want it to be mine. I feel safer when I am not physically intimate with many people, or people I do not know well anymore. I used to seek very detached physical intimacy, but I think I am in a place where I just really don't want that.",
       "I am too steeped in gratitude and love lately to entertain anything that is not full of meaning and light.",
+      "Best,\nMelissa",
     ],
   },
   {
     id: "on-arrival",
     title: "on arrival",
-    dateLabel: "January 11th, 2026, 7:09am",
+    dateLabel: "January 2026",
     cardDateLabel: "January 2026",
     body: [
       "I am in a perpetual, deep state of gratitude.",
@@ -87,7 +112,6 @@ const blogArticles = [
 ];
 
 export default function App() {
-  const [showSocial, setShowSocial] = useState(false);
   const [showMarketing, setShowMarketing] = useState(false);
   const [showBlogList, setShowBlogList] = useState(false);
   const [activeBlogArticle, setActiveBlogArticle] = useState(null);
@@ -101,6 +125,7 @@ export default function App() {
   const rouletteTimerRef = useRef(null);
   const rouletteTimeoutRef = useRef(null);
   const rouletteAudioRef = useRef(null);
+  const blogPanelRef = useRef(null);
   const cursorRef = useRef(null);
   const trailRefs = useRef([]);
   const pointerRef = useRef({ x: 0, y: 0 });
@@ -119,12 +144,11 @@ export default function App() {
   ];
 
   useEffect(() => {
-    if (!showSocial && !showMarketing && !showBlogList && !activeBlogArticle) {
+    if (!showMarketing && !showBlogList && !activeBlogArticle) {
       return undefined;
     }
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
-        setShowSocial(false);
         setShowMarketing(false);
         setShowBlogList(false);
         setActiveBlogArticle(null);
@@ -132,7 +156,7 @@ export default function App() {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [showSocial, showMarketing, showBlogList, activeBlogArticle]);
+  }, [showMarketing, showBlogList, activeBlogArticle]);
 
   useEffect(() => {
     const updateTime = () => {
@@ -253,6 +277,11 @@ export default function App() {
     []
   );
 
+  useEffect(() => {
+    if (!activeBlogArticle || !blogPanelRef.current) return;
+    blogPanelRef.current.scrollTo({ top: 0, left: 0 });
+  }, [activeBlogArticle]);
+
   const activeBlogIndex = activeBlogArticle
     ? blogArticles.findIndex((article) => article.id === activeBlogArticle.id)
     : -1;
@@ -365,13 +394,12 @@ export default function App() {
             transform: "translate(-50%, -50%)",
           }}
         >
-          <div className="node center" onClick={() => setShowSocial(true)}>
+          <div className="node center">
             <p className="name">
               Melissa
               <span>Leavenworth</span>
             </p>
             <p className="sporkles">⋆⁺₊⋆ 𖤓 ⋆⁺₊⋆</p>
-            <p className="tagline">mimic the universe by creating</p>
             <div className="icon-list">
               {quickLinks.map((link) => (
                 <a
@@ -384,13 +412,17 @@ export default function App() {
                   aria-label={link.label}
                 >
                   <img
-                    className={`icon-img ${link.label === "Artistic" ? "icon-img-artistic" : ""}`}
+                    className={`icon-img ${link.whiteIcon ? "icon-img-white" : ""}`}
                     src={link.iconUrl}
                     alt=""
                     aria-hidden="true"
                   />
                 </a>
               ))}
+            </div>
+            <div className="center-contact-details">
+              <a href="mailto:mlleavenworth@gmail.com">mlleavenworth@gmail.com</a>
+              <a href="tel:+17205855238">720-585-5238</a>
             </div>
           </div>
 
@@ -524,21 +556,29 @@ export default function App() {
           <span className="blog-subtext">tap to expand</span>
         </button>
         {showBlogList && (
-          <div className="blog-list" aria-label="Blog articles">
-            {blogArticles.map((article) => (
-              <button
-                key={article.id}
-                className="blog-card"
-                type="button"
-                onClick={() => {
-                  setActiveBlogArticle(article);
-                  setShowBlogList(false);
-                }}
-              >
-                <span className="blog-card-title">{article.title}</span>
-                <span className="blog-card-date">• {article.cardDateLabel}</span>
-              </button>
-            ))}
+          <div
+            className="blog-list-overlay"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Blog articles"
+            onPointerDown={() => setShowBlogList(false)}
+          >
+            <div className="blog-list" onPointerDown={(event) => event.stopPropagation()}>
+              {blogArticles.map((article) => (
+                <button
+                  key={article.id}
+                  className="blog-card"
+                  type="button"
+                  onClick={() => {
+                    setActiveBlogArticle(article);
+                    setShowBlogList(false);
+                  }}
+                >
+                  <span className="blog-card-title">{article.title}</span>
+                  <span className="blog-card-date">• {article.cardDateLabel}</span>
+                </button>
+              ))}
+            </div>
           </div>
         )}
         <audio
@@ -546,73 +586,6 @@ export default function App() {
           src={`${import.meta.env.BASE_URL}fairy-sparkle.mp3`}
           preload="none"
         />
-
-        {showSocial && (
-          <div
-            className="resume-overlay"
-            role="dialog"
-            aria-modal="true"
-            onPointerDown={() => setShowSocial(false)}
-          >
-            <div className="resume-card social-card" onPointerDown={(event) => event.stopPropagation()}>
-              <div className="social-header">
-                <h3>
-                  Connect
-                  <br />
-                  <br />
-                </h3>
-              </div>
-              <div className="social-links">
-                <a
-                  className="social-link"
-                  href="https://www.instagram.com/melissalynnel/"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Instagram"
-                >
-                  <img
-                    className="social-icon-img"
-                    src="icons/instagram.svg"
-                    alt=""
-                    aria-hidden="true"
-                  />
-                </a>
-                <a
-                  className="social-link"
-                  href="https://www.linkedin.com/in/melissaleavenworth/"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="LinkedIn"
-                >
-                  <img
-                    className="social-icon-img"
-                    src="icons/linkedin.png"
-                    alt=""
-                    aria-hidden="true"
-                  />
-                </a>
-                <a
-                  className="social-link"
-                  href="https://github.com/melissalynnel"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="GitHub"
-                >
-                  <img
-                    className="social-icon-img"
-                    src="icons/github.svg"
-                    alt=""
-                    aria-hidden="true"
-                  />
-                </a>
-              </div>
-              <div className="social-details">
-                <span>mlleavenworth@gmail.com</span>
-                <span>720-585-5238</span>
-              </div>
-            </div>
-          </div>
-        )}
 
         {showMarketing && (
           <div
@@ -743,6 +716,18 @@ export default function App() {
           </div>
         )}
 
+        <div className="hue-control" aria-label="Hue slider">
+          <span>Hue</span>
+          <input
+            type="range"
+            min="0"
+            max="360"
+            value={hue}
+            onChange={(event) => setHue(Number(event.target.value))}
+            aria-label="Hue"
+          />
+        </div>
+
         {activeBlogArticle && (
           <div
             className="resume-overlay blog-overlay"
@@ -763,7 +748,7 @@ export default function App() {
               >
                 ‹
               </button>
-              <div className="resume-card blog-panel">
+              <div className="resume-card blog-panel" ref={blogPanelRef}>
                 <button
                   className="resume-close"
                   aria-label="Close blog article"
@@ -799,18 +784,6 @@ export default function App() {
             </div>
           </div>
         )}
-      </div>
-
-      <div className="hue-control" aria-label="Hue slider">
-        <span>Hue</span>
-        <input
-          type="range"
-          min="0"
-          max="360"
-          value={hue}
-          onChange={(event) => setHue(Number(event.target.value))}
-          aria-label="Hue"
-        />
       </div>
     </div>
   );

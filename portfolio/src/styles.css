@@ -229,8 +229,30 @@ body,
   display: block;
 }
 
+.icon-img-white {
+  filter: brightness(0) invert(1);
+}
+
 .icon-img-artistic {
   transform: rotate(90deg);
+}
+
+.center-contact-details {
+  margin-top: 14px;
+  display: grid;
+  gap: 4px;
+  justify-items: center;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.center-contact-details a {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+}
+
+.center-contact-details a:hover {
+  color: #fff;
 }
 
 .icon-button::after {
@@ -308,17 +330,6 @@ body,
   color: rgba(255, 255, 255, 0.9);
 }
 
-.social-card {
-  max-width: 520px;
-  text-align: center;
-  padding: 0 24px 20px;
-  transform: translateY(-12px);
-}
-
-.social-card .resume-header {
-  margin-top: 0;
-}
-
 .marketing-card {
   width: min(1000px, 92vw);
   max-height: 85vh;
@@ -358,56 +369,6 @@ body,
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 12px 26px rgba(12, 6, 34, 0.3);
-}
-
-.social-header h3 {
-  margin: 0 0 6px;
-}
-
-.social-header p {
-  margin: 0 0 18px;
-}
-
-.social-details {
-  margin: 18px 0 0;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  align-items: center;
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 0.95rem;
-}
-
-.social-links {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin: 8px 0 0;
-}
-
-.social-link {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  text-decoration: none;
-  color: #fff;
-  padding: 10px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.08));
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.social-link:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 24px rgba(255, 178, 110, 0.45);
-}
-
-.social-icon-img {
-  width: 30px;
-  height: 30px;
-  display: block;
-  filter: brightness(0) invert(1);
 }
 
 .spotify-player {
@@ -521,6 +482,10 @@ body,
   font-weight: 600;
   color: rgba(255, 255, 255, 0.9);
   text-transform: lowercase;
+}
+
+.blog-list-overlay {
+  display: contents;
 }
 
 .blog-list {
@@ -797,7 +762,7 @@ body,
   border: 1px solid rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(14px);
   box-shadow: 0 12px 28px rgba(12, 6, 34, 0.35);
-  z-index: 12;
+  z-index: 9;
 }
 
 .hue-control span {
@@ -855,32 +820,33 @@ body,
 @media (max-width: 720px) {
   html,
   body {
-    min-height: 100%;
+    height: 100%;
     overflow-x: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    overflow-y: hidden;
   }
 
   .scene {
     width: 100%;
-    height: auto;
-    min-height: 100vh;
-    overflow: visible;
-    touch-action: pan-y;
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+    touch-action: none;
   }
 
   .scene-filter {
-    min-height: 100vh;
+    height: 100%;
+    min-height: 0;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    --mobile-card-width: min(92vw, 360px);
-    --mobile-stack-gap: 10px;
-    --mobile-control-min-height: 72px;
-    --mobile-hue-reserve: 116px;
+    justify-content: flex-start;
+    --mobile-card-width: min(92vw, 370px);
+    --mobile-stack-gap: clamp(8px, 1.2dvh, 10px);
+    --mobile-control-min-height: clamp(58px, 8.6dvh, 72px);
     gap: var(--mobile-stack-gap);
-    padding-bottom: var(--mobile-hue-reserve);
+    padding: clamp(14px, 3.4dvh, 36px) 0 clamp(8px, 1.5dvh, 16px);
+    overflow: hidden;
   }
 
   .backdrop {
@@ -899,7 +865,7 @@ body,
     flex-direction: column;
     align-items: center;
     gap: var(--mobile-stack-gap);
-    padding: 36px 16px 0;
+    padding: 0 16px;
     order: 1;
   }
 
@@ -908,7 +874,7 @@ body,
     width: var(--mobile-card-width) !important;
     max-width: var(--mobile-card-width) !important;
     min-width: 0 !important;
-    padding: 18px 20px;
+    padding: clamp(14px, 2.2dvh, 18px) 20px;
     transform: none !important;
     margin: 0 auto;
   }
@@ -934,17 +900,41 @@ body,
   }
 
   .name {
-    font-size: 3.4rem;
+    font-size: clamp(2.75rem, 10vw, 3.4rem);
   }
 
   .name span {
-    font-size: 3.4rem;
+    font-size: clamp(2.75rem, 10vw, 3.4rem);
   }
 
   .tagline,
   .pronouns,
   .sporkles {
     font-size: 0.95rem;
+  }
+
+  .tagline {
+    margin-top: clamp(4px, 0.8dvh, 8px);
+  }
+
+  .sporkles {
+    margin-top: clamp(3px, 0.6dvh, 6px);
+  }
+
+  .center .icon-list {
+    margin-top: clamp(10px, 1.6dvh, 14px);
+    gap: clamp(8px, 1.2dvh, 10px);
+  }
+
+  .center .icon-button {
+    width: clamp(38px, 6.2dvh, 44px);
+    height: clamp(38px, 6.2dvh, 44px);
+  }
+
+  .center-contact-details {
+    margin-top: clamp(8px, 1.2dvh, 14px);
+    gap: 2px;
+    font-size: clamp(0.78rem, 3.3vw, 0.9rem);
   }
 
   .utility-widgets {
@@ -1009,11 +999,30 @@ body,
     text-align: center;
   }
 
+  .blog-list-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(7, 4, 14, 0.55);
+    backdrop-filter: blur(6px);
+  }
+
   .blog-list {
     display: grid;
     gap: var(--mobile-stack-gap);
-    order: 2;
+    position: static;
     margin-top: 0;
+    width: min(92vw, 420px);
+    padding: 20px 18px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.12));
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 24px 60px rgba(12, 6, 34, 0.45);
+    backdrop-filter: blur(14px);
   }
 
   .blog-panel {
@@ -1048,15 +1057,16 @@ body,
   .spotify-player {
     order: 6;
     margin-bottom: 0;
+    padding: clamp(6px, 1dvh, 8px);
   }
 
   .hue-control {
-    position: fixed;
-    left: 50%;
-    bottom: 16px;
-    transform: translateX(-50%);
+    position: static;
+    order: 7;
+    margin-bottom: 0;
+    transform: none;
     width: var(--mobile-card-width);
-    z-index: 12;
+    z-index: 9;
   }
 
   .hue-control input[type="range"] {
@@ -1065,6 +1075,7 @@ body,
 
   .spotify-player iframe {
     width: 100%;
+    height: clamp(64px, 10dvh, 80px);
   }
 
 
@@ -1081,7 +1092,7 @@ body,
 
 @media (max-width: 420px) {
   .map {
-    padding-top: 96px;
+    padding-top: 0;
   }
 
   .name {
