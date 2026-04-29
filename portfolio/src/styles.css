@@ -1115,7 +1115,6 @@ body,
   .spotify-player {
     order: 6;
     margin-bottom: 0;
-    width: min(78.2vw, 314.5px);
     padding: clamp(6px, 1dvh, 8px);
   }
 
