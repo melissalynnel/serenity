@@ -481,6 +481,7 @@ body,
   gap: 8px;
   color: inherit;
   text-align: left;
+  font: inherit;
   cursor: pointer;
   transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
