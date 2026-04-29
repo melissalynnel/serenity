@@ -521,6 +521,8 @@ body,
 
 .blog-subtext,
 .roulette-result {
+  display: block;
+  font-family: inherit;
   font-size: 0.95rem;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.9);
