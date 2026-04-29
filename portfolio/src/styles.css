@@ -519,11 +519,13 @@ body,
   box-shadow: var(--glow-shadow);
 }
 
-.blog-subtext {
+.blog-subtext,
+.roulette-result {
   font-size: 0.95rem;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.9);
   text-transform: lowercase;
+  line-height: 1.2;
 }
 
 .blog-list-overlay {
@@ -650,10 +652,6 @@ body,
 
 
 .roulette-result {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
-  text-transform: lowercase;
   min-height: 1.2em;
 }
 
@@ -1114,6 +1112,7 @@ body,
   .spotify-player {
     order: 6;
     margin-bottom: 0;
+    width: min(78.2vw, 314.5px);
     padding: clamp(6px, 1dvh, 8px);
   }
 
