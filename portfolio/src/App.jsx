@@ -421,8 +421,14 @@ export default function App() {
               ))}
             </div>
             <div className="center-contact-details">
-              <a href="mailto:mlleavenworth@gmail.com">mlleavenworth@gmail.com</a>
-              <a href="tel:+17205855238">720-585-5238</a>
+              <a
+                className="meeting-button"
+                href="https://calendly.com/melissa-levity/30min"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Book a Meeting
+              </a>
             </div>
           </div>
 
