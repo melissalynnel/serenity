@@ -125,6 +125,7 @@ export default function App() {
   const rouletteTimerRef = useRef(null);
   const rouletteTimeoutRef = useRef(null);
   const rouletteAudioRef = useRef(null);
+  const boopAudioRef = useRef(null);
   const blogPanelRef = useRef(null);
   const cursorRef = useRef(null);
   const trailRefs = useRef([]);
@@ -229,6 +230,13 @@ export default function App() {
     const audio = rouletteAudioRef.current;
     audio.load();
     audio.currentTime = 0;
+  };
+
+  const playBoop = () => {
+    if (!boopAudioRef.current) return;
+    const audio = boopAudioRef.current;
+    audio.currentTime = 0;
+    audio.play().catch(() => {});
   };
 
   const spinRoulette = () => {
@@ -342,6 +350,7 @@ export default function App() {
     <div
       className="scene"
       style={{ "--hue": `${hue}deg` }}
+      onClickCapture={playBoop}
     >
       <div className="scene-filter">
         <div className="cursor-layer" aria-hidden="true">
@@ -591,6 +600,11 @@ export default function App() {
           ref={rouletteAudioRef}
           src={`${import.meta.env.BASE_URL}fairy-sparkle.mp3`}
           preload="none"
+        />
+        <audio
+          ref={boopAudioRef}
+          src={`${import.meta.env.BASE_URL}bubble.wav`}
+          preload="auto"
         />
 
         {showMarketing && (
