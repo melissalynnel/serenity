@@ -239,6 +239,13 @@ export default function App() {
     audio.play().catch(() => {});
   };
 
+  const playBoopOnInteractiveHover = (event) => {
+    const target = event.target.closest("a, button, input, [role='link'], [tabindex]");
+    if (!target) return;
+    if (event.relatedTarget && target.contains(event.relatedTarget)) return;
+    playBoop();
+  };
+
   const spinRoulette = () => {
     if (isRouletteSpinning) return;
     prepareAudio();
@@ -350,7 +357,8 @@ export default function App() {
     <div
       className="scene"
       style={{ "--hue": `${hue}deg` }}
-      onClickCapture={playBoop}
+      onPointerOver={playBoopOnInteractiveHover}
+      onFocus={playBoopOnInteractiveHover}
     >
       <div className="scene-filter">
         <div className="cursor-layer" aria-hidden="true">
