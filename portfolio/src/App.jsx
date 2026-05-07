@@ -186,6 +186,8 @@ export default function App() {
   const blogWidgetRef = useRef(null);
   const blogListRef = useRef(null);
   const techStackRef = useRef(null);
+  const techStackMobilePanelRef = useRef(null);
+  const techStackOverlayPointerRef = useRef(null);
   const cursorRef = useRef(null);
   const trailRefs = useRef([]);
   const pointerRef = useRef({ x: 0, y: 0 });
@@ -222,9 +224,10 @@ export default function App() {
   useEffect(() => {
     if (!showTechStack) return undefined;
     const handleOutside = (event) => {
-      if (techStackRef.current && !techStackRef.current.contains(event.target)) {
-        setShowTechStack(false);
-      }
+      if (event.target.closest?.(".tech-stack-mobile-overlay")) return;
+      if (techStackRef.current?.contains(event.target)) return;
+      if (techStackMobilePanelRef.current?.contains(event.target)) return;
+      setShowTechStack(false);
     };
     window.addEventListener("pointerdown", handleOutside);
     return () => window.removeEventListener("pointerdown", handleOutside);
@@ -372,7 +375,23 @@ export default function App() {
     : -1;
   const hasPreviousBlog = activeBlogIndex > 0;
   const hasNextBlog = activeBlogIndex >= 0 && activeBlogIndex < blogArticles.length - 1;
+  const handleTechStackOverlayPointerDown = (event) => {
+    if (event.target !== event.currentTarget) return;
+    techStackOverlayPointerRef.current = {
+      x: event.clientX,
+      y: event.clientY,
+    };
+  };
+  const handleTechStackOverlayPointerUp = (event) => {
+    const start = techStackOverlayPointerRef.current;
+    techStackOverlayPointerRef.current = null;
+    if (!start || event.target !== event.currentTarget) return;
 
+    const distance = Math.hypot(event.clientX - start.x, event.clientY - start.y);
+    if (distance < 8) {
+      setShowTechStack(false);
+    }
+  };
 
   return (
     <div
@@ -867,9 +886,14 @@ export default function App() {
           role="dialog"
           aria-modal="true"
           aria-label="Tech stack"
-          onPointerDown={() => setShowTechStack(false)}
+          onPointerDown={handleTechStackOverlayPointerDown}
+          onPointerUp={handleTechStackOverlayPointerUp}
         >
-          <div className="tech-stack-mobile-panel" onPointerDown={(event) => event.stopPropagation()}>
+          <div
+            className="tech-stack-mobile-panel"
+            ref={techStackMobilePanelRef}
+            onPointerDown={(event) => event.stopPropagation()}
+          >
             {techGroups.map((group) => (
               <div key={group.label} className="tech-group">
                 <h4>{group.label}</h4>
