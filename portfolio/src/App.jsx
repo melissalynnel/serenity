@@ -437,7 +437,6 @@ export default function App() {
               Melissa
               <span>Leavenworth</span>
             </p>
-            <p className="sporkles">⋆⁺₊⋆ 𖤓 ⋆⁺₊⋆</p>
             <div className="icon-list">
               {quickLinks.map((link) => (
                 <a
@@ -458,6 +457,7 @@ export default function App() {
                 </a>
               ))}
             </div>
+            <p className="sporkles">⋆⁺₊⋆ 𖤓 ⋆⁺₊⋆</p>
             <div className="center-contact-details">
               <a
                 className="meeting-button"
@@ -466,6 +466,20 @@ export default function App() {
                 rel="noreferrer"
               >
                 See My Designs
+              </a>
+              <a
+                className="resume-download-btn"
+                href={`${import.meta.env.BASE_URL}Melissa-Leavenworth_Resume.pdf`}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Download resume"
+              >
+                Resumé
+                <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 4v10" />
+                  <path d="M8 10l4 4 4-4" />
+                  <path d="M6 20h12" />
+                </svg>
               </a>
             </div>
           </div>
@@ -638,20 +652,6 @@ export default function App() {
             </div>
           </div>
         )}
-        <a
-          className="resume-download-btn"
-          href={`${import.meta.env.BASE_URL}resume.pdf`}
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Download resume"
-        >
-          Resume
-          <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 4v10" />
-            <path d="M8 10l4 4 4-4" />
-            <path d="M6 20h12" />
-          </svg>
-        </a>
         <audio
           ref={rouletteAudioRef}
           src={`${import.meta.env.BASE_URL}fairy-sparkle.mp3`}
@@ -861,6 +861,35 @@ export default function App() {
           </div>
         )}
       </div>
+      {showTechStack && (
+        <div
+          className="tech-stack-mobile-overlay"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Tech stack"
+          onPointerDown={() => setShowTechStack(false)}
+        >
+          <div className="tech-stack-mobile-panel" onPointerDown={(event) => event.stopPropagation()}>
+            {techGroups.map((group) => (
+              <div key={group.label} className="tech-group">
+                <h4>{group.label}</h4>
+                <div className="tech-items">
+                  {group.items.map((item) => (
+                    <div key={item.name} className="tech-item">
+                      <img
+                        src={`${import.meta.env.BASE_URL}logos/${item.logo}`}
+                        alt={item.name}
+                        loading="lazy"
+                      />
+                      <span>{item.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
