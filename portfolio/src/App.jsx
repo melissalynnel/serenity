@@ -423,11 +423,11 @@ export default function App() {
             <div className="center-contact-details">
               <a
                 className="meeting-button"
-                href="https://calendly.com/melissa-levity/30min"
+                href="https://levity.ltd/work/"
                 target="_blank"
                 rel="noreferrer"
               >
-                Book a Meeting
+                See My Designs
               </a>
             </div>
           </div>

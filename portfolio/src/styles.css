@@ -113,8 +113,9 @@ body,
   background: radial-gradient(circle, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0));
   filter: blur(1px);
   opacity: 0.9;
-  transform: translate(var(--x), var(--y));
+  transform: translate(var(--x), var(--y)) scale(0.95);
   animation: drift 16s ease-in-out infinite;
+  animation-fill-mode: both;
 }
 
 @keyframes drift {
