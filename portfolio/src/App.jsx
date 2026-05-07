@@ -111,13 +111,69 @@ const blogArticles = [
   },
 ];
 
+const techGroups = [
+  {
+    label: "Ops + Project",
+    items: [
+      { name: "Airtable", logo: "airtable.svg" },
+      { name: "Asana", logo: "asana.svg" },
+      { name: "Notion", logo: "notion.svg" },
+      { name: "GitHub", logo: "github.svg" },
+      { name: "Discord", logo: "discord.svg" },
+      { name: "Codex", logo: "openai.svg" },
+      { name: "Claude", logo: "claude.svg" },
+    ],
+  },
+  {
+    label: "Marketing + Analytics",
+    items: [
+      { name: "Google Analytics", logo: "googleanalytics.svg" },
+      { name: "Google Suite", logo: "googleworkspace.svg" },
+      { name: "MailChimp", logo: "mailchimp.svg" },
+      { name: "Later.com", logo: "later.svg" },
+    ],
+  },
+  {
+    label: "Creative",
+    items: [
+      { name: "Photoshop", logo: "adobephotoshop.svg" },
+      { name: "Lightroom", logo: "adobelightroom.svg" },
+      { name: "Illustrator", logo: "adobeillustrator.svg" },
+      { name: "Premiere Pro", logo: "adobepremierepro.svg" },
+      { name: "Canva", logo: "canva.svg" },
+      { name: "Capcut", logo: "capcut.svg" },
+      { name: "Figma", logo: "figma.svg" },
+      { name: "Pixieset", logo: "pixieset.svg" },
+    ],
+  },
+  {
+    label: "Social + Ads",
+    items: [
+      { name: "Facebook", logo: "facebook.svg" },
+      { name: "Instagram", logo: "instagram.svg" },
+      { name: "Meta Ads", logo: "meta.svg" },
+      { name: "X.com", logo: "x.svg" },
+      { name: "TikTok", logo: "tiktok.svg" },
+    ],
+  },
+  {
+    label: "Web + Commerce",
+    items: [
+      { name: "Shopify", logo: "shopify.svg" },
+      { name: "Squarespace", logo: "squarespace.svg" },
+      { name: "Wix", logo: "wix.svg" },
+      { name: "WordPress", logo: "wordpress.svg" },
+      { name: "Amazon", logo: "amazon.svg" },
+      { name: "Salsify", logo: "salsify.svg" },
+    ],
+  },
+];
+
 export default function App() {
   const [showMarketing, setShowMarketing] = useState(false);
   const [showBlogList, setShowBlogList] = useState(false);
   const [activeBlogArticle, setActiveBlogArticle] = useState(null);
-  const [timeString, setTimeString] = useState("");
-  const [weatherTemp, setWeatherTemp] = useState("--°F");
-  const [weatherCondition, setWeatherCondition] = useState("Weather");
+  const [showTechStack, setShowTechStack] = useState(false);
   const [roulettePick, setRoulettePick] = useState("Tap to pick");
   const [isRouletteSpinning, setIsRouletteSpinning] = useState(false);
   const [rouletteBurst, setRouletteBurst] = useState(false);
@@ -127,6 +183,9 @@ export default function App() {
   const rouletteAudioRef = useRef(null);
   const boopAudioRef = useRef(null);
   const blogPanelRef = useRef(null);
+  const blogWidgetRef = useRef(null);
+  const blogListRef = useRef(null);
+  const techStackRef = useRef(null);
   const cursorRef = useRef(null);
   const trailRefs = useRef([]);
   const pointerRef = useRef({ x: 0, y: 0 });
@@ -145,7 +204,7 @@ export default function App() {
   ];
 
   useEffect(() => {
-    if (!showMarketing && !showBlogList && !activeBlogArticle) {
+    if (!showMarketing && !showBlogList && !activeBlogArticle && !showTechStack) {
       return undefined;
     }
     const handleKeyDown = (event) => {
@@ -153,25 +212,36 @@ export default function App() {
         setShowMarketing(false);
         setShowBlogList(false);
         setActiveBlogArticle(null);
+        setShowTechStack(false);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [showMarketing, showBlogList, activeBlogArticle]);
+  }, [showMarketing, showBlogList, activeBlogArticle, showTechStack]);
 
   useEffect(() => {
-    const updateTime = () => {
-      const formatter = new Intl.DateTimeFormat("en-US", {
-        timeZone: "America/Los_Angeles",
-        hour: "numeric",
-        minute: "2-digit",
-      });
-      setTimeString(formatter.format(new Date()));
+    if (!showTechStack) return undefined;
+    const handleOutside = (event) => {
+      if (techStackRef.current && !techStackRef.current.contains(event.target)) {
+        setShowTechStack(false);
+      }
     };
-    updateTime();
-    const timer = setInterval(updateTime, 60000);
-    return () => clearInterval(timer);
-  }, []);
+    window.addEventListener("pointerdown", handleOutside);
+    return () => window.removeEventListener("pointerdown", handleOutside);
+  }, [showTechStack]);
+
+  useEffect(() => {
+    if (!showBlogList) return undefined;
+    const handleOutside = (event) => {
+      const inWidget = blogWidgetRef.current?.contains(event.target);
+      const inList = blogListRef.current?.contains(event.target);
+      if (!inWidget && !inList) {
+        setShowBlogList(false);
+      }
+    };
+    window.addEventListener("pointerdown", handleOutside);
+    return () => window.removeEventListener("pointerdown", handleOutside);
+  }, [showBlogList]);
 
   useEffect(() => {
     const handlePointerMove = (event) => {
@@ -303,55 +373,6 @@ export default function App() {
   const hasPreviousBlog = activeBlogIndex > 0;
   const hasNextBlog = activeBlogIndex >= 0 && activeBlogIndex < blogArticles.length - 1;
 
-  useEffect(() => {
-    const weatherCodeToText = (code) => {
-      const map = {
-        0: "Clear",
-        1: "Mostly clear",
-        2: "Partly cloudy",
-        3: "Overcast",
-        45: "Fog",
-        48: "Rime fog",
-        51: "Light drizzle",
-        53: "Drizzle",
-        55: "Heavy drizzle",
-        61: "Light rain",
-        63: "Rain",
-        65: "Heavy rain",
-        71: "Light snow",
-        73: "Snow",
-        75: "Heavy snow",
-        80: "Light showers",
-        81: "Showers",
-        82: "Heavy showers",
-        95: "Thunderstorm",
-      };
-      return map[code] ?? "Weather";
-    };
-
-    const fetchWeather = async () => {
-      try {
-        const url =
-          "https://api.open-meteo.com/v1/forecast?latitude=37.7749&longitude=-122.4194&current_weather=true&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America%2FLos_Angeles";
-        const response = await fetch(url);
-        if (!response.ok) throw new Error("Weather request failed");
-        const data = await response.json();
-        const current = data?.current_weather;
-        if (!current) throw new Error("Weather unavailable");
-        const temp = Math.round(current.temperature);
-        const label = weatherCodeToText(current.weathercode);
-        setWeatherTemp(`${temp}°F`);
-        setWeatherCondition(label);
-      } catch (error) {
-        setWeatherTemp("--°F");
-        setWeatherCondition("Weather unavailable");
-      }
-    };
-
-    fetchWeather();
-    const timer = setInterval(fetchWeather, 15 * 60 * 1000);
-    return () => clearInterval(timer);
-  }, []);
 
   return (
     <div
@@ -527,23 +548,35 @@ export default function App() {
         </div>
 
         <div className="utility-widgets">
-          <div className="glass-widget">
-            <span className="widget-label">
-              Bay Area
-              <br />
-              Time
-            </span>
-            <span className="widget-value">{timeString || "—:—"}</span>
-          </div>
-          <div className="glass-widget">
-            <span className="widget-label">
-              Bay Area
-              <br />
-              Weather
-            </span>
-            <span className="widget-value">
-              {weatherTemp} • {weatherCondition}
-            </span>
+          <div className={`tech-stack-widget${showTechStack ? " is-open" : ""}`} ref={techStackRef}>
+            <button
+              className="tech-stack-toggle"
+              type="button"
+              aria-expanded={showTechStack}
+              onClick={() => setShowTechStack((prev) => !prev)}
+            >
+              <span className="widget-label">Tech Stack</span>
+              <span className="tech-stack-sub">tap to expand</span>
+            </button>
+            <div className="tech-stack-panel" aria-hidden={!showTechStack}>
+              {techGroups.map((group) => (
+                <div key={group.label} className="tech-group">
+                  <h4>{group.label}</h4>
+                  <div className="tech-items">
+                    {group.items.map((item) => (
+                      <div key={item.name} className="tech-item">
+                        <img
+                          src={`${import.meta.env.BASE_URL}logos/${item.logo}`}
+                          alt={item.name}
+                          loading="lazy"
+                        />
+                        <span>{item.name}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -573,6 +606,7 @@ export default function App() {
           className="blog-widget"
           type="button"
           aria-label="Blog"
+          ref={blogWidgetRef}
           onClick={() => setShowBlogList((prev) => !prev)}
         >
           <span className="widget-label">blog</span>
@@ -586,7 +620,7 @@ export default function App() {
             aria-label="Blog articles"
             onPointerDown={() => setShowBlogList(false)}
           >
-            <div className="blog-list" onPointerDown={(event) => event.stopPropagation()}>
+            <div className="blog-list" ref={blogListRef} onPointerDown={(event) => event.stopPropagation()}>
               {blogArticles.map((article) => (
                 <button
                   key={article.id}
@@ -604,6 +638,20 @@ export default function App() {
             </div>
           </div>
         )}
+        <a
+          className="resume-download-btn"
+          href={`${import.meta.env.BASE_URL}resume.pdf`}
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Download resume"
+        >
+          Resume
+          <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 4v10" />
+            <path d="M8 10l4 4 4-4" />
+            <path d="M6 20h12" />
+          </svg>
+        </a>
         <audio
           ref={rouletteAudioRef}
           src={`${import.meta.env.BASE_URL}fairy-sparkle.mp3`}
