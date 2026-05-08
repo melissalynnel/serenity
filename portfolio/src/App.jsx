@@ -376,7 +376,6 @@ export default function App() {
   const hasPreviousBlog = activeBlogIndex > 0;
   const hasNextBlog = activeBlogIndex >= 0 && activeBlogIndex < blogArticles.length - 1;
   const handleTechStackOverlayPointerDown = (event) => {
-    if (event.target !== event.currentTarget) return;
     techStackOverlayPointerRef.current = {
       x: event.clientX,
       y: event.clientY,
@@ -385,7 +384,7 @@ export default function App() {
   const handleTechStackOverlayPointerUp = (event) => {
     const start = techStackOverlayPointerRef.current;
     techStackOverlayPointerRef.current = null;
-    if (!start || event.target !== event.currentTarget) return;
+    if (!start) return;
 
     const distance = Math.hypot(event.clientX - start.x, event.clientY - start.y);
     if (distance < 8) {
@@ -886,8 +885,8 @@ export default function App() {
           role="dialog"
           aria-modal="true"
           aria-label="Tech stack"
-          onPointerDown={handleTechStackOverlayPointerDown}
-          onPointerUp={handleTechStackOverlayPointerUp}
+          onPointerDownCapture={handleTechStackOverlayPointerDown}
+          onPointerUpCapture={handleTechStackOverlayPointerUp}
         >
           <div
             className="tech-stack-mobile-panel"
