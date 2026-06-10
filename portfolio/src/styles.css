@@ -343,7 +343,7 @@ body,
   min-width: 360px;
   text-align: center;
   border-radius: 28px;
-  transform: translate(-50%, -192px);
+  transform: translate(-50%, -50%);
   container-type: inline-size;
 }
 
@@ -744,7 +744,7 @@ body,
 .hue-control {
   position: fixed;
   left: 50%;
-  top: calc(50% + 58px);
+  top: 24px;
   bottom: auto;
   transform: translateX(-50%);
   display: flex;
