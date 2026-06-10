@@ -44,73 +44,6 @@ const quickLinks = [
   },
 ];
 
-const blogArticles = [
-  {
-    id: "march-2026",
-    title: "on faith",
-    dateLabel: "March 2026",
-    cardDateLabel: "March 2026",
-    body: [
-      "When logic fails, fills the gap between the inexplicable and belief.",
-      "Somewhere between finding where I belong, figuring out where I don't, and falling in love, I became Muslim. Part of me thinks \"I would have never thought -\" and the other part of me knows how... me-coded becoming Muslim is lol.",
-      "I guess I will just tell the story of how I got here.",
-      "I think Allah has been whispering to me since I was a child. Through my lovely friend down the street in the fourth grade. To the intuition that people are good despite what my Fox News grandparents said based on the media they consumed. To the desire to learn Arabic in high school and every presentation about Islam meant to sway my classmates into believing that it's not inherently evil.",
-      "I was raised Christian, but I have been everything including an Athiest, an Agnostic, loosely Buddhist, Agnostic again, and now Muslim.",
-      "During Ramadan, I called on Allah to help me overcome my addiction to certain substances, and it finally stuck. I decided Ramadan would be the time to reframe my relationship with \"discipline,\" which I had primarily experienced as simply punishment.",
-      "At this time, I also decided to inventory my beliefs. To line up what I thought about good and evil, about the creation of life, and so many things in between.",
-      "I was listening to several religious texts during this time. The Tao De Ching, the Taoist text, was heavily based in nature which I loved, but also based in inaction, to which I do not relate. The Bhagavad Gita was a re-read for me, and to be honest I didn't get very far into it this time becase it was the Quran that really took my attention.",
-      "I decided to fast to \"gain compassion for my Muslim friends,\" and woke up for Sahoor before the sun made its appearance each day.",
-      "I had many conversations with old friends about why they left and did, or didn't, return to Islam. And my old friend from the fourth grade, now a physicist who studies light, gave me so much information. We talked about how Islam aligned with science and how his studies only convinced him further of the presence of Allah. We talked about how there are not good and bad people, but good and bad actions. How people can misconstrue and misinterpret the Prophet Muhammad (Peace Be Upon Him) for the purpose of control.",
-      "I went to the local Masjid to \"get more information\" and after another talk about science, good and evil, addiction, and much more, the Imam asked if I wanted to take my Shahada. To which I said \"umm I don't know if I'm ready for that\" and he said \"well you have tried every other religion and you seem ready.\" And he was right. So I did.",
-      "I repeated each syllable after him: \"Ash-hadu `allā ilāha illallâh wa ash-hadu anna muħammadan rasūlullâh.\" And I felt relief wash over me.",
-      "Recently, I heard Sheik Mikaeel Smith say \"you think you are 'giving energy to the universe,' but you are making du'a to your creator.\" The funny thing about that, is that after I took my Shahada, I realized that I had been calling Allah \"the universe\" for some time now.",
-      "Everything began to fall into place. There were so many \"coincidences\" that follwed suite, that it couldn't be described as \"coincidental.\" It was more like dominoes. Everything just beautifully falling into place.",
-      "You see, I am never really early, but I was about five mintues early to the Masjid that day. And in the stairwell on the way to talk with the Imam, I ran into another Muslim who invited me to learn more at an iftar a couple days later.",
-      "So I went to that iftar, and from there, he suggested that I go to Taraweeh on Potrero Hill. And it was there that I met so many lovely Muslims that introduced me to other lovely Muslims. And each time I was in awe of the way Allah was putting me right in the places I needed to be at the exact times I needed to be there.",
-      "What I really love about Islam is the sense of agency. There is a formula for getting what you want: intention + action + god willing. For so long, I have felt on my own, and I am intentional and I work so hard... and sometimes that hard work doesn't get me where I want so I work even harder and guilt myself for not working hard enough. But the component of god willing? It brought me an immense peace that I had never found anywhere else. It gave me permission to let things go and to be more fluid in my direction. To lean into ease and release what is not really meant for me.",
-      "Now every day, when I look around, I don't thank the universe. I say \"Subhan'Allah,\" for the way golden hour hits the skyscrapers of San Francisco, for the beauty of the sunset, for the love that I feel. Alhamdulillah.",
-      "Best,\nMelissa",
-    ],
-  },
-  {
-    id: "on-love",
-    title: "on love",
-    dateLabel: "February 2026",
-    cardDateLabel: "February 2026",
-    body: [
-      "I am a lover girl through and through. It is rough out here lol.",
-      "When I think about myself in the context of love, I know that I have a very soft heart and feel deeply. I have loved every person I have been with for drastically different reasons. I end up seeing the good in people quite easily, and my strong sense of empathy often makes it hard to exit relationships that have probably run their course.",
-      "Dating in SF is actually so fun. These men keep me well fed, and the ladies keep a smile on my face. It didn't take long to realize, though, that it is extremely rare to connect with someone on the level that I seek.",
-      "There is a really lovely man that I met through Hinge. We matched before I even moved here, and then we matched again after I nuked that account for being too overwhelming (I had 1,000 potential matches on Hinge before I arrived to the Bay Area - that is the cap of matches lol). There was nothing particularly stand-out about his profile, he is just very handsome - no, wait, there was something stand-out... he said he is looking for someone who \"minimizes shareholder value\" and I thought that was so funny. But after getting to know him better, this is actually a huge indication of his value system.",
-      "The thing about this man, is that he said something on our first date that brought my heart much sorrow. I asked what his intention in dating is, and he said he dates casually, likes to make friends and go on adventures, \"but [he's] not tryna miss out on the love of [his] life.\" And I felt sorrow because, for so many years... seven years to be more precise... I had attributed the \"love of my life\" title to a man who yes, I had loved very deeply, but who had treated me so, so poorly. And in giving him this title, I sought love that was dampened. Because I did not believe I could love the same way again. Because the love of your life is mean to be a once-in-a-lifetime love. So how could I really ever love someone like that again?",
-      "Over the following week, I pondered... what would it actually look like for me to believe that exists for me beyond what I had allowed myself up to this point? What does it look like for me to believe that the \"love of my life\" is still out there? How would I love differently? How would I accept love differently? I wept for myself when I realized that I could be loved more fully than I had before, and that I had put this burden of non-love on myself for so long that I had not sought partnerships that could meet me in my wholeness.",
-      "And what does it look like for me to relinquish the anticipatory disappointment that I have accrued over time? To set that aside and to let myself be disappointed sometimes? To attach with the apparent possibility of detachment, which my body has read as abandonment for so long. Writing this, I realize perhaps abandonment saves me from certain people who are not meant to access me. Who cannot begin to hold my fullness, just as the man who I designated the love of my life could not.",
-      "So I am practicing a lot when it comes to love. I am practicing emotional pacing. I am practicing softness, playfulness, fearlessness. I am allowing myself to caretake in certain ways, but only if they are somehow reciprocated. When I think about the kind of love that I would consider something as serious as marriage for, there is a deep intimacy. There is an intimacy in that we would be able to experience deep spiritual practice together, and take care of one another in ways that I just have not experienced before.",
-      "The man that prompted this thought, we have been seeing each other a couple times a week since we met and I don't think a man has ever treated me this good. He is certainly setting a standard for anyone who might come after him. And my body feels so relaxed with him. There is no guessing. No desperation. There is a strong calmness in knowing he will accept my bids for connection, and that he means it when he says he wants to be my friend and care for me. I know he means it because I can see how he shows up for everyone around him.",
-      "What is really crazy about the timing of these thoughts, is the man I thought was the love of my life reached out to me for the first time in over seven years. I honestly thought his contact was blocked in every way possible. I was not very open to making amends, but I took his call. And we talked for several hours. It felt natural in a way that also brings me sorrow. We exchanged apologies and took accountability, and we did make amends. And it must have been divine timing because maybe it did bring me some closure I did not know I needed...",
-      "I deleted Hinge a while ago. I realize many people just want to access a body, any body. And I do not really want it to be mine. I feel safer when I am not physically intimate with many people, or people I do not know well anymore. I used to seek very detached physical intimacy, but I think I am in a place where I just really don't want that.",
-      "I am too steeped in gratitude and love lately to entertain anything that is not full of meaning and light.",
-      "Best,\nMelissa",
-    ],
-  },
-  {
-    id: "on-arrival",
-    title: "on arrival",
-    dateLabel: "January 2026",
-    cardDateLabel: "January 2026",
-    body: [
-      "I am in a perpetual, deep state of gratitude.",
-      "Moving to San Francisco feels like one of the best things I have ever done for myself, despite the fact that my condo remains unrented back in Colorado and the impending doom of nearly $4.6k in monthly living expenses will hit on the first next month. Oh, and I still haven't found a job.",
-      "There is something extreme motivating behind being on the edge of running your bank account dry. I have been living the healthiest I have in my life, strictly out of necessity. Did you know that Trader Joe's standardizes pricing across the country, so groceries are actually not too bad if you stick to them? It's eating out and apparently gas (my car has been parked in two hour parking for nine days, I am not even sure where to get gas in this city) that break the bank.",
-      "Somewhere in between pondering the sale of my 2023 Subaru Crosstrek or renting it on Turo for \"extra income\" (after it covers the $700 in insurance and parking expenses?? it's already paid off 💀), I daydream about buying a Vespa and living my Lizzie McGuire life. The only thing is, I probably have rampant ADHD that I refuse a diagnosis for, and I never took the lien letter from the bank to the DMV. So I don't even have the title to my car, therefore cannot register it, drive it on Turo, or sell it - oh and my registration expired in January (2025). Don't worry, I called the bank and I am solving this lmao.",
-      "When I leave my cute ass apartment each day, I pop out right next to a cute ass pizza shop. I live in the heart of San Francisco, Union Square. There are beautiful scenic views down every street and I am consistently captivated by the way the sunlight filters through the clouds to produce a constant golden hour effect. It's a photographer's paradise. I deeply appreciate the Victorian architecture of row homes, painted colorfully and adorned in fire escapes. I am in perpetual awe.",
-      "I average walking/running about six miles a day here. My heart doesn't hurt when I run like it did in Colorado. While I traverse this beautiful city, I think a lot about who I am and the person I am becoming. I believe that with perseverance, devotion, and tenacity, everything will \"fall\" into place. I feel extremely hopeful for my trajectory and I genuinely savor that this is a special time, in my special little expensive as fuck apartment in the most stunning city I have ever lived in.",
-      "Thank you for having me, San Francisco. I love you so much already.",
-      "Best,\nMelissa",
-    ],
-  },
-];
-
 const techGroups = [
   {
     label: "Ops + Project",
@@ -170,21 +103,11 @@ const techGroups = [
 ];
 
 export default function App() {
+  const [showAbout, setShowAbout] = useState(false);
   const [showMarketing, setShowMarketing] = useState(false);
-  const [showBlogList, setShowBlogList] = useState(false);
-  const [activeBlogArticle, setActiveBlogArticle] = useState(null);
   const [showTechStack, setShowTechStack] = useState(false);
-  const [roulettePick, setRoulettePick] = useState("Tap to pick");
-  const [isRouletteSpinning, setIsRouletteSpinning] = useState(false);
-  const [rouletteBurst, setRouletteBurst] = useState(false);
   const [hue, setHue] = useState(0);
-  const rouletteTimerRef = useRef(null);
-  const rouletteTimeoutRef = useRef(null);
-  const rouletteAudioRef = useRef(null);
   const boopAudioRef = useRef(null);
-  const blogPanelRef = useRef(null);
-  const blogWidgetRef = useRef(null);
-  const blogListRef = useRef(null);
   const techStackRef = useRef(null);
   const techStackMobilePanelRef = useRef(null);
   const techStackOverlayPointerRef = useRef(null);
@@ -192,34 +115,20 @@ export default function App() {
   const trailRefs = useRef([]);
   const pointerRef = useRef({ x: 0, y: 0 });
 
-  const rouletteOptions = [
-    "make a bracelet",
-    "sew something",
-    "do a puzzle",
-    "go for a run",
-    "write a journal entry",
-    "do a jig",
-    "sing a song",
-    "take a walk",
-    "snap some pics",
-    "stretch a little",
-  ];
-
   useEffect(() => {
-    if (!showMarketing && !showBlogList && !activeBlogArticle && !showTechStack) {
+    if (!showAbout && !showMarketing && !showTechStack) {
       return undefined;
     }
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
+        setShowAbout(false);
         setShowMarketing(false);
-        setShowBlogList(false);
-        setActiveBlogArticle(null);
         setShowTechStack(false);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [showMarketing, showBlogList, activeBlogArticle, showTechStack]);
+  }, [showAbout, showMarketing, showTechStack]);
 
   useEffect(() => {
     if (!showTechStack) return undefined;
@@ -232,19 +141,6 @@ export default function App() {
     window.addEventListener("pointerdown", handleOutside);
     return () => window.removeEventListener("pointerdown", handleOutside);
   }, [showTechStack]);
-
-  useEffect(() => {
-    if (!showBlogList) return undefined;
-    const handleOutside = (event) => {
-      const inWidget = blogWidgetRef.current?.contains(event.target);
-      const inList = blogListRef.current?.contains(event.target);
-      if (!inWidget && !inList) {
-        setShowBlogList(false);
-      }
-    };
-    window.addEventListener("pointerdown", handleOutside);
-    return () => window.removeEventListener("pointerdown", handleOutside);
-  }, [showBlogList]);
 
   useEffect(() => {
     const handlePointerMove = (event) => {
@@ -298,13 +194,6 @@ export default function App() {
     };
   }, []);
 
-  const prepareAudio = () => {
-    if (!rouletteAudioRef.current) return;
-    const audio = rouletteAudioRef.current;
-    audio.load();
-    audio.currentTime = 0;
-  };
-
   const playBoop = () => {
     if (!boopAudioRef.current) return;
     const audio = boopAudioRef.current;
@@ -319,62 +208,6 @@ export default function App() {
     playBoop();
   };
 
-  const spinRoulette = () => {
-    if (isRouletteSpinning) return;
-    prepareAudio();
-    if (rouletteTimerRef.current) {
-      clearInterval(rouletteTimerRef.current);
-    }
-    if (rouletteTimeoutRef.current) {
-      clearTimeout(rouletteTimeoutRef.current);
-    }
-    setIsRouletteSpinning(true);
-    setRouletteBurst(false);
-    let index = 0;
-    rouletteTimerRef.current = setInterval(() => {
-      setRoulettePick(rouletteOptions[index % rouletteOptions.length]);
-      index += 1;
-    }, 90);
-
-    rouletteTimeoutRef.current = setTimeout(() => {
-      if (rouletteTimerRef.current) {
-        clearInterval(rouletteTimerRef.current);
-      }
-      const pick =
-        rouletteOptions[Math.floor(Math.random() * rouletteOptions.length)];
-      setRoulettePick(pick);
-      setIsRouletteSpinning(false);
-      setRouletteBurst(true);
-      if (rouletteAudioRef.current) {
-        rouletteAudioRef.current.currentTime = 0;
-        rouletteAudioRef.current.play().catch(() => {});
-      }
-      setTimeout(() => setRouletteBurst(false), 900);
-    }, 1200);
-  };
-
-  useEffect(
-    () => () => {
-      if (rouletteTimerRef.current) {
-        clearInterval(rouletteTimerRef.current);
-      }
-      if (rouletteTimeoutRef.current) {
-        clearTimeout(rouletteTimeoutRef.current);
-      }
-    },
-    []
-  );
-
-  useEffect(() => {
-    if (!activeBlogArticle || !blogPanelRef.current) return;
-    blogPanelRef.current.scrollTo({ top: 0, left: 0 });
-  }, [activeBlogArticle]);
-
-  const activeBlogIndex = activeBlogArticle
-    ? blogArticles.findIndex((article) => article.id === activeBlogArticle.id)
-    : -1;
-  const hasPreviousBlog = activeBlogIndex > 0;
-  const hasNextBlog = activeBlogIndex >= 0 && activeBlogIndex < blogArticles.length - 1;
   const handleTechStackOverlayPointerDown = (event) => {
     techStackOverlayPointerRef.current = {
       x: event.clientX,
@@ -455,6 +288,7 @@ export default function App() {
               Melissa
               <span>Leavenworth</span>
             </p>
+            <p className="sporkles">⋆₊⁺⋆ mimic the universe by creating ⋆⁺₊⋆</p>
             <div className="icon-list">
               {quickLinks.map((link) => (
                 <a
@@ -474,31 +308,6 @@ export default function App() {
                   />
                 </a>
               ))}
-            </div>
-            <p className="sporkles">⋆⁺₊⋆ 𖤓 ⋆⁺₊⋆</p>
-            <div className="center-contact-details">
-              <a
-                className="meeting-button"
-                href="https://levity.ltd/work/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                See My Designs
-              </a>
-              <a
-                className="resume-download-btn"
-                href={`${import.meta.env.BASE_URL}Melissa-Leavenworth_Resume.pdf`}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Download resume"
-              >
-                Resumé
-                <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 4v10" />
-                  <path d="M8 10l4 4 4-4" />
-                  <path d="M6 20h12" />
-                </svg>
-              </a>
             </div>
           </div>
 
@@ -579,6 +388,38 @@ export default function App() {
           ))}
         </div>
 
+        <div className="center-actions-widget">
+          <button
+            className="center-action-button action-about"
+            type="button"
+            onClick={() => setShowAbout(true)}
+          >
+            about
+          </button>
+          <a
+            className="center-action-button action-designs"
+            href="https://levity.ltd/work/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            See My Designs ➚
+          </a>
+          <a
+            className="center-action-button action-resume resume-download-btn"
+            href={`${import.meta.env.BASE_URL}Melissa-Leavenworth_Resume.pdf`}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Download resume"
+          >
+            Resumé
+            <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 4v10" />
+              <path d="M8 10l4 4 4-4" />
+              <path d="M6 20h12" />
+            </svg>
+          </a>
+        </div>
+
         <div className="utility-widgets">
           <div className={`tech-stack-widget${showTechStack ? " is-open" : ""}`} ref={techStackRef}>
             <button
@@ -587,8 +428,7 @@ export default function App() {
               aria-expanded={showTechStack}
               onClick={() => setShowTechStack((prev) => !prev)}
             >
-              <span className="widget-label">Tech Stack</span>
-              <span className="tech-stack-sub">tap to expand</span>
+              <span className="widget-label tech-stack-label">tech stack</span>
             </button>
             <div className="tech-stack-panel" aria-hidden={!showTechStack}>
               {techGroups.map((group) => (
@@ -621,65 +461,50 @@ export default function App() {
             height="80"
             frameBorder="0"
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy"
+            loading="eager"
           />
         </div>
 
-        <button className="roulette-widget" onClick={spinRoulette} type="button">
-          <span className="widget-label">adhd roulette</span>
-          <div
-            className={`roulette-result ${rouletteBurst ? "burst" : ""}`}
-            aria-live="polite"
-          >
-            {roulettePick}
-          </div>
-        </button>
-        <button
-          className="blog-widget"
-          type="button"
-          aria-label="Blog"
-          ref={blogWidgetRef}
-          onClick={() => setShowBlogList((prev) => !prev)}
-        >
-          <span className="widget-label">blog</span>
-          <span className="blog-subtext">tap to expand</span>
-        </button>
-        {showBlogList && (
-          <div
-            className="blog-list-overlay"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Blog articles"
-            onPointerDown={() => setShowBlogList(false)}
-          >
-            <div className="blog-list" ref={blogListRef} onPointerDown={(event) => event.stopPropagation()}>
-              {blogArticles.map((article) => (
-                <button
-                  key={article.id}
-                  className="blog-card"
-                  type="button"
-                  onClick={() => {
-                    setActiveBlogArticle(article);
-                    setShowBlogList(false);
-                  }}
-                >
-                  <span className="blog-card-title">{article.title}</span>
-                  <span className="blog-card-date">• {article.cardDateLabel}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-        <audio
-          ref={rouletteAudioRef}
-          src={`${import.meta.env.BASE_URL}fairy-sparkle.mp3`}
-          preload="none"
-        />
         <audio
           ref={boopAudioRef}
           src={`${import.meta.env.BASE_URL}bubble.wav`}
           preload="auto"
         />
+
+        {showAbout && (
+          <div
+            className="resume-overlay about-overlay"
+            role="dialog"
+            aria-modal="true"
+            aria-label="About"
+            onPointerDown={() => setShowAbout(false)}
+          >
+            <div className="resume-card about-card" onPointerDown={(event) => event.stopPropagation()}>
+              <button
+                className="resume-close"
+                aria-label="Close about"
+                onClick={() => setShowAbout(false)}
+              >
+                ✕
+              </button>
+              <div className="resume-header">
+                <div>
+                  <h2>about</h2>
+                </div>
+              </div>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae
+                libero id neque fermentum facilisis. Donec luctus, mi a feugiat
+                volutpat, sapien sem tincidunt justo, vitae placerat risus lorem at
+                nibh.
+              </p>
+              <p>
+                Praesent sed ligula at lorem gravida luctus. Curabitur non urna
+                ultricies, posuere velit id, tempor lorem. Suspendisse potenti.
+              </p>
+            </div>
+          </div>
+        )}
 
         {showMarketing && (
           <div
@@ -811,7 +636,7 @@ export default function App() {
         )}
 
         <div className="hue-control" aria-label="Hue slider">
-          <span>Hue</span>
+          <span>hue</span>
           <input
             type="range"
             min="0"
@@ -822,62 +647,6 @@ export default function App() {
           />
         </div>
 
-        {activeBlogArticle && (
-          <div
-            className="resume-overlay blog-overlay"
-            role="dialog"
-            aria-modal="true"
-            onPointerDown={() => setActiveBlogArticle(null)}
-          >
-            <div className="blog-panel-wrap" onPointerDown={(event) => event.stopPropagation()}>
-              <button
-                className="blog-nav blog-nav-prev"
-                type="button"
-                aria-label="Previous blog post"
-                onClick={() => {
-                  if (!hasPreviousBlog) return;
-                  setActiveBlogArticle(blogArticles[activeBlogIndex - 1]);
-                }}
-                disabled={!hasPreviousBlog}
-              >
-                ‹
-              </button>
-              <div className="resume-card blog-panel" ref={blogPanelRef}>
-                <button
-                  className="resume-close"
-                  aria-label="Close blog article"
-                  onClick={() => setActiveBlogArticle(null)}
-                >
-                  ✕
-                </button>
-                <div className="resume-header">
-                  <div>
-                    <h2>{activeBlogArticle.title}</h2>
-                    <p>{activeBlogArticle.dateLabel}</p>
-                    <br />
-                  </div>
-                </div>
-                <article className="blog-article">
-                  {activeBlogArticle.body.map((paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
-                  ))}
-                </article>
-              </div>
-              <button
-                className="blog-nav blog-nav-next"
-                type="button"
-                aria-label="Next blog post"
-                onClick={() => {
-                  if (!hasNextBlog) return;
-                  setActiveBlogArticle(blogArticles[activeBlogIndex + 1]);
-                }}
-                disabled={!hasNextBlog}
-              >
-                ›
-              </button>
-            </div>
-          </div>
-        )}
       </div>
       {showTechStack && (
         <div
