@@ -492,16 +492,19 @@ export default function App() {
                   <h2>about</h2>
                 </div>
               </div>
+               
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae
-                libero id neque fermentum facilisis. Donec luctus, mi a feugiat
-                volutpat, sapien sem tincidunt justo, vitae placerat risus lorem at
-                nibh.
+                Melissa Leavenworth is a San Francisco-based founder, product strategist, and designer who works across brand, digital marketing, and UX. She leads her own design agency, taking projects from early-stage brand building through product design and UI.
               </p>
               <p>
-                Praesent sed ligula at lorem gravida luctus. Curabitur non urna
-                ultricies, posuere velit id, tempor lorem. Suspendisse potenti.
+                She has built digital marketing programs for live entertainment and retail brands, developed grant-funded civic tech projects, supported local progressive political campaigns, and is deeply embedded in SF startup and AI-forward culture. She believes the best products are designed with care for the people who actually use them, and that the internet should be fun.
               </p>
+              <p>
+                Outside of client work, Melissa volunteers with organizations like SFMCC and Glide Church, supporting her community through technology and hands-on service. When she is not at her desk, she is probably making something by hand.
+              </p> 
+              <p>
+                🌙 Core Values: integrity • humor • honesty
+              </p> 
             </div>
           </div>
         )}
