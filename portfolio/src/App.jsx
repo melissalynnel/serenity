@@ -201,10 +201,9 @@ export default function App() {
     audio.play().catch(() => {});
   };
 
-  const playBoopOnInteractiveHover = (event) => {
+  const playBoopOnInteractiveClick = (event) => {
     const target = event.target.closest("a, button, input, [role='link'], [tabindex]");
     if (!target) return;
-    if (event.relatedTarget && target.contains(event.relatedTarget)) return;
     playBoop();
   };
 
@@ -229,8 +228,7 @@ export default function App() {
     <div
       className="scene"
       style={{ "--hue": `${hue}deg` }}
-      onPointerOver={playBoopOnInteractiveHover}
-      onFocus={playBoopOnInteractiveHover}
+      onClick={playBoopOnInteractiveClick}
     >
       <div className="scene-filter">
         <div className="cursor-layer" aria-hidden="true">
