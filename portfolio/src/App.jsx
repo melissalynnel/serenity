@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 
-const nodes = [];
-
 const sparkles = Array.from({ length: 48 }).map((_, i) => {
   const angle = i * 0.5;
   return {
@@ -102,9 +100,28 @@ const techGroups = [
   },
 ];
 
+function TechStackContent() {
+  return techGroups.map((group) => (
+    <div key={group.label} className="tech-group">
+      <h4>{group.label}</h4>
+      <div className="tech-items">
+        {group.items.map((item) => (
+          <div key={item.name} className="tech-item">
+            <img
+              src={`${import.meta.env.BASE_URL}logos/${item.logo}`}
+              alt={item.name}
+              loading="lazy"
+            />
+            <span>{item.name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  ));
+}
+
 export default function App() {
   const [showAbout, setShowAbout] = useState(false);
-  const [showMarketing, setShowMarketing] = useState(false);
   const [showTechStack, setShowTechStack] = useState(false);
   const [hue, setHue] = useState(0);
   const boopAudioRef = useRef(null);
@@ -116,19 +133,18 @@ export default function App() {
   const pointerRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
-    if (!showAbout && !showMarketing && !showTechStack) {
+    if (!showAbout && !showTechStack) {
       return undefined;
     }
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
         setShowAbout(false);
-        setShowMarketing(false);
         setShowTechStack(false);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [showAbout, showMarketing, showTechStack]);
+  }, [showAbout, showTechStack]);
 
   useEffect(() => {
     if (!showTechStack) return undefined;
@@ -275,12 +291,7 @@ export default function App() {
           ))}
         </div>
 
-        <div
-          className="map"
-          style={{
-            transform: "translate(-50%, -50%)",
-          }}
-        >
+        <div className="map">
           <div className="node center">
             <p className="name">
               Melissa
@@ -308,82 +319,6 @@ export default function App() {
               ))}
             </div>
           </div>
-
-          {nodes.map((node) => (
-            <div
-              key={node.id}
-              className={`node node-${node.id} ${node.centered ? "node-centered" : ""}`}
-              style={{
-                transform: node.centered
-                  ? `translate(${node.x}px, ${node.y}px) translate(-50%, 0)`
-                  : `translate(${node.x}px, ${node.y}px)`,
-              }}
-              onClick={() => {
-                if (node.link) window.open(node.link, "_blank", "noreferrer");
-              }}
-              role={node.link ? "link" : undefined}
-              tabIndex={node.link ? 0 : undefined}
-              onKeyDown={(event) => {
-                if (!node.link) return;
-                if (event.key === "Enter" || event.key === " ") {
-                  event.preventDefault();
-                  window.open(node.link, "_blank", "noreferrer");
-                }
-              }}
-            >
-              <p className="node-title">{node.title}</p>
-              {node.subtitle && <p className="node-subtitle">{node.subtitle}</p>}
-              {node.items.length > 0 && (
-                <div className="icon-list">
-                  {node.items.map((item) =>
-                    item.modal ? (
-                      <button
-                        key={item.label ?? item}
-                        className="icon-button"
-                        data-label={item.label ?? item}
-                        type="button"
-                        onClick={() => {
-                          if (item.modal === "marketing") setShowMarketing(true);
-                        }}
-                      >
-                        {item.iconUrl ? (
-                          <img
-                            className="icon-img"
-                            src={item.iconUrl}
-                            alt=""
-                            aria-hidden="true"
-                          />
-                        ) : (
-                          <span aria-hidden="true">✦</span>
-                        )}
-                      </button>
-                    ) : (
-                      <a
-                        key={item.label ?? item}
-                        className="icon-button"
-                        data-label={item.label ?? item}
-                        href={item.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        aria-label={item.label ?? "Link"}
-                      >
-                        {item.iconUrl ? (
-                          <img
-                            className="icon-img"
-                            src={item.iconUrl}
-                            alt=""
-                            aria-hidden="true"
-                          />
-                        ) : (
-                          <span aria-hidden="true">✦</span>
-                        )}
-                      </a>
-                    )
-                  )}
-                </div>
-              )}
-            </div>
-          ))}
         </div>
 
         <div className="center-actions-widget">
@@ -429,23 +364,7 @@ export default function App() {
               <span className="widget-label tech-stack-label">tech stack</span>
             </button>
             <div className="tech-stack-panel" aria-hidden={!showTechStack}>
-              {techGroups.map((group) => (
-                <div key={group.label} className="tech-group">
-                  <h4>{group.label}</h4>
-                  <div className="tech-items">
-                    {group.items.map((item) => (
-                      <div key={item.name} className="tech-item">
-                        <img
-                          src={`${import.meta.env.BASE_URL}logos/${item.logo}`}
-                          alt={item.name}
-                          loading="lazy"
-                        />
-                        <span>{item.name}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
+              <TechStackContent />
             </div>
           </div>
         </div>
@@ -507,135 +426,6 @@ export default function App() {
           </div>
         )}
 
-        {showMarketing && (
-          <div
-            className="resume-overlay"
-            role="dialog"
-            aria-modal="true"
-            onPointerDown={(event) => event.stopPropagation()}
-          >
-            <div className="resume-card marketing-card" onPointerDown={(event) => event.stopPropagation()}>
-              <button
-                className="resume-close"
-                aria-label="Close marketing operations"
-                onClick={() => setShowMarketing(false)}
-              >
-                ✕
-              </button>
-              <div className="resume-header">
-                <div>
-                  <h2>Marketing Operations</h2>
-                  <p>Live.Laugh.Colorado. workflow systems</p>
-                </div>
-                <span className="resume-download">Case Study</span>
-              </div>
-              <div className="marketing-content">
-              <div className="marketing-columns">
-                <section>
-                  <h3>Challenge</h3>
-                  <p>
-                    The company was scaling to nearly <strong>$100M in annual revenue</strong> across three
-                    markets, but marketing systems were fragmented and reliant on manual workflows, making
-                    cross-team coordination and performance tracking inconsistent.
-                  </p>
-                </section>
-                <section>
-                  <h3>Strategy</h3>
-                  <p>
-                    Built and managed Asana-based operational systems with standardized campaign templates,
-                    automated workflows, and shared dashboards to unify design, content, and operations.
-                    Partnered with leadership to establish GTM processes and KPI tracking that enabled scalable,
-                    repeatable execution across all markets.
-                  </p>
-                </section>
-                <section>
-                  <h3>Impact</h3>
-                  <p>
-                    Streamlined campaign delivery cycles, improving turnaround speed by <strong>66%</strong> and
-                    campaign throughput by <strong>100%</strong>. Provided real-time visibility into performance
-                    metrics, supporting a <strong>30% increase</strong> in engagement and inbound leads and
-                    aligning marketing operations with ~$100M in annual sales volume.
-                  </p>
-                </section>
-              </div>
-
-              <section>
-                <h3>Overarching Marketing Projects</h3>
-                <p>
-                  The overarching marketing table is considered the “home” and includes projects that span
-                  over Listing and Brand Marketing.
-                </p>
-                <div className="marketing-grid">
-                  <img src="/marketing/marketing-01.png" alt="Overarching marketing overview" />
-                  <img src="/marketing/marketing-02.png" alt="Deliverables tracking overview" />
-                </div>
-              </section>
-
-              <section>
-                <h3>Recurring Tasks</h3>
-                <p>
-                  Ongoing process projects for continuous work (weekly posts, production updates) with
-                  automations assigning recurring deadlines.
-                </p>
-                <div className="marketing-grid">
-                  <img src="/marketing/marketing-06.png" alt="Recurring tasks overview" />
-                  <img src="/marketing/marketing-18.png" alt="Retention automation overview" />
-                </div>
-              </section>
-
-              <section>
-                <h3>Marketing Funnels</h3>
-                <p>
-                  Agents submit requests via Asana forms, triggering the first set of tasks for listing
-                  marketing workflows across multiple brokerages.
-                </p>
-                <div className="marketing-grid">
-                  <img src="/marketing/marketing-03.png" alt="Marketing request form" />
-                  <img src="/marketing/marketing-04.png" alt="Marketing request form detail" />
-                </div>
-              </section>
-
-              <section>
-                <h3>Listing Marketing</h3>
-                <p>
-                  Deadline-driven projects with a clear end date. Each listing moves through the board and
-                  gains tasks based on status and deliverables.
-                </p>
-                <div className="marketing-grid">
-                  <img src="/marketing/marketing-09.png" alt="Listing marketing board" />
-                  <img src="/marketing/marketing-10.png" alt="Listing marketing board detail" />
-                  <img src="/marketing/marketing-17.png" alt="Listing marketing status detail" />
-                  <img src="/marketing/marketing-08.png" alt="Listing marketing task detail" />
-                </div>
-              </section>
-
-              <section>
-                <h3>Workflow Automations</h3>
-                <p>
-                  Automations move listings through stages, handle relists, and enforce dependencies so work
-                  is approved by appropriate parties.
-                </p>
-                <div className="marketing-grid">
-                  <img src="/marketing/marketing-11.png" alt="Workflow automation board" />
-                  <img src="/marketing/marketing-12.png" alt="Workflow automation board detail" />
-                  <img src="/marketing/marketing-13.png" alt="Workflow automation rules" />
-                </div>
-              </section>
-
-              <section>
-                <h3>Experimentation</h3>
-                <p>
-                  A simplified board to capture and ship fast-paced experiments and ideas.
-                </p>
-                <div className="marketing-grid">
-                  <img src="/marketing/marketing-05.png" alt="Experimentation board" />
-                </div>
-              </section>
-              </div>
-            </div>
-          </div>
-        )}
-
         <div className="hue-control" aria-label="Hue slider">
           <span>hue</span>
           <input
@@ -663,23 +453,7 @@ export default function App() {
             ref={techStackMobilePanelRef}
             onPointerDown={(event) => event.stopPropagation()}
           >
-            {techGroups.map((group) => (
-              <div key={group.label} className="tech-group">
-                <h4>{group.label}</h4>
-                <div className="tech-items">
-                  {group.items.map((item) => (
-                    <div key={item.name} className="tech-item">
-                      <img
-                        src={`${import.meta.env.BASE_URL}logos/${item.logo}`}
-                        alt={item.name}
-                        loading="lazy"
-                      />
-                      <span>{item.name}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
+            <TechStackContent />
           </div>
         </div>
       )}
