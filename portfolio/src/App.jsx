@@ -423,7 +423,7 @@ export default function App() {
                 When I am not helping others’ business make their mark, I am crafting delicate seed bead jewelry and other handmade goods.
               </p> 
                <p>
-                Reach me at mlleavenworth@gmail.com if you’d like to learn what I can make for you :)
+                <a href="mailto:mlleavenworth@gmail.com">Send me an email</a> if you’d like to learn what I can make for you :)
               </p> 
               <p>
                 🌙 Core Values: integrity • humor • honesty
