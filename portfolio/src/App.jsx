@@ -411,13 +411,19 @@ export default function App() {
               </div>
                
               <p>
-                Melissa Leavenworth is a San Francisco-based founder, product strategist, and designer who works across brand, digital marketing, and UX. She leads her own design agency, taking projects from early-stage brand building through product design and UI.
+                Hello! My name is Melissa, and I am a maker of many mediums.
               </p>
               <p>
-                She has built digital marketing programs for live entertainment and retail brands, developed grant-funded civic tech projects, supported local progressive political campaigns, and is deeply embedded in SF startup and AI-forward culture. She believes the best products are designed with care for the people who actually use them, and that the internet should be fun.
+                My marketing career has spanned from fintech to entertainment to real estate, and covered traditional and digital forms. I have crafted social media, print and integrated campaigns that have led to measurably high engagement and conversions.
               </p>
               <p>
-                Outside of client work, Melissa volunteers with organizations like SFMCC and Glide Church, supporting her community through technology and hands-on service. When she is not at her desk, she is probably making something by hand.
+                I run my own design agency, <a href="https://levity.ltd/">Levity Ltd.</a>, where I help entertainers, retailers, and early-stage startups with unique branding, websites and web apps that leave a bold impression in their industries. I take pride in creating superior UX and absolutely beautiful UI.
+              </p> 
+              <p>
+                When I am not helping others’ business make their mark, I am crafting delicate seed bead jewelry and other handmade goods.
+              </p> 
+               <p>
+                Reach me at mlleavenworth@gmail.com if you’d like to learn what I can make for you :)
               </p> 
               <p>
                 🌙 Core Values: integrity • humor • honesty
