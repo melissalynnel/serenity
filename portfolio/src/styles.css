@@ -5,6 +5,7 @@
   --module-width: 370px;
   --desktop-control-width: var(--module-width);
   --control-height: 48px;
+  --link-orange: #ffb36b;
   --glow-shadow:
     0 0 16px rgba(255, 231, 190, 0.42),
     0 0 34px rgba(255, 168, 88, 0.58),
@@ -570,6 +571,15 @@ body,
 
 .about-card p {
   color: #2b143f;
+}
+
+.about-card a {
+  color: var(--link-orange);
+}
+
+.about-card a:hover,
+.about-card a:focus-visible {
+  color: var(--link-orange);
 }
 
 .resume-close {
