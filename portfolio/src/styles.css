@@ -5,12 +5,6 @@
   --module-width: 370px;
   --desktop-control-width: var(--module-width);
   --control-height: 48px;
-  --pink: #ffb0ff;
-  --peach: #ffb36b;
-  --sun: #ffd86b;
-  --rose: #ff86d6;
-  --glass: rgba(255, 255, 255, 0.16);
-  --glass-strong: rgba(255, 255, 255, 0.28);
   --glow-shadow:
     0 0 16px rgba(255, 231, 190, 0.42),
     0 0 34px rgba(255, 168, 88, 0.58),
@@ -227,10 +221,6 @@ body,
   cursor: pointer;
   backdrop-filter: blur(12px);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.icon-button span {
-  font-size: 1.2rem;
 }
 
 .icon-img {
@@ -948,10 +938,6 @@ body,
 }
 
 @media (max-width: 420px) {
-  .map {
-    padding-top: 0;
-  }
-
   .name {
     font-size: 3rem;
   }
