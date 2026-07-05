@@ -922,6 +922,12 @@ export default function App() {
     const list = projectListRef.current;
     if (!list) return;
 
+    const isScrolledToBottom = list.scrollTop + list.clientHeight >= list.scrollHeight - 2;
+    if (isScrolledToBottom) {
+      setActiveProjectId(filteredProjects[filteredProjects.length - 1]?.id || portfolioProjects[0].id);
+      return;
+    }
+
     const listBounds = list.getBoundingClientRect();
     let bestId = activeProjectId;
     let bestArea = 0;
