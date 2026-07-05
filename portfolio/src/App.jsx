@@ -119,6 +119,7 @@ const makeProject = ({
   previewVideo,
   previewPoster,
   previewLayout,
+  previewAspectRatio,
   previewItems,
   alt,
   summary,
@@ -137,6 +138,7 @@ const makeProject = ({
   previewVideo,
   previewPoster,
   previewLayout,
+  previewAspectRatio,
   previewItems,
   alt: alt || `${title} project preview`,
   summary: summary || `${title} is ready for a full project page once the source files and final notes are added.`,
@@ -155,10 +157,11 @@ const portfolioProjects = [
     id: "sammy-anzer",
     title: "Sammy Anzer",
     type: "Brand Identity and Web Design",
-    filters: ["Branding"],
+    filters: ["Branding", "Web Design"],
     href: "https://www.sammyanzercomedy.com/",
     image: `${import.meta.env.BASE_URL}projects/sammy-anzer.webp`,
     imageClass: "serenity-project-image logo-fit logo-fit-light",
+    previewImageClass: "serenity-project-image middle-preview-fit",
     alt: "Sammy Anzer graffiti-style lettering in orange, pink, and blue",
     summary:
       "A Queens-rooted comedy brand identity and website designed to feel slick, street-smart, and immediately recognizable.",
@@ -175,7 +178,7 @@ const portfolioProjects = [
     id: "bk-sharad",
     title: "BK Sharad",
     type: "Brand Identity and Web Design",
-    filters: ["Branding"],
+    filters: ["Branding", "Web Design"],
     href: "https://www.bksharad.com/",
     image: `${import.meta.env.BASE_URL}projects/bk-sharad.webp`,
     imageClass: "serenity-project-image logo-fit logo-fit-dark",
@@ -194,10 +197,11 @@ const portfolioProjects = [
   makeProject({
     id: "melly-leaves",
     title: "Melly Leaves",
-    type: "Brand Identity",
-    filters: ["Branding"],
+    type: "Brand Identity and Web Design",
+    filters: ["Branding", "Web Design"],
     image: `${import.meta.env.BASE_URL}projects/melly-leaves-dainty-jewelry.webp`,
     imageClass: "serenity-project-image contained",
+    previewImageClass: "serenity-project-image middle-preview-fit",
     alt: "Melly Leaves Dainty Jewelry homepage showing handmade jewelry photos and peach floral brand artwork",
     summary:
       "A delicate handmade identity for beaded jewelry, floral artwork, boutique-ready product presentation, and soft visual storytelling.",
@@ -213,14 +217,39 @@ const portfolioProjects = [
   makeProject({
     id: "thomas-nichols",
     title: "Thomas Nichols",
-    type: "Brand Identity",
-    filters: ["Branding"],
+    type: "Brand Identity and Web Design",
+    filters: ["Branding", "Web Design"],
+    image: `${import.meta.env.BASE_URL}projects/thomas-nichols.jpg`,
+    imageClass: "serenity-project-image cover",
+    alt: "Thomas Nichols homepage with blue comic burst background and orange comic-style lettering",
   }),
   makeProject({
     id: "bangbang-von-loola",
     title: "BangBang Von Loola",
-    type: "Brand Identity",
+    type: "Brand Identity and Web Design",
+    filters: ["Branding", "Web Design"],
+    image: `${import.meta.env.BASE_URL}projects/bangbang-von-loola.jpg`,
+    imageClass: "serenity-project-image cover top-logo-preview",
+    alt: "Bang Bang Von Loola homepage with pastel sky background, large pink script logo, and black and white portrait",
+  }),
+  makeProject({
+    id: "jokechella-7",
+    title: "Jokechella 7",
+    type: "Brand Design",
     filters: ["Branding"],
+    image: `${import.meta.env.BASE_URL}projects/jokechella-7.webp`,
+    imageClass: "serenity-project-image cover",
+    alt: "Jokechella 7 Ultimate Comedy Festival logo in pink, blue, and black on white",
+    summary:
+      "Festival brand design for a bright, playful comedy event identity with merch, marketing, and venue-ready visual direction.",
+    details: [
+      "Jokechella 7 uses a loud tropical palette, handmade lettering, and festival-style energy to make the event feel distinct and memorable.",
+      "The project can expand into campaign materials, merch, social assets, venue graphics, and event photos in a fuller case-study pass.",
+    ],
+    meta: [
+      ["Client", "The Comedy Fort"],
+      ["Focus", "Festival brand design"],
+    ],
   }),
   makeProject({
     id: "unrelatable",
@@ -232,6 +261,7 @@ const portfolioProjects = [
     previewVideo: `${import.meta.env.BASE_URL}projects/unrelatable-preview.mp4`,
     previewPoster: `${import.meta.env.BASE_URL}projects/unrelatable-logo.png`,
     previewLayout: "portrait",
+    previewAspectRatio: "900 / 1530",
     alt: "Unrelatability Rater page with a neon Derek Sheen header and gauge interface",
     summary:
       "A loud, comedy-driven rating app that turns audience confessions into an Unrelatability score.",
@@ -266,27 +296,6 @@ const portfolioProjects = [
     ],
   }),
   makeProject({
-    id: "99-names",
-    title: "99 Names",
-    type: "Web App",
-    filters: ["Web Apps"],
-    image: `${import.meta.env.BASE_URL}projects/99-names-logo.png`,
-    imageClass: "serenity-project-image cover filled-logo-preview",
-    previewVideo: `${import.meta.env.BASE_URL}projects/99-names-preview.mp4`,
-    previewPoster: `${import.meta.env.BASE_URL}projects/99-names-logo.png`,
-    alt: "99 Names web app interface preview",
-    summary:
-      "A web app exploration with a desktop motion preview ready for the project case study.",
-    details: [
-      "The middle-panel preview shows the 99 Names interface in motion while the project card keeps a static app preview.",
-      "This project is ready for deeper notes on concept, interaction model, and final build details.",
-    ],
-    meta: [
-      ["Category", "Web Apps"],
-      ["Status", "Motion preview added"],
-    ],
-  }),
-  makeProject({
     id: "refrigerator",
     title: "Refrigerator",
     type: "Web App",
@@ -296,6 +305,7 @@ const portfolioProjects = [
     previewVideo: `${import.meta.env.BASE_URL}projects/refrigerator-preview.mp4`,
     previewPoster: `${import.meta.env.BASE_URL}projects/refrigerator-logo.png`,
     previewLayout: "portrait",
+    previewAspectRatio: "900 / 1788",
     alt: "Wimbly Biscuit refrigerator app with a yellow fridge and certificate note",
     summary:
       "A playful Wimbly Biscuit web app that turns accomplishments into fridge-worthy certificates.",
@@ -319,6 +329,7 @@ const portfolioProjects = [
     previewVideo: `${import.meta.env.BASE_URL}projects/swimming-preview.mp4`,
     previewPoster: `${import.meta.env.BASE_URL}projects/swimming-logo.png`,
     previewLayout: "portrait",
+    previewAspectRatio: "900 / 1548",
     alt: "Swimming web app with a teal lyric pool, pink tile background, and a tiny swimmer",
     summary:
       "A bright Wimbly Biscuit experiment with a lyric-filled swimming field, pixel movement, and a playful retro interface.",
@@ -334,8 +345,8 @@ const portfolioProjects = [
   makeProject({
     id: "quantiflow",
     title: "Quantiflow",
-    type: "Website",
-    filters: ["Websites"],
+    type: "Web Design",
+    filters: ["Web Design"],
     image: `${import.meta.env.BASE_URL}projects/quantiflow-logo.png`,
     imageClass: "serenity-project-image cover filled-logo-preview",
     previewItems: [
@@ -358,37 +369,15 @@ const portfolioProjects = [
       "The project card now uses the homepage hero as the logo preview, with stacked before-and-after motion previews in the middle panel.",
     ],
     meta: [
-      ["Category", "Website"],
+      ["Category", "Web Design"],
       ["Status", "Preview added"],
     ],
   }),
   makeProject({
-    id: "entertainer-template",
-    title: "Entertainer Template",
-    type: "Website Template",
-    filters: ["Websites"],
-    summary:
-      "A reusable website structure for comedians and performers who need events, mailing-list growth, and a clear home base without reinventing the system each time.",
-    details: [
-      "This catch-all represents the entertainer website pattern behind comedy sites like Sammy Anzer and BK Sharad.",
-      "The template can cover homepage structure, event listings, newsletter capture, media links, and conversion-focused calls to action.",
-    ],
-    meta: [
-      ["Category", "Websites"],
-      ["Use case", "Comedians, performers, and entertainers"],
-    ],
-  }),
-  makeProject({
-    id: "sam-tallent",
-    title: "Sam Tallent",
-    type: "Website",
-    filters: ["Websites"],
-  }),
-  makeProject({
     id: "colorado-comedy",
     title: "Colorado Comedy",
-    type: "Website",
-    filters: ["Websites"],
+    type: "Web Design",
+    filters: ["Web Design"],
     image: `${import.meta.env.BASE_URL}projects/colorado-comedy-logo.png`,
     imageClass: "serenity-project-image cover filled-logo-preview top-logo-preview",
     previewVideo: `${import.meta.env.BASE_URL}projects/colorado-comedy-preview.mp4`,
@@ -401,7 +390,7 @@ const portfolioProjects = [
       "The project card is top-aligned to keep the title visible, and the middle-panel preview shows the homepage in motion.",
     ],
     meta: [
-      ["Category", "Website"],
+      ["Category", "Web Design"],
       ["Status", "Preview added"],
     ],
   }),
@@ -415,6 +404,7 @@ const portfolioProjects = [
     previewVideo: `${import.meta.env.BASE_URL}projects/adhd-simulator-preview.mp4`,
     previewPoster: `${import.meta.env.BASE_URL}projects/adhd-simulator-logo.png`,
     previewLayout: "portrait",
+    previewAspectRatio: "900 / 1542",
     alt: "ADHD Simulator pixel city scene with a dialog window and status panel",
     summary:
       "A pixel-art life simulator about attention, energy, tabs, money, and trying to get through a day in San Francisco.",
@@ -438,6 +428,7 @@ const portfolioProjects = [
     previewVideo: `${import.meta.env.BASE_URL}projects/wimbly-biscuit-preview.mp4`,
     previewPoster: `${import.meta.env.BASE_URL}projects/wimbly-biscuit-co.webp`,
     previewLayout: "portrait",
+    previewAspectRatio: "900 / 1530",
     alt: "World Wide Wimbly homepage with a glowing globe, stars, and playful app links",
     summary:
       "A playful web world for tiny experiments, odd interface moments, sound, movement, and fun-first app design.",
@@ -457,7 +448,7 @@ const archivedPortfolioProjects = [
     id: "wimbly-biscuit-co",
     title: "Wimbly Biscuit Co.",
     type: "Branding and Web App Design",
-    filters: ["Branding", "Websites", "Web Apps", "Just for Fun"],
+    filters: ["Branding", "Web Design", "Web Apps", "Just for Fun"],
     href: "https://melissalynnel.github.io/wimbly-biscuit-co/worldwide/",
     image: `${import.meta.env.BASE_URL}projects/wimbly-biscuit-co.webp`,
     imageClass: "serenity-project-image cover",
@@ -513,7 +504,7 @@ const archivedPortfolioProjects = [
   },
 ];
 
-const projectFilters = ["Branding", "Websites", "Web Apps", "Just for Fun", "All"];
+const projectFilters = ["Branding", "Web Design", "Web Apps", "Just for Fun", "All"];
 const mobileProjectsQuery = "(max-width: 720px)";
 
 const sortProjectsByTitle = (projects) =>
@@ -627,6 +618,7 @@ function ProjectsView({
               {activeProject.previewItems.map((item) => (
                 <div
                   className={`projects-media-frame${item.layout ? ` is-${item.layout}` : ""}`}
+                  style={item.aspectRatio ? { "--preview-aspect": item.aspectRatio } : undefined}
                   key={item.label}
                 >
                   {item.video ? (
@@ -656,7 +648,10 @@ function ProjectsView({
               ))}
             </div>
           ) : (
-            <div className={`projects-media-frame${activeProject.previewLayout ? ` is-${activeProject.previewLayout}` : ""}`}>
+            <div
+              className={`projects-media-frame${activeProject.previewLayout ? ` is-${activeProject.previewLayout}` : ""}`}
+              style={activeProject.previewAspectRatio ? { "--preview-aspect": activeProject.previewAspectRatio } : undefined}
+            >
               {activeProject.previewVideo ? (
                 <video
                   key={activeProject.previewVideo}
