@@ -443,67 +443,6 @@ const portfolioProjects = [
   }),
 ];
 
-const archivedPortfolioProjects = [
-  {
-    id: "wimbly-biscuit-co",
-    title: "Wimbly Biscuit Co.",
-    type: "Branding and Web App Design",
-    filters: ["Branding", "Web Design", "Web Apps", "Just for Fun"],
-    href: "https://melissalynnel.github.io/wimbly-biscuit-co/worldwide/",
-    image: `${import.meta.env.BASE_URL}projects/wimbly-biscuit-co.webp`,
-    imageClass: "serenity-project-image cover",
-    alt: "World Wide Wimbly homepage with a glowing globe, stars, and playful app links",
-    summary:
-      "A playful web world for tiny experiments, odd interface moments, sound, movement, and fun-first app design.",
-    details: [
-      "Wimbly Biscuit Co. gives the portfolio a place to show personality-driven web apps that prioritize delight over strict utility.",
-      "The Serenity version can expand this into individual case studies for World Wide Wimbly, Refrigerator, Valentines, Swimming, and other experiments.",
-    ],
-    meta: [
-      ["Role", "Brand, UI, frontend"],
-      ["Format", "Interactive web apps"],
-    ],
-  },
-  {
-    id: "jokechella-7",
-    title: "Jokechella 7",
-    type: "Creative Direction, Merchandising and Festival Marketing",
-    filters: ["Branding"],
-    image: `${import.meta.env.BASE_URL}projects/jokechella-7.webp`,
-    imageClass: "serenity-project-image contained",
-    alt: "Jokechella 7 Ultimate Comedy Festival logo in pink, blue, and black on white",
-    summary:
-      "Festival creative direction that carried through marketing, merch, venue materials, and social promotion.",
-    details: [
-      "The work shaped a cohesive visual presence for a sold-out three-day comedy festival, keeping the event recognizable from announcement through showtime.",
-      "This can become a full Serenity case study with the poster, merch specs, social assets, event photos, and campaign outcomes.",
-    ],
-    meta: [
-      ["Client", "The Comedy Fort"],
-      ["Focus", "Campaign system"],
-    ],
-  },
-  {
-    id: "melly-leaves",
-    title: "Melly Leaves Dainty Jewelry",
-    type: "Brand Identity",
-    filters: ["Branding"],
-    image: `${import.meta.env.BASE_URL}projects/melly-leaves-dainty-jewelry.webp`,
-    imageClass: "serenity-project-image contained",
-    alt: "Melly Leaves Dainty Jewelry homepage showing handmade jewelry photos and peach floral brand artwork",
-    summary:
-      "A delicate handmade identity for beaded jewelry, floral artwork, boutique-ready product presentation, and soft visual storytelling.",
-    details: [
-      "This project gives the portfolio room for craft, product, photography, and brand system work beyond client websites.",
-      "Future content can include jewelry photography, packaging, boutique placement, and the relief-art collaboration behind the floral motifs.",
-    ],
-    meta: [
-      ["Role", "Maker, brand direction"],
-      ["Medium", "Jewelry and identity"],
-    ],
-  },
-];
-
 const projectFilters = ["Branding", "Web Design", "Web Apps", "Just for Fun", "All"];
 const mobileProjectsQuery = "(max-width: 720px)";
 
