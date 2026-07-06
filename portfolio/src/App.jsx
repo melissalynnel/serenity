@@ -549,11 +549,64 @@ function RepelText({ text }) {
   ));
 }
 
+function ProjectRailScrollbar({ scrollRef, className = "", refreshKey }) {
+  const [metrics, setMetrics] = useState({ thumbLeft: 0, thumbWidth: 100 });
+
+  useEffect(() => {
+    const rail = scrollRef.current;
+    if (!rail) return undefined;
+
+    let animationFrame;
+    const updateMetrics = () => {
+      cancelAnimationFrame(animationFrame);
+      animationFrame = requestAnimationFrame(() => {
+        const maxScroll = Math.max(0, rail.scrollWidth - rail.clientWidth);
+        const visibleRatio = rail.scrollWidth > 0 ? rail.clientWidth / rail.scrollWidth : 1;
+        const thumbWidth = Math.max(18, Math.min(100, visibleRatio * 100));
+        const thumbLeft = maxScroll > 0
+          ? (rail.scrollLeft / maxScroll) * (100 - thumbWidth)
+          : 0;
+
+        setMetrics({ thumbLeft, thumbWidth });
+      });
+    };
+
+    updateMetrics();
+    rail.addEventListener("scroll", updateMetrics, { passive: true });
+    window.addEventListener("resize", updateMetrics);
+
+    const resizeObserver = new ResizeObserver(updateMetrics);
+    resizeObserver.observe(rail);
+
+    return () => {
+      cancelAnimationFrame(animationFrame);
+      rail.removeEventListener("scroll", updateMetrics);
+      window.removeEventListener("resize", updateMetrics);
+      resizeObserver.disconnect();
+    };
+  }, [scrollRef, refreshKey]);
+
+  return (
+    <div
+      className={`projects-rail-scrollbar${className ? ` ${className}` : ""}`}
+      style={{
+        "--rail-thumb-left": `${metrics.thumbLeft}%`,
+        "--rail-thumb-width": `${metrics.thumbWidth}%`,
+      }}
+      aria-hidden="true"
+    >
+      <span />
+    </div>
+  );
+}
+
 function ProjectsView({
   activeFilter,
+  activeProjectPanel,
   activeProject,
   filteredProjects,
   onActivateProject,
+  onProjectPanelChange,
   onProjectFilterChange,
   onProjectListScroll,
   projectListRef,
@@ -587,6 +640,19 @@ function ProjectsView({
       </section>
 
       <section className="projects-grid" aria-label="Project gallery">
+        <div className="projects-panel-toggle-list" aria-label="Project panel">
+          {["preview", "details"].map((panel) => (
+            <button
+              key={panel}
+              className={`projects-panel-toggle${activeProjectPanel === panel ? " is-active" : ""}`}
+              type="button"
+              onClick={() => onProjectPanelChange(panel)}
+              aria-pressed={activeProjectPanel === panel}
+            >
+              {panel}
+            </button>
+          ))}
+        </div>
         <div className="projects-list" ref={projectListRef} onScroll={onProjectListScroll}>
           {filteredProjects.map((project) => (
             <button
@@ -615,8 +681,12 @@ function ProjectsView({
             </button>
           ))}
         </div>
+        <ProjectRailScrollbar scrollRef={projectListRef} refreshKey={filteredProjects.length} />
 
-        <aside className="projects-media-panel" aria-label={`${activeProject.title} media preview`}>
+        <aside
+          className={`projects-media-panel projects-panel-surface${activeProjectPanel === "preview" ? " is-active" : ""}`}
+          aria-label={`${activeProject.title} media preview`}
+        >
           <p className="projects-detail-label">Preview</p>
           {activeProject.previewItems ? (
             <div
@@ -686,7 +756,11 @@ function ProjectsView({
           )}
         </aside>
 
-        <aside className="projects-detail-panel" aria-live="polite" aria-label={`${activeProject.title} details`}>
+        <aside
+          className={`projects-detail-panel projects-panel-surface${activeProjectPanel === "details" ? " is-active" : ""}`}
+          aria-live="polite"
+          aria-label={`${activeProject.title} details`}
+        >
           <p className="projects-detail-label">Details</p>
           <h2>{activeProject.title}</h2>
           <p className="projects-detail-type">{activeProject.type}</p>
@@ -718,20 +792,208 @@ function ProjectsView({
   );
 }
 
-function MobileProjectsDisabled({ onBack }) {
+function ProjectPreviewMedia({ project }) {
+  return project.previewItems ? (
+    <div
+      className={`projects-media-stack${project.previewStackClass ? ` ${project.previewStackClass}` : ""}`}
+      style={{ "--preview-count": project.previewItems.length }}
+    >
+      {project.previewItems.map((item) => (
+        <div
+          className={`projects-media-frame${item.layout ? ` is-${item.layout}` : ""}`}
+          style={item.aspectRatio ? { "--preview-aspect": item.aspectRatio } : undefined}
+          key={item.label}
+        >
+          {item.video ? (
+            <video
+              key={item.video}
+              src={item.video}
+              poster={item.poster || project.image}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+            />
+          ) : item.image ? (
+            <img
+              className={item.imageClass || project.imageClass}
+              src={item.image}
+              alt={`${project.title} ${item.label} preview`}
+            />
+          ) : (
+            <div className="serenity-project-placeholder projects-media-placeholder" aria-hidden="true">
+              <span>{item.label}</span>
+            </div>
+          )}
+          <span className="projects-media-badge">{item.label}</span>
+        </div>
+      ))}
+    </div>
+  ) : (
+    <div
+      className={`projects-media-frame${project.previewLayout ? ` is-${project.previewLayout}` : ""}`}
+      style={project.previewAspectRatio ? { "--preview-aspect": project.previewAspectRatio } : undefined}
+    >
+      {project.previewVideo ? (
+        <video
+          key={project.previewVideo}
+          src={project.previewVideo}
+          poster={project.previewPoster || project.image}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+        />
+      ) : project.previewImage || project.image ? (
+        <img
+          className={project.previewImageClass || project.imageClass}
+          src={project.previewImage || project.image}
+          alt={project.alt}
+        />
+      ) : (
+        <div className="serenity-project-placeholder projects-media-placeholder" aria-hidden="true">
+          <span>{project.title}</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ProjectDetails({ project }) {
   return (
-    <main className="mobile-projects-disabled" aria-label="Projects unavailable on mobile">
-      <button className="projects-brand-button" type="button" onClick={onBack} aria-label="Return to home">
-        <span className="projects-brand-name">Melissa Leavenworth</span>
-      </button>
-      <section className="mobile-projects-disabled-panel">
-        <p className="projects-detail-label">Projects</p>
-        <h1>Desktop view</h1>
-        <p>Project previews are temporarily available on larger screens only.</p>
-        <button className="center-action-button action-about" type="button" onClick={onBack}>
-          back home
+    <>
+      <p className="projects-detail-label">Details</p>
+      <h2>{project.title}</h2>
+      <p className="projects-detail-type">{project.type}</p>
+      <div className="projects-detail-copy">
+        {project.detailSections ? (
+          project.detailSections.map(([label, value]) => (
+            <section className="projects-detail-section" key={label}>
+              <h3>{label}</h3>
+              <p>{value}</p>
+            </section>
+          ))
+        ) : (
+          <>
+            <p>{project.summary}</p>
+            {project.details.map((detail) => (
+              <p key={detail}>{detail}</p>
+            ))}
+          </>
+        )}
+      </div>
+      {project.href && (
+        <a className="projects-open-link" href={project.href} target="_blank" rel="noreferrer">
+          Open project
+        </a>
+      )}
+    </>
+  );
+}
+
+function MobileProjectsView({
+  activeFilter,
+  activeProjectPanel,
+  activeProject,
+  filteredProjects,
+  onActivateProject,
+  onProjectPanelChange,
+  onProjectFilterChange,
+  onBack,
+}) {
+  const mobileProjectListRef = useRef(null);
+
+  return (
+    <main className="mobile-projects-shell" aria-label="Serenity mobile project portfolio">
+      <header className="mobile-projects-topbar">
+        <button className="projects-brand-button" type="button" onClick={onBack} aria-label="Return to home">
+          <span className="projects-brand-name">Melissa Leavenworth</span>
         </button>
+        <h1 className="mobile-projects-title" aria-label="Projects">
+          <RepelText text="Projects" />
+        </h1>
+      </header>
+
+      <div className="mobile-projects-filter-list" aria-label="Project filters">
+        {projectFilters.map((filter) => (
+          <button
+            key={filter}
+            className={`projects-filter-button${activeFilter === filter ? " is-active" : ""}`}
+            type="button"
+            onClick={() => onProjectFilterChange(filter)}
+            aria-pressed={activeFilter === filter}
+          >
+            {filter}
+          </button>
+        ))}
+      </div>
+
+      <section className="mobile-projects-stage" aria-live="polite" aria-label={`${activeProject.title} selected project`}>
+        <div className="projects-panel-toggle-list mobile-projects-panel-toggle-list" aria-label="Project panel">
+          {["preview", "details"].map((panel) => (
+            <button
+              key={panel}
+              className={`projects-panel-toggle${activeProjectPanel === panel ? " is-active" : ""}`}
+              type="button"
+              onClick={() => onProjectPanelChange(panel)}
+              aria-pressed={activeProjectPanel === panel}
+            >
+              {panel}
+            </button>
+          ))}
+        </div>
+        <div className={`mobile-projects-preview-panel mobile-projects-panel-surface${activeProjectPanel === "preview" ? " is-active" : ""}`}>
+          <div className="mobile-projects-hero">
+            {activeProject.image ? (
+              <img className={activeProject.imageClass} src={activeProject.image} alt={activeProject.alt} />
+            ) : (
+              <div className="serenity-project-placeholder" aria-hidden="true">
+                <span>{activeProject.title}</span>
+              </div>
+            )}
+            <div className="serenity-project-copy">
+              <h2>{activeProject.title}</h2>
+              <p>{activeProject.type}</p>
+            </div>
+          </div>
+
+          <div className="mobile-projects-preview" aria-label={`${activeProject.title} media preview`}>
+            <ProjectPreviewMedia project={activeProject} />
+          </div>
+        </div>
+
+        <aside className={`mobile-projects-details mobile-projects-panel-surface${activeProjectPanel === "details" ? " is-active" : ""}`} aria-label={`${activeProject.title} details`}>
+          <ProjectDetails project={activeProject} />
+        </aside>
       </section>
+
+      <section className="mobile-projects-rail" ref={mobileProjectListRef} aria-label="Choose a project">
+        {filteredProjects.map((project) => (
+          <button
+            key={project.id}
+            className={`mobile-projects-rail-card${activeProject.id === project.id ? " is-active" : ""}`}
+            type="button"
+            onClick={() => onActivateProject(project.id)}
+            aria-pressed={activeProject.id === project.id}
+          >
+            {project.image ? (
+              <img className={project.imageClass} src={project.image} alt="" loading="lazy" />
+            ) : (
+              <div className="serenity-project-placeholder" aria-hidden="true">
+                <span>{project.title}</span>
+              </div>
+            )}
+            <span>{project.title}</span>
+          </button>
+        ))}
+      </section>
+      <ProjectRailScrollbar
+        scrollRef={mobileProjectListRef}
+        className="mobile-projects-rail-scrollbar"
+        refreshKey={filteredProjects.length}
+      />
     </main>
   );
 }
@@ -745,6 +1007,7 @@ export default function App() {
     window.matchMedia(mobileProjectsQuery).matches
   );
   const [activeProjectFilter, setActiveProjectFilter] = useState("All");
+  const [activeProjectPanel, setActiveProjectPanel] = useState("preview");
   const [activeProjectId, setActiveProjectId] = useState(defaultProjectId);
   const boopAudioRef = useRef(null);
   const techStackRef = useRef(null);
@@ -965,6 +1228,9 @@ export default function App() {
       style={{ "--hue": `${hue}deg` }}
       onClick={playBoopOnInteractiveClick}
     >
+      <div className="too-smol-message" aria-live="polite">
+        too smol! please expand!
+      </div>
       <div className={`scene-filter${view === "projects" ? " projects-mode" : ""}`}>
         <div className="cursor-layer" aria-hidden="true">
           <div className="cursor-dot" ref={cursorRef} />
@@ -1012,13 +1278,24 @@ export default function App() {
 
         {view === "projects" ? (
           isMobileProjectsDisabled ? (
-            <MobileProjectsDisabled onBack={showHome} />
+            <MobileProjectsView
+              activeFilter={activeProjectFilter}
+              activeProjectPanel={activeProjectPanel}
+              activeProject={activeProject}
+              filteredProjects={filteredProjects}
+              onActivateProject={setActiveProjectId}
+              onProjectPanelChange={setActiveProjectPanel}
+              onProjectFilterChange={changeProjectFilter}
+              onBack={showHome}
+            />
           ) : (
           <ProjectsView
             activeFilter={activeProjectFilter}
+            activeProjectPanel={activeProjectPanel}
             activeProject={activeProject}
             filteredProjects={filteredProjects}
             onActivateProject={setActiveProjectId}
+            onProjectPanelChange={setActiveProjectPanel}
             onProjectFilterChange={changeProjectFilter}
             onProjectListScroll={activateMostVisibleProject}
             projectListRef={projectListRef}
@@ -1057,17 +1334,15 @@ export default function App() {
               </div>
             </div>
 
-            {!isMobileProjectsDisabled && (
-              <div className="center-actions-widget">
-                <button
-                  className="center-action-button action-designs"
-                  type="button"
-                  onClick={showProjects}
-                >
-                  See My Projects
-                </button>
-              </div>
-            )}
+            <div className="center-actions-widget">
+              <button
+                className="center-action-button action-designs"
+                type="button"
+                onClick={showProjects}
+              >
+                See My Projects
+              </button>
+            </div>
           </>
         )}
 
