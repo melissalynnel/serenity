@@ -1090,13 +1090,22 @@ body,
 .projects-media-stack {
   min-height: 0;
   display: grid;
-  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: repeat(var(--preview-count, 2), minmax(0, 1fr));
   gap: 12px;
 }
 
 .projects-media-stack .projects-media-frame {
   aspect-ratio: auto;
   height: 100%;
+}
+
+.projects-media-stack.is-logo-merch {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: minmax(0, 1.1fr) minmax(0, 1fr);
+}
+
+.projects-media-stack.is-logo-merch .projects-media-frame:first-child {
+  grid-column: 1 / -1;
 }
 
 .projects-media-badge {
@@ -1197,8 +1206,7 @@ body,
 }
 
 .projects-detail-label,
-.projects-detail-type,
-.projects-meta-list dt {
+.projects-detail-type {
   margin: 0;
   color: #ffd86b;
   font-size: 0.68rem;
@@ -1219,25 +1227,25 @@ body,
   gap: 12px;
 }
 
-.projects-detail-copy p,
-.projects-meta-list dd {
+.projects-detail-section {
+  display: grid;
+  gap: 4px;
+}
+
+.projects-detail-section h3 {
+  margin: 0;
+  color: #ffd86b;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.projects-detail-copy p {
   margin: 0;
   color: rgba(255, 255, 255, 0.86);
   font-size: 0.92rem;
   line-height: 1.42;
-}
-
-.projects-meta-list {
-  display: grid;
-  gap: 12px;
-  margin: 2px 0 0;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.22);
-}
-
-.projects-meta-list div {
-  display: grid;
-  gap: 4px;
 }
 
 .projects-open-link {
@@ -1596,8 +1604,7 @@ body,
     font-size: 1.35rem;
   }
 
-  .projects-detail-copy p,
-  .projects-meta-list dd {
+  .projects-detail-copy p {
     font-size: 0.78rem;
   }
 

@@ -121,10 +121,11 @@ const makeProject = ({
   previewLayout,
   previewAspectRatio,
   previewItems,
+  previewStackClass,
   alt,
+  detailSections,
   summary,
   details,
-  meta,
 }) => ({
   id,
   title,
@@ -140,15 +141,13 @@ const makeProject = ({
   previewLayout,
   previewAspectRatio,
   previewItems,
+  previewStackClass,
   alt: alt || `${title} project preview`,
+  detailSections,
   summary: summary || `${title} is ready for a full project page once the source files and final notes are added.`,
   details: details || [
     "Initial project listing added from the portfolio roadmap.",
     "Source files, visuals, links, and case-study copy can be added in the next pass.",
-  ],
-  meta: meta || [
-    ["Category", filters.join(", ")],
-    ["Status", "Queued for build-out"],
   ],
 });
 
@@ -163,15 +162,19 @@ const portfolioProjects = [
     imageClass: "serenity-project-image logo-fit logo-fit-light",
     previewImageClass: "serenity-project-image middle-preview-fit",
     alt: "Sammy Anzer graffiti-style lettering in orange, pink, and blue",
+    detailSections: [
+      ["Role", "Solo brand and site direction; brought in an artist to execute the graffiti work itself, since that is not my medium."],
+      ["Problem", "No prior branding existed for Sammy when we started."],
+      ["Read", "Street energy and storyteller instincts, so I directed a graffiti-inspired identity instead of a standard logo package. The goal was to capture the look and feel of New York, not just gesture at it."],
+      ["Key Decision", "A custom Squarespace build made to convert visitors directly into ticket buyers, replacing what Bandsintown does without a middleman taking a cut from fans."],
+      ["Outcome", "He also did not have an email list before this. Now he has one he can carry venue to venue to prove to bookers that he can pull a crowd."],
+      ["Constraint", "One week."],
+    ],
     summary:
       "A Queens-rooted comedy brand identity and website designed to feel slick, street-smart, and immediately recognizable.",
     details: [
       "Levity built Sammy a brand identity that reflects his Queens roots: slick, street-smart, and impossible to look away from.",
       "His custom Squarespace website features seamless events functionality built to replace solutions like Bandsintown at a lower price point for comedians, keeping his audience locked in on where he's performing next, driving ticket sales, and growing his mailing list so he can keep taking his act to new stages.",
-    ],
-    meta: [
-      ["Client", "Sammy Anzer"],
-      ["Project", "Brand identity and comedy website"],
     ],
   }),
   makeProject({
@@ -183,15 +186,19 @@ const portfolioProjects = [
     image: `${import.meta.env.BASE_URL}projects/bk-sharad.webp`,
     imageClass: "serenity-project-image logo-fit logo-fit-dark",
     alt: "BB Shabab lettering in red and teal on black",
+    detailSections: [
+      ["Role", "Solo, brand and site."],
+      ["Problem", "No brand existed before this."],
+      ["Read", "BK is a hardcore kid who happens to also do comedy, so I built him an identity that reads like a flyer for a basement show, not a comedy site."],
+      ["Key Decision", "The site was built to convert, not just look good: direct ticket sales replacing Bandsintown."],
+      ["Outcome", "His first-ever email list, the currency comedians use to prove they can fill a room when pitching bookers."],
+      ["Constraint", "One week, start to finish."],
+    ],
     summary:
       "A high-contrast comedy identity and website built around BK Sharad's hardcore aesthetic and stage persona.",
     details: [
       "Levity built BK a brand identity that reflects his hardcore aesthetic: bold, high-contrast, and as visually intense as his stage persona.",
       "His custom Squarespace website features seamless events functionality built to replace solutions like Bandsintown at a lower price point for comedians, keeping fans locked in on where he's performing next, driving ticket sales, and growing his mailing list so he can keep expanding his reach to new venues.",
-    ],
-    meta: [
-      ["Client", "BK Sharad"],
-      ["Project", "Brand identity and comedy website"],
     ],
   }),
   makeProject({
@@ -203,15 +210,19 @@ const portfolioProjects = [
     imageClass: "serenity-project-image contained",
     previewImageClass: "serenity-project-image middle-preview-fit",
     alt: "Melly Leaves Dainty Jewelry homepage showing handmade jewelry photos and peach floral brand artwork",
+    detailSections: [
+      ["Role", "Solo, brand, site, and product photography."],
+      ["Problem", "No existing brand or e-commerce presence for my seed bead jewelry line. It needed to look and feel as delicate as the product itself."],
+      ["Read", "Dainty and delicate, carried through specific font choices and a collaboration with a local relief print artist for the visual identity."],
+      ["Key Decision", "Handled every layer myself so the product story stayed consistent from packaging to product shots to purchase flow."],
+      ["Outcome", "Landed the brand in boutiques across Colorado. Ran it for two years before relocating it to San Francisco, where it lives now."],
+      ["Constraint", "Solo build, a genuine labor of love rather than a client-driven timeline."],
+    ],
     summary:
       "A delicate handmade identity for beaded jewelry, floral artwork, boutique-ready product presentation, and soft visual storytelling.",
     details: [
       "This project gives the portfolio room for craft, product, photography, and brand system work beyond client websites.",
       "Future content can include jewelry photography, packaging, boutique placement, and the relief-art collaboration behind the floral motifs.",
-    ],
-    meta: [
-      ["Role", "Maker, brand direction"],
-      ["Medium", "Jewelry and identity"],
     ],
   }),
   makeProject({
@@ -222,6 +233,14 @@ const portfolioProjects = [
     image: `${import.meta.env.BASE_URL}projects/thomas-nichols.jpg`,
     imageClass: "serenity-project-image cover",
     alt: "Thomas Nichols homepage with blue comic burst background and orange comic-style lettering",
+    detailSections: [
+      ["Role", "Solo, brand and site."],
+      ["Problem", "No brand existed before this."],
+      ["Read", "Thomas does two things, comedy and comic books, so the site had to convert on both fronts instead of making one compete with the other."],
+      ["Key Decision", "It sells tickets to shows and runs a storefront for his comics, direct, with no third party in between. Same custom Squarespace build as the others, replacing Bandsintown."],
+      ["Outcome", "His first email list, alongside a functioning sales channel for his comics."],
+      ["Constraint", "All in the same week."],
+    ],
   }),
   makeProject({
     id: "bangbang-von-loola",
@@ -231,6 +250,14 @@ const portfolioProjects = [
     image: `${import.meta.env.BASE_URL}projects/bangbang-von-loola.jpg`,
     imageClass: "serenity-project-image cover top-logo-preview",
     alt: "Bang Bang Von Loola homepage with pastel sky background, large pink script logo, and black and white portrait",
+    detailSections: [
+      ["Role", "Solo, brand and site."],
+      ["Problem", "No personal brand existed before this."],
+      ["Read", "An airy, classy aesthetic, a deliberate departure from a typical burlesque look, to support her real business: beauty and burlesque consulting."],
+      ["Key Decision", "The site was built to bring in consulting clients directly."],
+      ["Outcome", "She started gaining traction in LA before she had even moved there."],
+      ["Constraint", "Built in a weekend."],
+    ],
   }),
   makeProject({
     id: "jokechella-7",
@@ -239,16 +266,34 @@ const portfolioProjects = [
     filters: ["Branding"],
     image: `${import.meta.env.BASE_URL}projects/jokechella-7.webp`,
     imageClass: "serenity-project-image cover",
+    previewStackClass: "is-logo-merch",
+    previewItems: [
+      {
+        label: "Logo",
+        image: `${import.meta.env.BASE_URL}projects/jokechella-7.webp`,
+      },
+      {
+        label: "Beach Ball",
+        image: `${import.meta.env.BASE_URL}projects/jokechella-7-beach-ball.png`,
+      },
+      {
+        label: "Tank Top",
+        image: `${import.meta.env.BASE_URL}projects/jokechella-7-tank-top-specs.png`,
+      },
+    ],
     alt: "Jokechella 7 Ultimate Comedy Festival logo in pink, blue, and black on white",
+    detailSections: [
+      ["Role", "Founding creative hire at The Comedy Fort, responsible for venue branding overall. For this event, I led merch creation and creative direction on the logo, and created all marketing materials myself."],
+      ["Problem", "Jokechella 7, a play on Coachella, is a real three-day comedy festival that needed an identity strong enough to sell out three shows a day across three days."],
+      ["Idea", "We hired a local artist to execute the logo under my creative direction. I turned that mark into tank tops, beach balls, and marketing materials that carried the brand everywhere else."],
+      ["Outcome", "Both merch items sold out. The entire event sold out too, over 120 seats per show across three shows a day for three days, generating more than $25,000 in ticket revenue."],
+      ["Constraint", "Under $5,000 total budget."],
+    ],
     summary:
       "Festival brand design for a bright, playful comedy event identity with merch, marketing, and venue-ready visual direction.",
     details: [
       "Jokechella 7 uses a loud tropical palette, handmade lettering, and festival-style energy to make the event feel distinct and memorable.",
       "The project can expand into campaign materials, merch, social assets, venue graphics, and event photos in a fuller case-study pass.",
-    ],
-    meta: [
-      ["Client", "The Comedy Fort"],
-      ["Focus", "Festival brand design"],
     ],
   }),
   makeProject({
@@ -263,15 +308,19 @@ const portfolioProjects = [
     previewLayout: "portrait",
     previewAspectRatio: "900 / 1530",
     alt: "Unrelatability Rater page with a neon Derek Sheen header and gauge interface",
+    detailSections: [
+      ["Role", "I built the front end. Zuha handled the backend."],
+      ["Problem", "My client was heading out on a national tour, and email signups had gone stale. Audiences had grown numb to the usual email ask."],
+      ["Idea", "We built the Unrelatability Rater. Customers submit their most ridiculous, unrelatable experience, and AI rates how common or rare it actually is."],
+      ["Outcome", "The comedian gets an email address. The customer gets a moment that feels personal instead of transactional. It also builds a running archive of material for carousel content as the tour continues."],
+      ["Constraint", "Token usage and capacity, especially right after a show when submissions spike all at once."],
+      ["What It Demonstrates", "I can invent a collection method nobody is using yet and make it feel fun in person, bridging a physical post-show moment with a digital tool."],
+    ],
     summary:
       "A loud, comedy-driven rating app that turns audience confessions into an Unrelatability score.",
     details: [
       "Unrelatable uses a high-contrast performer brand, a gauge interaction, and submission form to make audience participation feel like part of the show.",
       "The middle-panel motion preview shows the rater interaction while the project card keeps the full branded screen.",
-    ],
-    meta: [
-      ["Category", "Web Apps"],
-      ["Status", "Preview added"],
     ],
   }),
   makeProject({
@@ -284,15 +333,17 @@ const portfolioProjects = [
     previewVideo: `${import.meta.env.BASE_URL}projects/personal-dashboard-preview.mp4`,
     previewPoster: `${import.meta.env.BASE_URL}projects/personal-dashboard-logo.png`,
     alt: "Personal Dashboard glassmorphism interface with date, task, workout, and macro panels",
+    detailSections: [
+      ["Role", "Solo."],
+      ["Itch", "I was done paying Notion for chart views I could just build myself. So I did."],
+      ["Key Decision", "One page, no scrolling. It tracks the three things I actually stay consistent about: daily to-dos, macros, and workouts, and lets me click between the raw list and a visual read of the same data."],
+      ["What It Demonstrates", "I can build something genuinely functional for daily use, not just a portfolio piece, and I have opinions about how information should sit on a screen."],
+    ],
     summary:
       "A personal dashboard web app with a desktop motion preview ready for a fuller case-study pass.",
     details: [
       "The middle-panel preview shows the dashboard interface in motion while the project card keeps the glassmorphism dashboard scene.",
       "This project can expand into notes on information architecture, widgets, and the daily workflows it supports.",
-    ],
-    meta: [
-      ["Category", "Web Apps"],
-      ["Status", "Motion preview added"],
     ],
   }),
   makeProject({
@@ -307,15 +358,17 @@ const portfolioProjects = [
     previewLayout: "portrait",
     previewAspectRatio: "900 / 1788",
     alt: "Wimbly Biscuit refrigerator app with a yellow fridge and certificate note",
+    detailSections: [
+      ["Role", "Solo."],
+      ["Itch", "I believe in expressing gratitude toward the people in my life, loudly and on purpose. The Refrigerator gives adults the childhood fridge moment many people never got."],
+      ["Key Decision", "It is one long scrolling fridge covered in my friends' accomplishments from the last few years. Click download and confetti fires, then you get a printable PNG certificate."],
+      ["What It Demonstrates", "This is what I mean when I say the internet should be fun. It is also a proof of concept: people have already asked me to build this for their own friends."],
+    ],
     summary:
       "A playful Wimbly Biscuit web app that turns accomplishments into fridge-worthy certificates.",
     details: [
       "Refrigerator uses a bright appliance interface, handwritten copy, and collectible certificate framing to make tiny wins feel official.",
       "The middle-panel motion preview shows the refrigerator interaction while the project card keeps the bright fridge scene.",
-    ],
-    meta: [
-      ["Category", "Web App, Just for Fun"],
-      ["Status", "Preview added"],
     ],
   }),
   makeProject({
@@ -331,15 +384,17 @@ const portfolioProjects = [
     previewLayout: "portrait",
     previewAspectRatio: "900 / 1548",
     alt: "Swimming web app with a teal lyric pool, pink tile background, and a tiny swimmer",
+    detailSections: [
+      ["Role", "Solo, built at a design event where the prompt was to create something that captured childhood joy."],
+      ["Itch", "My grandpa took us to the pool every day one summer when I was a kid. I wanted to rebuild that feeling: a bird's-eye view of a pool with a little swimmer moving through it."],
+      ["Key Decision", "Built the wavy water effect using Pretext, so the water itself is made of text. The text is the lyrics from Mac Miller's album Swimming."],
+      ["What It Demonstrates", "Technical range paired with a real point of view: using a technical constraint to say something about childhood, growing up, and loss of innocence."],
+    ],
     summary:
       "A bright Wimbly Biscuit experiment with a lyric-filled swimming field, pixel movement, and a playful retro interface.",
     details: [
       "Swimming uses a dense text texture, soft motion, and a tiny swimmer interaction to turn a simple screen into a surreal web toy.",
       "The project preview now plays in the center media panel so visitors can see the movement without leaving the portfolio.",
-    ],
-    meta: [
-      ["Category", "Web App, Just for Fun"],
-      ["Format", "Interactive experiment"],
     ],
   }),
   makeProject({
@@ -362,15 +417,18 @@ const portfolioProjects = [
       },
     ],
     alt: "Quantiflow landing page with a pink gradient hero and waitlist call to action",
+    detailSections: [
+      ["Role", "Solo, unsolicited redesign."],
+      ["Problem", "The existing site was overloaded with text, overwhelming to read, and lacked a clear design system."],
+      ["Key Decision", "Gave it a modern visual overhaul and built a flipping card interaction to replace dense blocks of text, so potential signups could engage with information instead of getting fatigued by it."],
+      ["Outcome", "The founder liked the redesign enough that we are now in talks for future projects, a real signal given this was never a paid engagement to begin with."],
+      ["Constraint", "Built in one session."],
+    ],
     summary:
       "A digital health landing page for objective, accurate measurement of menstrual blood loss.",
     details: [
       "Quantiflow uses a soft clinical palette, high-contrast calls to action, and a concise landing-page structure to introduce the product clearly.",
       "The project card now uses the homepage hero as the logo preview, with stacked before-and-after motion previews in the middle panel.",
-    ],
-    meta: [
-      ["Category", "Web Design"],
-      ["Status", "Preview added"],
     ],
   }),
   makeProject({
@@ -383,15 +441,18 @@ const portfolioProjects = [
     previewVideo: `${import.meta.env.BASE_URL}projects/colorado-comedy-preview.mp4`,
     previewPoster: `${import.meta.env.BASE_URL}projects/colorado-comedy-logo.png`,
     alt: "Colorado Comedy homepage with mountain background and large Colorado Comedy title",
+    detailSections: [
+      ["Role", "Built with the site's existing manager over one weekend. I led the aesthetic direction, functionality, and layout."],
+      ["Problem", "The site existed before, but barely worked. Messy navigation, almost no useful information, nothing a new comedian could actually plan around."],
+      ["Idea", "I designed it around a new comedian building a circuit, moving city to city based on when and where open mics run."],
+      ["Outcome", "Over 3,000 unique visitors a month. Hundreds of comedians use it, in-state and visiting from out of state. No cost to any of them."],
+      ["Why It Matters", "This was not a client ask. I built something the whole Colorado comedy community could use for free, and it still helps people promote their own shows with zero barrier to entry."],
+    ],
     summary:
       "A Colorado comedy directory and homepage concept with mountain scenery, bold title treatment, and clear navigation paths.",
     details: [
       "Colorado Comedy is structured as a regional comedy encyclopedia, giving shows, mics, clubs, podcasts, and submissions a single home.",
       "The project card is top-aligned to keep the title visible, and the middle-panel preview shows the homepage in motion.",
-    ],
-    meta: [
-      ["Category", "Web Design"],
-      ["Status", "Preview added"],
     ],
   }),
   makeProject({
@@ -406,15 +467,17 @@ const portfolioProjects = [
     previewLayout: "portrait",
     previewAspectRatio: "900 / 1542",
     alt: "ADHD Simulator pixel city scene with a dialog window and status panel",
+    detailSections: [
+      ["Role", "Solo."],
+      ["Itch", "An autobiographically rooted, choose-your-own-adventure web game built with a deadpan comedic sensibility. Less explaining ADHD, more letting people feel the texture of it."],
+      ["Key Decision", "Built with an 8-bit pixel art aesthetic and a Tabs mechanic that represents unresolved tasks piling up as you play. No fail state; instead it tracks Time, Energy, and Money."],
+      ["What It Demonstrates", "I can take something personal and turn it into an interactive system with real mechanics. It also shows range into game design and systems thinking."],
+    ],
     summary:
       "A pixel-art life simulator about attention, energy, tabs, money, and trying to get through a day in San Francisco.",
     details: [
       "ADHD Simulator is structured like a playful desktop RPG, using status meters, dialogue windows, and city ambience to turn daily overwhelm into an interactive scene.",
       "The middle-panel motion preview shows the vertical capture while the project card keeps the horizontal logo scene.",
-    ],
-    meta: [
-      ["Category", "Just for Fun, Web Apps"],
-      ["Status", "In progress"],
     ],
   }),
   makeProject({
@@ -430,21 +493,24 @@ const portfolioProjects = [
     previewLayout: "portrait",
     previewAspectRatio: "900 / 1530",
     alt: "World Wide Wimbly homepage with a glowing globe, stars, and playful app links",
+    detailSections: [
+      ["Role", "Solo."],
+      ["Itch", "This is home base for everything I build just because it should exist, no client, no brief. A weird, whimsical corner of the internet built around one belief: the internet should be fun."],
+      ["Key Decision", "It houses all my fun, self-initiated apps in one place: playful interaction, offbeat navigation, and a world that does not take itself seriously because it is not supposed to."],
+      ["What It Demonstrates", "Pure design sensibility with nothing diluting it, no client constraints, no KPIs. It is the clearest evidence of taste and range I have, because it is entirely mine."],
+    ],
     summary:
       "A playful web world for tiny experiments, odd interface moments, sound, movement, and fun-first app design.",
     details: [
       "Wimbly Biscuit gives the portfolio a place to show personality-driven web apps that prioritize delight over strict utility.",
       "The middle-panel preview shows World Wide Wimbly in motion while the project card keeps the expanded homepage logo scene.",
     ],
-    meta: [
-      ["Role", "Brand, UI, frontend"],
-      ["Format", "Interactive web experiments"],
-    ],
   }),
 ];
 
 const projectFilters = ["Branding", "Web Design", "Web Apps", "Just for Fun", "All"];
 const mobileProjectsQuery = "(max-width: 720px)";
+const defaultProjectId = "adhd-simulator";
 
 const sortProjectsByTitle = (projects) =>
   [...projects].sort((firstProject, secondProject) =>
@@ -553,7 +619,10 @@ function ProjectsView({
         <aside className="projects-media-panel" aria-label={`${activeProject.title} media preview`}>
           <p className="projects-detail-label">Preview</p>
           {activeProject.previewItems ? (
-            <div className="projects-media-stack">
+            <div
+              className={`projects-media-stack${activeProject.previewStackClass ? ` ${activeProject.previewStackClass}` : ""}`}
+              style={{ "--preview-count": activeProject.previewItems.length }}
+            >
               {activeProject.previewItems.map((item) => (
                 <div
                   className={`projects-media-frame${item.layout ? ` is-${item.layout}` : ""}`}
@@ -622,19 +691,22 @@ function ProjectsView({
           <h2>{activeProject.title}</h2>
           <p className="projects-detail-type">{activeProject.type}</p>
           <div className="projects-detail-copy">
-            <p>{activeProject.summary}</p>
-            {activeProject.details.map((detail) => (
-              <p key={detail}>{detail}</p>
-            ))}
+            {activeProject.detailSections ? (
+              activeProject.detailSections.map(([label, value]) => (
+                <section className="projects-detail-section" key={label}>
+                  <h3>{label}</h3>
+                  <p>{value}</p>
+                </section>
+              ))
+            ) : (
+              <>
+                <p>{activeProject.summary}</p>
+                {activeProject.details.map((detail) => (
+                  <p key={detail}>{detail}</p>
+                ))}
+              </>
+            )}
           </div>
-          <dl className="projects-meta-list">
-            {activeProject.meta.map(([label, value]) => (
-              <div key={label}>
-                <dt>{label}</dt>
-                <dd>{value}</dd>
-              </div>
-            ))}
-          </dl>
           {activeProject.href && (
             <a className="projects-open-link" href={activeProject.href} target="_blank" rel="noreferrer">
               Open project
@@ -673,7 +745,7 @@ export default function App() {
     window.matchMedia(mobileProjectsQuery).matches
   );
   const [activeProjectFilter, setActiveProjectFilter] = useState("All");
-  const [activeProjectId, setActiveProjectId] = useState(portfolioProjects[0].id);
+  const [activeProjectId, setActiveProjectId] = useState(defaultProjectId);
   const boopAudioRef = useRef(null);
   const techStackRef = useRef(null);
   const techStackMobilePanelRef = useRef(null);
@@ -689,6 +761,7 @@ export default function App() {
   );
   const activeProject = filteredProjects.find((project) => project.id === activeProjectId)
     || filteredProjects[0]
+    || portfolioProjects.find((project) => project.id === defaultProjectId)
     || portfolioProjects[0];
 
   useEffect(() => {
@@ -855,7 +928,7 @@ export default function App() {
     );
 
     setActiveProjectFilter(filter);
-    setActiveProjectId(nextProjects[0]?.id || portfolioProjects[0].id);
+    setActiveProjectId(nextProjects[0]?.id || defaultProjectId);
   };
   const activateMostVisibleProject = () => {
     const list = projectListRef.current;
@@ -863,7 +936,7 @@ export default function App() {
 
     const isScrolledToBottom = list.scrollTop + list.clientHeight >= list.scrollHeight - 2;
     if (isScrolledToBottom) {
-      setActiveProjectId(filteredProjects[filteredProjects.length - 1]?.id || portfolioProjects[0].id);
+      setActiveProjectId(filteredProjects[filteredProjects.length - 1]?.id || defaultProjectId);
       return;
     }
 
