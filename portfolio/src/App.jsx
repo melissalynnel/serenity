@@ -1431,10 +1431,10 @@ export default function App() {
               </div>
                
               <p>
-                Hello! My name is Melissa, and I am a maker of many mediums.
+                Hello! My name is Melissa, and I am a UX/UI designer with a strong background in marketing!
               </p>
               <p>
-                My marketing career has spanned from fintech to entertainment to real estate, and covered traditional and digital forms. I have crafted social media, print and integrated campaigns that have led to measurably high engagement and conversions.
+                My marketing career spanned from fintech to entertainment to real estate, and covered traditional and digital forms. I have crafted social media, print and integrated campaigns that have led to measurably high engagement and conversions.
               </p>
               <p>
                 I run my own design agency, <a href="https://levity.ltd/">Levity Ltd.</a>, where I help entertainers, retailers, and early-stage startups with unique branding, websites and web apps that leave a bold impression in their industries. I take pride in creating superior UX and absolutely beautiful UI.
