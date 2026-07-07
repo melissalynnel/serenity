@@ -703,7 +703,7 @@ function ProjectsView({
                     <video
                       key={item.video}
                       src={item.video}
-                      poster={item.poster || activeProject.image}
+                      poster={item.layout === "portrait" ? undefined : item.poster || activeProject.image}
                       autoPlay
                       loop
                       muted
@@ -734,7 +734,11 @@ function ProjectsView({
                 <video
                   key={activeProject.previewVideo}
                   src={activeProject.previewVideo}
-                  poster={activeProject.previewPoster || activeProject.image}
+                  poster={
+                    activeProject.previewLayout === "portrait"
+                      ? undefined
+                      : activeProject.previewPoster || activeProject.image
+                  }
                   autoPlay
                   loop
                   muted
@@ -808,7 +812,7 @@ function ProjectPreviewMedia({ project }) {
             <video
               key={item.video}
               src={item.video}
-              poster={item.poster || project.image}
+              poster={item.layout === "portrait" ? undefined : item.poster || project.image}
               autoPlay
               loop
               muted
@@ -839,7 +843,7 @@ function ProjectPreviewMedia({ project }) {
         <video
           key={project.previewVideo}
           src={project.previewVideo}
-          poster={project.previewPoster || project.image}
+          poster={project.previewLayout === "portrait" ? undefined : project.previewPoster || project.image}
           autoPlay
           loop
           muted
