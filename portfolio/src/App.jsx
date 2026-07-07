@@ -304,7 +304,6 @@ const portfolioProjects = [
     image: `${import.meta.env.BASE_URL}projects/unrelatable-logo.png`,
     imageClass: "serenity-project-image cover filled-logo-preview top-logo-preview",
     previewVideo: `${import.meta.env.BASE_URL}projects/unrelatable-preview.mp4`,
-    previewPoster: `${import.meta.env.BASE_URL}projects/unrelatable-logo.png`,
     previewLayout: "portrait",
     previewAspectRatio: "900 / 1530",
     alt: "Unrelatability Rater page with a neon Derek Sheen header and gauge interface",
@@ -354,7 +353,6 @@ const portfolioProjects = [
     image: `${import.meta.env.BASE_URL}projects/refrigerator-logo.png`,
     imageClass: "serenity-project-image cover filled-logo-preview fridge-logo-preview top-logo-preview",
     previewVideo: `${import.meta.env.BASE_URL}projects/refrigerator-preview.mp4`,
-    previewPoster: `${import.meta.env.BASE_URL}projects/refrigerator-logo.png`,
     previewLayout: "portrait",
     previewAspectRatio: "900 / 1788",
     alt: "Wimbly Biscuit refrigerator app with a yellow fridge and certificate note",
@@ -380,7 +378,6 @@ const portfolioProjects = [
     image: `${import.meta.env.BASE_URL}projects/swimming-logo.png`,
     imageClass: "serenity-project-image cover filled-logo-preview",
     previewVideo: `${import.meta.env.BASE_URL}projects/swimming-preview.mp4`,
-    previewPoster: `${import.meta.env.BASE_URL}projects/swimming-logo.png`,
     previewLayout: "portrait",
     previewAspectRatio: "900 / 1548",
     alt: "Swimming web app with a teal lyric pool, pink tile background, and a tiny swimmer",
@@ -463,7 +460,6 @@ const portfolioProjects = [
     image: `${import.meta.env.BASE_URL}projects/adhd-simulator-logo.png`,
     imageClass: "serenity-project-image cover filled-logo-preview",
     previewVideo: `${import.meta.env.BASE_URL}projects/adhd-simulator-preview.mp4`,
-    previewPoster: `${import.meta.env.BASE_URL}projects/adhd-simulator-logo.png`,
     previewLayout: "portrait",
     previewAspectRatio: "900 / 1542",
     alt: "ADHD Simulator pixel city scene with a dialog window and status panel",
@@ -489,7 +485,6 @@ const portfolioProjects = [
     image: `${import.meta.env.BASE_URL}projects/wimbly-biscuit-co.webp`,
     imageClass: "serenity-project-image cover filled-logo-preview",
     previewVideo: `${import.meta.env.BASE_URL}projects/wimbly-biscuit-preview.mp4`,
-    previewPoster: `${import.meta.env.BASE_URL}projects/wimbly-biscuit-co.webp`,
     previewLayout: "portrait",
     previewAspectRatio: "900 / 1530",
     alt: "World Wide Wimbly homepage with a glowing globe, stars, and playful app links",
@@ -688,76 +683,7 @@ function ProjectsView({
           aria-label={`${activeProject.title} media preview`}
         >
           <p className="projects-detail-label">Preview</p>
-          {activeProject.previewItems ? (
-            <div
-              className={`projects-media-stack${activeProject.previewStackClass ? ` ${activeProject.previewStackClass}` : ""}`}
-              style={{ "--preview-count": activeProject.previewItems.length }}
-            >
-              {activeProject.previewItems.map((item) => (
-                <div
-                  className={`projects-media-frame${item.layout ? ` is-${item.layout}` : ""}`}
-                  style={item.aspectRatio ? { "--preview-aspect": item.aspectRatio } : undefined}
-                  key={item.label}
-                >
-                  {item.video ? (
-                    <video
-                      key={item.video}
-                      src={item.video}
-                      poster={item.layout === "portrait" ? undefined : item.poster || activeProject.image}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      preload="metadata"
-                    />
-                  ) : item.image ? (
-                    <img
-                      className={item.imageClass || activeProject.imageClass}
-                      src={item.image}
-                      alt={`${activeProject.title} ${item.label} preview`}
-                    />
-                  ) : (
-                    <div className="serenity-project-placeholder projects-media-placeholder" aria-hidden="true">
-                      <span>{item.label}</span>
-                    </div>
-                  )}
-                  <span className="projects-media-badge">{item.label}</span>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div
-              className={`projects-media-frame${activeProject.previewLayout ? ` is-${activeProject.previewLayout}` : ""}`}
-              style={activeProject.previewAspectRatio ? { "--preview-aspect": activeProject.previewAspectRatio } : undefined}
-            >
-              {activeProject.previewVideo ? (
-                <video
-                  key={activeProject.previewVideo}
-                  src={activeProject.previewVideo}
-                  poster={
-                    activeProject.previewLayout === "portrait"
-                      ? undefined
-                      : activeProject.previewPoster || activeProject.image
-                  }
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="metadata"
-                />
-              ) : activeProject.previewImage || activeProject.image ? (
-                <img
-                  className={activeProject.previewImageClass || activeProject.imageClass}
-                  src={activeProject.previewImage || activeProject.image}
-                  alt={activeProject.alt}
-                />
-              ) : (
-                <div className="serenity-project-placeholder projects-media-placeholder" aria-hidden="true">
-                  <span>{activeProject.title}</span>
-                </div>
-              )}
-            </div>
-          )}
+          <ProjectPreviewMedia project={activeProject} />
         </aside>
 
         <aside
@@ -765,31 +691,7 @@ function ProjectsView({
           aria-live="polite"
           aria-label={`${activeProject.title} details`}
         >
-          <p className="projects-detail-label">Details</p>
-          <h2>{activeProject.title}</h2>
-          <p className="projects-detail-type">{activeProject.type}</p>
-          <div className="projects-detail-copy">
-            {activeProject.detailSections ? (
-              activeProject.detailSections.map(([label, value]) => (
-                <section className="projects-detail-section" key={label}>
-                  <h3>{label}</h3>
-                  <p>{value}</p>
-                </section>
-              ))
-            ) : (
-              <>
-                <p>{activeProject.summary}</p>
-                {activeProject.details.map((detail) => (
-                  <p key={detail}>{detail}</p>
-                ))}
-              </>
-            )}
-          </div>
-          {activeProject.href && (
-            <a className="projects-open-link" href={activeProject.href} target="_blank" rel="noreferrer">
-              Open project
-            </a>
-          )}
+          <ProjectDetails project={activeProject} />
         </aside>
       </section>
     </main>
