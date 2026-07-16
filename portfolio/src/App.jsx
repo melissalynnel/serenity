@@ -1340,10 +1340,12 @@ export default function App() {
                 Hello! My name is Melissa, and I am a brand and UX/UI designer.
               </p>
               <p>
-                I believe brands are more than visuals, it's more about the feeling that the viewer extracts upon interacting with the brand. I also believe that functionality should not sacrifice aesthetics, or vice versa. I strive to create experiences that are both beautiful and intuitive, and that leave a lasting impression on the user.
+                I believe brands are more than visuals, it's more about the feeling that the viewer extracts upon interacting with the brand.
+                <br />
+                I also believe that functionality should not sacrifice aesthetics, or vice versa. I strive to create experiences that are both beautiful and intuitive, and that leave a lasting impression on the user.
               </p>
                <p>
-                <a href="mailto:mlleavenworth@gmail.com">Send me an email</a> I'd love to learn about your company :)
+                <a href="mailto:mlleavenworth@gmail.com">Send me an email.</a> I'd love to learn about your company :)
               </p> 
               <p>
                 🌙 Core Values: integrity • humor • honesty
