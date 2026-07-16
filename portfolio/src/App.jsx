@@ -730,6 +730,39 @@ function ProjectsView({
   );
 }
 
+function PreviewVideo({ src, poster }) {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    setIsLoaded(false);
+  }, [src]);
+
+  return (
+    <>
+      {poster && (
+        <img
+          className="projects-video-poster"
+          src={poster}
+          alt=""
+          aria-hidden="true"
+        />
+      )}
+      <video
+        key={src}
+        className={isLoaded ? "is-loaded" : ""}
+        src={src}
+        poster={poster}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        onLoadedData={() => setIsLoaded(true)}
+      />
+    </>
+  );
+}
+
 function ProjectPreviewMedia({ project }) {
   return project.previewItems ? (
     <div
@@ -743,15 +776,9 @@ function ProjectPreviewMedia({ project }) {
           key={item.label}
         >
           {item.video ? (
-            <video
-              key={item.video}
+            <PreviewVideo
               src={item.video}
               poster={item.layout === "portrait" ? undefined : item.poster || project.image}
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="metadata"
             />
           ) : item.image ? (
             <img
@@ -774,15 +801,9 @@ function ProjectPreviewMedia({ project }) {
       style={project.previewAspectRatio ? { "--preview-aspect": project.previewAspectRatio } : undefined}
     >
       {project.previewVideo ? (
-        <video
-          key={project.previewVideo}
+        <PreviewVideo
           src={project.previewVideo}
           poster={project.previewLayout === "portrait" ? undefined : project.previewPoster || project.image}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
         />
       ) : project.previewImage || project.image ? (
         <img
