@@ -505,7 +505,7 @@ const portfolioProjects = [
 
 const projectFilters = ["Branding", "Web Design", "Web Apps", "Just for Fun", "All"];
 const mobileProjectsQuery = "(max-width: 720px)";
-const defaultProjectId = "adhd-simulator";
+const defaultProjectId = "quantiflow";
 
 const projectOrderByFilter = {
   All: ["quantiflow"],
