@@ -405,12 +405,12 @@ const portfolioProjects = [
       {
         label: "After",
         video: `${import.meta.env.BASE_URL}projects/quantiflow-after.mp4`,
-        poster: `${import.meta.env.BASE_URL}projects/quantiflow-logo.png`,
+        showPoster: false,
       },
       {
         label: "Before",
         video: `${import.meta.env.BASE_URL}projects/quantiflow-before.mp4`,
-        poster: `${import.meta.env.BASE_URL}projects/quantiflow-logo.png`,
+        showPoster: false,
       },
     ],
     alt: "Quantiflow landing page with a pink gradient hero and waitlist call to action",
@@ -730,7 +730,7 @@ function ProjectsView({
   );
 }
 
-function PreviewVideo({ src, poster }) {
+function PreviewVideo({ src, poster, showPoster = true }) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -739,7 +739,7 @@ function PreviewVideo({ src, poster }) {
 
   return (
     <>
-      {poster && (
+      {showPoster && poster && (
         <img
           className="projects-video-poster"
           src={poster}
@@ -751,7 +751,7 @@ function PreviewVideo({ src, poster }) {
         key={src}
         className={isLoaded ? "is-loaded" : ""}
         src={src}
-        poster={poster}
+        poster={showPoster ? poster : undefined}
         autoPlay
         loop
         muted
@@ -779,6 +779,7 @@ function ProjectPreviewMedia({ project }) {
             <PreviewVideo
               src={item.video}
               poster={item.layout === "portrait" ? undefined : item.poster || project.image}
+              showPoster={item.showPoster}
             />
           ) : item.image ? (
             <img
