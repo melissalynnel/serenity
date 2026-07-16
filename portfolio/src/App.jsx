@@ -1342,6 +1342,7 @@ export default function App() {
               <p>
                 I believe brands are more than visuals, it's more about the feeling that the viewer extracts upon interacting with the brand.
                 <br />
+                <br />
                 I also believe that functionality should not sacrifice aesthetics, or vice versa. I strive to create experiences that are both beautiful and intuitive, and that leave a lasting impression on the user.
               </p>
                <p>
