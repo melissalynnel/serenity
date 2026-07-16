@@ -298,7 +298,7 @@ const portfolioProjects = [
   }),
   makeProject({
     id: "unrelatable",
-    title: "Unrelatable",
+    title: "Unrelatability Rater",
     type: "Web App",
     filters: ["Web Apps"],
     image: `${import.meta.env.BASE_URL}projects/unrelatable-logo.png`,
@@ -507,9 +507,35 @@ const projectFilters = ["Branding", "Web Design", "Web Apps", "Just for Fun", "A
 const mobileProjectsQuery = "(max-width: 720px)";
 const defaultProjectId = "adhd-simulator";
 
-const sortProjectsByTitle = (projects) =>
-  [...projects].sort((firstProject, secondProject) =>
-    firstProject.title.localeCompare(secondProject.title, undefined, { sensitivity: "base" })
+const projectOrderByFilter = {
+  All: ["quantiflow"],
+  Branding: ["jokechella-7"],
+  "Web Design": ["colorado-comedy"],
+  "Web Apps": ["unrelatable"],
+  "Just for Fun": ["swimming", "wimbly-biscuit"],
+};
+
+const sortProjectsForFilter = (projects, filter) => {
+  const priority = new Map((projectOrderByFilter[filter] || []).map((id, index) => [id, index]));
+
+  return [...projects].sort((firstProject, secondProject) => {
+    const firstPriority = priority.has(firstProject.id) ? priority.get(firstProject.id) : Infinity;
+    const secondPriority = priority.has(secondProject.id) ? priority.get(secondProject.id) : Infinity;
+
+    if (firstPriority !== secondPriority) {
+      return firstPriority - secondPriority;
+    }
+
+    return firstProject.title.localeCompare(secondProject.title, undefined, { sensitivity: "base" });
+  });
+};
+
+const getProjectsForFilter = (filter) =>
+  sortProjectsForFilter(
+    filter === "All"
+      ? portfolioProjects
+      : portfolioProjects.filter((project) => project.filters.includes(filter)),
+    filter
   );
 
 function TechStackContent() {
@@ -923,11 +949,7 @@ export default function App() {
   const cursorRef = useRef(null);
   const trailRefs = useRef([]);
   const pointerRef = useRef({ x: 0, y: 0 });
-  const filteredProjects = sortProjectsByTitle(
-    activeProjectFilter === "All"
-      ? portfolioProjects
-      : portfolioProjects.filter((project) => project.filters.includes(activeProjectFilter))
-  );
+  const filteredProjects = getProjectsForFilter(activeProjectFilter);
   const activeProject = filteredProjects.find((project) => project.id === activeProjectId)
     || filteredProjects[0]
     || portfolioProjects.find((project) => project.id === defaultProjectId)
@@ -1090,11 +1112,7 @@ export default function App() {
     setView("home");
   };
   const changeProjectFilter = (filter) => {
-    const nextProjects = sortProjectsByTitle(
-      filter === "All"
-        ? portfolioProjects
-        : portfolioProjects.filter((project) => project.filters.includes(filter))
-    );
+    const nextProjects = getProjectsForFilter(filter);
 
     setActiveProjectFilter(filter);
     setActiveProjectId(nextProjects[0]?.id || defaultProjectId);
