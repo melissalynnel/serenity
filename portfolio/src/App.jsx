@@ -633,6 +633,12 @@ function ProjectsView({
   projectListRef,
   onBack,
 }) {
+  useEffect(() => {
+    const list = projectListRef.current;
+    if (!list) return;
+    list.scrollTo({ top: 0, left: 0 });
+  }, [activeFilter, projectListRef]);
+
   return (
     <main className="projects-shell" aria-label="Serenity project portfolio">
       <header className="projects-header">
@@ -836,6 +842,12 @@ function MobileProjectsView({
   onBack,
 }) {
   const mobileProjectListRef = useRef(null);
+
+  useEffect(() => {
+    const list = mobileProjectListRef.current;
+    if (!list) return;
+    list.scrollTo({ top: 0, left: 0 });
+  }, [activeFilter]);
 
   return (
     <main className="mobile-projects-shell" aria-label="Serenity mobile project portfolio">
