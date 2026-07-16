@@ -1,0 +1,8 @@
+#!/bin/sh
+set -eu
+
+if ! git diff --cached --quiet -- portfolio/src portfolio/index.html portfolio/package.json portfolio/vite.config.js package.json; then
+  echo "Rebuilding GitHub Pages output for portfolio changes..."
+  npm run build:pages
+  git add docs index.html
+fi
