@@ -1337,19 +1337,13 @@ export default function App() {
               </div>
                
               <p>
-                Hello! My name is Melissa, and I am a UX/UI designer with a strong background in marketing!
+                Hello! My name is Melissa, and I am a brand and UX/UI designer.
               </p>
               <p>
-                My marketing career spanned from fintech to entertainment to real estate, and covered traditional and digital forms. I have crafted social media, print and integrated campaigns that have led to measurably high engagement and conversions.
+                I believe brands are more than visuals, it's more about the feeling that the viewer extracts upon interacting with the brand. I also believe that functionality should not sacrifice aesthetics, or vice versa. I strive to create experiences that are both beautiful and intuitive, and that leave a lasting impression on the user.
               </p>
-              <p>
-                I run my own design agency, <a href="https://levity.ltd/">Levity Ltd.</a>, where I help entertainers, retailers, and early-stage startups with unique branding, websites and web apps that leave a bold impression in their industries. I take pride in creating superior UX and absolutely beautiful UI.
-              </p> 
-              <p>
-                When I am not helping others’ business make their mark, I am crafting delicate seed bead jewelry and other handmade goods.
-              </p> 
                <p>
-                <a href="mailto:mlleavenworth@gmail.com">Send me an email</a> if you’d like to learn what I can make for you :)
+                <a href="mailto:mlleavenworth@gmail.com">Send me an email</a> I'd love to learn about your company :)
               </p> 
               <p>
                 🌙 Core Values: integrity • humor • honesty
